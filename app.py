@@ -83,7 +83,7 @@ else:
     df['Pharma_Variance_Vs_PM1'] = df['PL Pharma NetSale'] - df['Pharma PM1']
     df['Pharma_Variance_Vs_PM2'] = df['Pharma PM1'] - df['Pharma PM2']
     df['NonPharma_Variance_Vs_PM1'] = df['PL NonPharma NetSale'] - df['NON Pharma PM1']
-    df['NonPharma_Variance_Vs_PM2'] = df['NON Pharma PM1'] - df['NON Pharma PM2']
+    df['NonPharma_Variance_Vs_PM2'] = df['NON Pharma PM1'] - df['NonPharma_Variance_Vs_PM2']
     
     df['Total_PL_Sales'] = df['PL Pharma NetSale'] + df['PL NonPharma NetSale']
 
@@ -263,23 +263,22 @@ else:
 
     st.markdown("---")
 
-    # 8. RE-ENGINEERED SUPERVISOR PORTFOLIO SUMMARY WITH EXACT MATHEMATICAL BALANCING OVERRIDES
+    # 8. SUPERVISOR PORTFOLIO SUMMARY (CLEAN GRID + EXECUTIVE CELL HIGHLIGHTING)
     st.subheader("📋 Supervisor Portfolio Summary")
-    st.markdown("High-Impact Executive Ledger. Complete alignment checklist verified: **Total Stores = 1M Degrowth + 1M Growth** and **2M Degrowth + 2M Growth**.")
 
     super_matrix = []
     for sup_name, sup_data in df.groupby('Supervisor'):
-        # Operational Math Variables
+        # Dynamic calculation engines
         tot_stores = sup_data['StoreID'].nunique()
         cm_sales = sup_data['MTD NetSale'].sum()
         
-        # 1-Month Trajectory Math
+        # 1-Month Trajectory Masks
         degrowth_1m_mask = sup_data['Net_Variance_Vs_PM1'] < 0
         degrowth_1m_count = degrowth_1m_mask.sum()
         growth_1m_count = (~degrowth_1m_mask).sum()
         degrowth_1m_val = sup_data[degrowth_1m_mask]['Net_Variance_Vs_PM1'].sum()
         
-        # 2-Month Trajectory Math (Against the 2-Month Historical Baseline Average)
+        # 2-Month Trajectory Masks (Against the 2-Month Baseline Average)
         degrowth_2m_mask = sup_data['Net_Variance_Vs_Avg2M'] < 0
         degrowth_2m_count = degrowth_2m_mask.sum()
         growth_2m_count = (~degrowth_2m_mask).sum()
@@ -289,29 +288,29 @@ else:
             "Supervisor Name": sup_name,
             "Total Stores": tot_stores,
             "CM Net Sales": cm_sales,
-            "1M Degrowth Count": degrowth_1m_count,
-            "2M Degrowth Count": degrowth_2m_count,
+            "1M Degrowth Store Count": degrowth_1m_count,
+            "2M Degrowth Store Count": degrowth_2m_count,
             "1M Degrowth Value": degrowth_1m_val if degrowth_1m_val != 0 else 0.0,
             "2M Degrowth Value": degrowth_2m_val if degrowth_2m_val != 0 else 0.0,
-            "1M Growth Count": growth_1m_count,
+            "1M Growth Store Count": growth_1m_count,
             "2M Growth Count": growth_2m_count
         })
         
     super_summary_df = pd.DataFrame(super_matrix)
 
-    # Executive Custom Highlights Function
-    def apply_boardroom_cell_formatting(val_df):
+    # Core Executive Highlight Rules Map
+    def boardroom_summary_styler(val_df):
         style_matrix = pd.DataFrame('', index=val_df.index, columns=val_df.columns)
-        # Apply strict highlighting to the value drop metrics rows
-        style_matrix['1M Degrowth Value'] = 'color: #ea580c; font-weight: bold;' # Orange Text
-        style_matrix['2M Degrowth Value'] = 'color: #dc2626; font-weight: bold;' # Red Text
+        # Inject structural background accent blocks for immediate review scannability
+        style_matrix['1M Degrowth Value'] = 'background-color: #ffe6cc; color: #d97706; font-weight: bold;' # Orange Heat Fill
+        style_matrix['2M Degrowth Value'] = 'background-color: #ffcccc; color: #cc0000; font-weight: bold;' # Red Heat Fill
         return style_matrix
 
-    styled_super_summary = super_summary_df.style.apply(apply_boardroom_cell_formatting, axis=None).format({
+    styled_super_summary = super_summary_df.style.apply(boardroom_summary_styler, axis=None).format({
         "CM Net Sales": "₹{:,.2f}",
         "1M Degrowth Value": "₹{:,.2f}",
         "2M Degrowth Value": "₹{:,.2f}"
-    })
+    }).background_gradient(subset=["CM Net Sales"], cmap="Greens")
 
     st.dataframe(styled_super_summary, use_container_width=True, hide_index=True)
     st.markdown("---")
