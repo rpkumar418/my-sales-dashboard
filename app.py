@@ -81,7 +81,7 @@ else:
     df['Pharma_Variance_Vs_PM1'] = df['PL Pharma NetSale'] - df['Pharma PM1']
     df['Pharma_Variance_Vs_PM2'] = df['Pharma PM1'] - df['Pharma PM2']
     df['NonPharma_Variance_Vs_PM1'] = df['PL NonPharma NetSale'] - df['NON Pharma PM1']
-    df['NonPharma_Variance_Vs_PM2'] = df['NON Pharma PM1'] - df['NonPharma_Variance_Vs_PM2']
+    df['NonPharma_Variance_Vs_PM2'] = df['NON Pharma PM1'] - df['NON Pharma PM2']
     
     df['Total_PL_Sales'] = df['PL Pharma NetSale'] + df['PL NonPharma NetSale']
 
@@ -261,9 +261,9 @@ else:
 
     st.markdown("---")
 
-    # 8. SUPERVISOR PORTFOLIO SUMMARY (RESTYLED & ACTIONABLE)
+    # 8. BUSINESS EXECUTIVE RE-DESIGN: SUPERVISOR PORTFOLIO SUMMARY (CLEANED & FILTERABLE)
     st.subheader("📋 Supervisor Portfolio Summary")
-    st.markdown("High-impact performance command ledger with integrated trajectory status shields and direct numeric column sorting filter overrides.")
+    st.markdown("Boardroom performance directory. Use the table column header arrows to dynamically filter, group, and sort portfolios.")
 
     super_matrix = []
     for sup_name, sup_data in df.groupby('Supervisor'):
@@ -300,7 +300,12 @@ else:
         super_summary_df.sort_values(by="🔥 2M Real Degrowth", ascending=False),
         column_config={
             "MTD Sales": st.column_config.NumberColumn("MTD Sales", format="₹%,.2f"),
-            "1M Growth Value": st.column_config.NumberColumn("1M Growth Value", format="₹%,.2f")
+            "1M Growth Value": st.column_config.NumberColumn("1M Growth Value", format="₹%,.2f"),
+            "1M Degrowth Store Count": st.column_config.NumberColumn("1M Degrowth Outlets"),
+            "2M Degrowth Store Count": st.column_config.NumberColumn("2M Degrowth Outlets"),
+            "2M Real Degrowth": st.column_config.NumberColumn("🔥 2M Real Degrowth"),
+            "1M Growth Store Count": st.column_config.NumberColumn("1M Growth Outlets"),
+            "2M Growth Stores Count": st.column_config.NumberColumn("🟩 2M Growth Outlets")
         },
         use_container_width=True,
         hide_index=True
@@ -315,12 +320,7 @@ else:
         class_counts.columns = ['Classification', 'Count']
         fig_pie = px.pie(
             class_counts, values='Count', names='Classification', color='Classification',
-            color_discrete_map={
-                '💥 Critical Core Decline (2M Drop)': '#dc2626',
-                '🚨 High Risk Shift (1M Drop)': '#f59e0b',
-                '🔄 Volatile Swing Outlet': '#38bdf8',
-                '⭐ Shooting Star Outlet': '#10b981'
-            },
+            color_discrete_map={'💥 Critical Core Decline (2M Drop)': '#dc2626', '🚨 High Risk Shift (1M Drop)': '#f59e0b', '🔄 Volatile Swing Outlet': '#38bdf8', '⭐ Shooting Star Outlet': '#10b981'},
             title="Operational Split for Selected Portfolio"
         )
         st.plotly_chart(fig_pie, use_container_width=True)
@@ -331,8 +331,7 @@ else:
         leaking_stores_top10['Absolute_Leakage'] = abs(leaking_stores_top10['Net_Variance_Vs_PM1'])
         fig_leak = px.bar(
             leaking_stores_top10, x='Absolute_Leakage', y='StoreName', orientation='h',
-            title="Highest Financial Value Drops in Selected Portfolio",
-            color='Absolute_Leakage', color_continuous_scale='Reds',
+            title="Highest Financial Value Drops in Selected Portfolio", color='Absolute_Leakage', color_continuous_scale='Reds',
             labels={'Absolute_Leakage': 'Net Revenue Lost (₹)', 'StoreName': 'Store Location'}
         )
         fig_leak.update_layout(yaxis={'categoryorder':'total ascending'}, coloraxis_showscale=False)
@@ -341,8 +340,7 @@ else:
 
     # 10. Manager Growth Leaderboard
     st.subheader("👑 Manager-of-the-Month Performance Leaderboard")
-    leaderboard_df = f_df.copy()
-    leaderboard_df = leaderboard_df.sort_values(by="Net_Variance_Vs_PM1", ascending=False).reset_index(drop=True)
+    leaderboard_df = f_df.copy().sort_values(by="Net_Variance_Vs_PM1", ascending=False).reset_index(drop=True)
     leaderboard_df.index = leaderboard_df.index + 1
     leaderboard_df.index.name = 'Portfolio Rank'
     leader_cols = ["StoreName", "Manager", "Supervisor", "MTD NetSale", "Net Sale PM1", "Net_Variance_Vs_PM1"]
@@ -359,7 +357,7 @@ else:
     )
     st.markdown("---")
 
-    # 11. Granular Executive Command Grid View
+    # 11. Granular Drilldown Control Panel with Fixed Slicing
     st.subheader("🔬 Operational Target Drilldown Control Panel")
     st.markdown("**Color Code Key:** 🟥 Red = 2-Month Degrowth | 🟧 Orange = 1-Month Degrowth | 🟪 Blue = 1-Month Growth | 🟩 Green = 2-Month Growth")
     
@@ -379,35 +377,21 @@ else:
     def color_cells_by_segment(val_df):
         style_df = pd.DataFrame('', index=val_df.index, columns=val_df.columns)
         def match_style(v1, v2):
-            if v1 < 0 and v2 < 0:
-                return 'background-color: #ffcccc; color: #cc0000; font-weight: bold;'
-            elif v1 < 0 and v2 >= 0:
-                return 'background-color: #ffe6cc; color: #d97706;'
-            elif v1 >= 0 and v2 < 0:
-                return 'background-color: #e0f2fe; color: #0284c7;'
-            else:
-                return 'background-color: #d1fae5; color: #16a34a;'
+            if v1 < 0 and v2 < 0: return 'background-color: #ffcccc; color: #cc0000; font-weight: bold;'
+            elif v1 < 0 and v2 >= 0: return 'background-color: #ffe6cc; color: #d97706;'
+            elif v1 >= 0 and v2 < 0: return 'background-color: #e0f2fe; color: #0284c7;'
+            return 'background-color: #d1fae5; color: #16a34a;'
 
         for idx in val_df.index:
-            style_df.loc[idx, 'MTD NetSale'] = match_style(val_df.loc[idx, 'Net_Variance_Vs_PM1'], val_df.loc[idx, 'Net_Variance_Vs_PM2'])
-            style_df.loc[idx, 'PL Pharma NetSale'] = match_style(val_df.loc[idx, 'Pharma_Variance_Vs_PM1'], val_df.loc[idx, 'Pharma_Variance_Vs_PM2'])
-            style_df.loc[idx, 'PL NonPharma NetSale'] = match_style(val_df.loc[idx, 'NonPharma_Variance_Vs_PM1'], val_df.loc[idx, 'NonPharma_Variance_Vs_PM2'])
+            style_df.loc[idx, 'MTD NetSale'] = match_style(display_grid_df.loc[idx, 'Net_Variance_Vs_PM1'], display_grid_df.loc[idx, 'Net_Variance_Vs_PM2'])
+            style_df.loc[idx, 'PL Pharma NetSale'] = match_style(display_grid_df.loc[idx, 'Pharma_Variance_Vs_PM1'], display_grid_df.loc[idx, 'Pharma_Variance_Vs_PM2'])
+            style_df.loc[idx, 'PL NonPharma NetSale'] = match_style(display_grid_df.loc[idx, 'NonPharma_Variance_Vs_PM1'], display_grid_df.loc[idx, 'NonPharma_Variance_Vs_PM2'])
         return style_df
 
     visible_cols = ["StoreName", "Supervisor", "Manager", "MTD NetSale", "PL Pharma NetSale", "PL NonPharma NetSale", "Manager Action Plan (POA)", "Supervisor Strategic Mandate"]
     
-    filtered_display_df = display_grid_df[visible_cols].copy()
-    filtered_display_df['Net_Variance_Vs_PM1'] = display_grid_df['Net_Variance_Vs_PM1']
-    filtered_display_df['Net_Variance_Vs_PM2'] = display_grid_df['Net_Variance_Vs_PM2']
-    filtered_display_df['Pharma_Variance_Vs_PM1'] = display_grid_df['Pharma_Variance_Vs_PM1']
-    filtered_display_df['Pharma_Variance_Vs_PM2'] = display_grid_df['Pharma_Variance_Vs_PM2']
-    filtered_display_df['NonPharma_Variance_Vs_PM1'] = display_grid_df['NonPharma_Variance_Vs_PM1']
-    filtered_display_df['NonPharma_Variance_Vs_PM2'] = display_grid_df['NonPharma_Variance_Vs_PM2']
-
-    final_styled_grid = filtered_display_df.style.apply(color_cells_by_segment, axis=None).format({
-        "MTD NetSale": "₹{:,.2f}",
-        "PL Pharma NetSale": "₹{:,.2f}",
-        "PL NonPharma NetSale": "₹{:,.2f}"
+    final_styled_grid = display_grid_df[visible_cols].style.apply(color_cells_by_segment, axis=None).format({
+        "MTD NetSale": "₹{:,.2f}", "PL Pharma NetSale": "₹{:,.2f}", "PL NonPharma NetSale": "₹{:,.2f}"
     })
 
     st.dataframe(final_styled_grid, column_order=visible_cols, use_container_width=True)
