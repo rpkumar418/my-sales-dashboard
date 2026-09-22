@@ -1,151 +1,212 @@
-Date,Product,Quantity,Unit_Price,Total_Sales
-01-01-2026,Ergonomic Mouse,4,34.99,139.96
-02-01-2026,Laptop Stand,1,45,45
-02-01-2026,Wireless Headphones,3,59.99,179.97
-04-01-2026,Ergonomic Mouse,2,59.99,119.98
-05-01-2026,Laptop Stand,1,89.99,89.99
-05-01-2026,Wireless Headphones,1,34.99,34.99
-08-01-2026,Ergonomic Mouse,2,34.99,69.98
-09-01-2026,Wireless Headphones,3,89.99,269.96999999999997
-09-01-2026,Mechanical Keyboard,4,34.99,139.96
-12-01-2026,Wireless Headphones,1,89.99,89.99
-13-01-2026,Wireless Headphones,1,89.99,89.99
-14-01-2026,Ergonomic Mouse,1,34.99,34.99
-14-01-2026,Laptop Stand,4,129.99,519.96
-15-01-2026,Ergonomic Mouse,3,34.99,104.97
-15-01-2026,Wireless Headphones,2,129.99,259.98
-15-01-2026,USB-C Hub,1,45,45
-15-01-2026,Wireless Headphones,3,34.99,104.97
-15-01-2026,Wireless Headphones,4,34.99,139.96
-18-01-2026,Wireless Headphones,4,34.99,139.96
-21-01-2026,Wireless Headphones,2,45,90
-21-01-2026,USB-C Hub,4,45,180
-21-01-2026,Laptop Stand,3,45,135
-22-01-2026,Mechanical Keyboard,4,34.99,139.96
-24-01-2026,Mechanical Keyboard,1,59.99,59.99
-27-01-2026,Wireless Headphones,2,59.99,119.98
-28-01-2026,Ergonomic Mouse,2,45,90
-28-01-2026,USB-C Hub,4,34.99,139.96
-29-01-2026,Mechanical Keyboard,2,59.99,119.98
-02-02-2026,Ergonomic Mouse,3,45,135
-02-02-2026,Ergonomic Mouse,2,34.99,69.98
-04-02-2026,Laptop Stand,4,59.99,239.96
-04-02-2026,Wireless Headphones,4,129.99,519.96
-05-02-2026,Laptop Stand,3,34.99,104.97
-06-02-2026,Ergonomic Mouse,3,34.99,104.97
-07-02-2026,Ergonomic Mouse,1,129.99,129.99
-09-02-2026,USB-C Hub,1,129.99,129.99
-10-02-2026,USB-C Hub,2,45,90
-10-02-2026,Ergonomic Mouse,2,129.99,259.98
-11-02-2026,USB-C Hub,2,45,90
-13-02-2026,Ergonomic Mouse,1,129.99,129.99
-14-02-2026,Mechanical Keyboard,4,129.99,519.96
-17-02-2026,Ergonomic Mouse,2,45,90
-17-02-2026,Wireless Headphones,2,129.99,259.98
-18-02-2026,Ergonomic Mouse,1,89.99,89.99
-19-02-2026,Mechanical Keyboard,3,89.99,269.96999999999997
-20-02-2026,Wireless Headphones,2,129.99,259.98
-20-02-2026,Mechanical Keyboard,4,129.99,519.96
-21-02-2026,Ergonomic Mouse,4,34.99,139.96
-22-02-2026,Ergonomic Mouse,3,45,135
-22-02-2026,USB-C Hub,4,45,180
-22-02-2026,Wireless Headphones,4,129.99,519.96
-23-02-2026,USB-C Hub,3,89.99,269.96999999999997
-23-02-2026,Ergonomic Mouse,2,45,90
-24-02-2026,USB-C Hub,4,34.99,139.96
-27-02-2026,Ergonomic Mouse,1,45,45
-28-02-2026,Wireless Headphones,1,34.99,34.99
-01-03-2026,USB-C Hub,2,59.99,119.98
-03-03-2026,USB-C Hub,2,45,90
-04-03-2026,Wireless Headphones,3,34.99,104.97
-04-03-2026,Wireless Headphones,3,45,135
-05-03-2026,Mechanical Keyboard,2,89.99,179.98
-06-03-2026,Mechanical Keyboard,3,129.99,389.97
-07-03-2026,Laptop Stand,2,45,90
-12-03-2026,USB-C Hub,3,89.99,269.96999999999997
-12-03-2026,Wireless Headphones,3,59.99,179.97
-13-03-2026,USB-C Hub,2,59.99,119.98
-13-03-2026,USB-C Hub,1,34.99,34.99
-14-03-2026,Wireless Headphones,2,34.99,69.98
-16-03-2026,Mechanical Keyboard,1,129.99,129.99
-22-03-2026,Laptop Stand,1,59.99,59.99
-22-03-2026,Wireless Headphones,2,45,90
-23-03-2026,USB-C Hub,4,45,180
-25-03-2026,Laptop Stand,3,129.99,389.97
-27-03-2026,Laptop Stand,3,45,135
-29-03-2026,Wireless Headphones,1,59.99,59.99
-29-03-2026,Wireless Headphones,2,129.99,259.98
-29-03-2026,USB-C Hub,2,89.99,179.98
-30-03-2026,Mechanical Keyboard,4,129.99,519.96
-30-03-2026,Ergonomic Mouse,3,59.99,179.97
-30-03-2026,USB-C Hub,3,45,135
-31-03-2026,Wireless Headphones,2,45,90
-31-03-2026,Laptop Stand,4,34.99,139.96
-02-04-2026,USB-C Hub,3,89.99,269.96999999999997
-03-04-2026,Laptop Stand,4,129.99,519.96
-05-04-2026,Mechanical Keyboard,4,45,180
-06-04-2026,USB-C Hub,4,89.99,359.96
-06-04-2026,Ergonomic Mouse,4,34.99,139.96
-09-04-2026,Wireless Headphones,4,89.99,359.96
-10-04-2026,Wireless Headphones,2,89.99,179.98
-11-04-2026,Mechanical Keyboard,1,89.99,89.99
-13-04-2026,USB-C Hub,4,59.99,239.96
-13-04-2026,Laptop Stand,4,129.99,519.96
-13-04-2026,USB-C Hub,4,89.99,359.96
-14-04-2026,Wireless Headphones,3,45,135
-14-04-2026,Wireless Headphones,1,89.99,89.99
-14-04-2026,Ergonomic Mouse,2,89.99,179.98
-16-04-2026,Laptop Stand,3,34.99,104.97
-17-04-2026,USB-C Hub,4,89.99,359.96
-18-04-2026,USB-C Hub,3,45,135
-21-04-2026,Wireless Headphones,1,59.99,59.99
-21-04-2026,Mechanical Keyboard,2,34.99,69.98
-27-04-2026,Wireless Headphones,1,129.99,129.99
-02-05-2026,Ergonomic Mouse,2,129.99,259.98
-03-05-2026,Wireless Headphones,2,89.99,179.98
-04-05-2026,Ergonomic Mouse,4,129.99,519.96
-04-05-2026,Ergonomic Mouse,3,89.99,269.96999999999997
-09-05-2026,USB-C Hub,2,45,90
-10-05-2026,Wireless Headphones,3,59.99,179.97
-10-05-2026,Mechanical Keyboard,2,34.99,69.98
-11-05-2026,Ergonomic Mouse,1,89.99,89.99
-11-05-2026,Ergonomic Mouse,1,45,45
-11-05-2026,Mechanical Keyboard,4,89.99,359.96
-12-05-2026,Laptop Stand,1,59.99,59.99
-12-05-2026,Mechanical Keyboard,2,129.99,259.98
-12-05-2026,Wireless Headphones,4,45,180
-14-05-2026,USB-C Hub,1,59.99,59.99
-15-05-2026,Ergonomic Mouse,2,89.99,179.98
-15-05-2026,Laptop Stand,3,129.99,389.97
-16-05-2026,USB-C Hub,4,129.99,519.96
-16-05-2026,USB-C Hub,3,34.99,104.97
-17-05-2026,USB-C Hub,1,89.99,89.99
-19-05-2026,Mechanical Keyboard,3,59.99,179.97
-22-05-2026,Wireless Headphones,3,45,135
-23-05-2026,Ergonomic Mouse,4,45,180
-26-05-2026,USB-C Hub,2,89.99,179.98
-30-05-2026,Wireless Headphones,1,45,45
-31-05-2026,Ergonomic Mouse,2,129.99,259.98
-31-05-2026,USB-C Hub,3,89.99,269.96999999999997
-01-06-2026,Wireless Headphones,4,45,180
-03-06-2026,Wireless Headphones,4,89.99,359.96
-06-06-2026,Wireless Headphones,4,129.99,519.96
-07-06-2026,Ergonomic Mouse,2,34.99,69.98
-09-06-2026,USB-C Hub,4,34.99,139.96
-10-06-2026,Wireless Headphones,4,89.99,359.96
-11-06-2026,USB-C Hub,4,59.99,239.96
-11-06-2026,USB-C Hub,4,59.99,239.96
-12-06-2026,Laptop Stand,2,45,90
-12-06-2026,Laptop Stand,1,89.99,89.99
-13-06-2026,USB-C Hub,1,34.99,34.99
-16-06-2026,Ergonomic Mouse,3,129.99,389.97
-19-06-2026,Ergonomic Mouse,3,89.99,269.96999999999997
-19-06-2026,USB-C Hub,4,45,180
-20-06-2026,Ergonomic Mouse,2,45,90
-21-06-2026,Ergonomic Mouse,1,45,45
-21-06-2026,USB-C Hub,2,59.99,119.98
-24-06-2026,Wireless Headphones,1,129.99,129.99
-24-06-2026,Ergonomic Mouse,1,34.99,34.99
-24-06-2026,Mechanical Keyboard,4,89.99,359.96
-28-06-2026,Wireless Headphones,3,59.99,179.97
-29-06-2026,Wireless Headphones,3,45,135
+21.9.2026 MTD Brand sale & General Sale,,,,,,,,,,Current Month MTD Sale,,,,,,,August MTD,,,,,July MTD,,,,
+S. No.,StoreID,StoreName,state,Format,DOO,LH,RSS Manager,Manager,SVR,MTD NetSale,PL Pharma NetSale,PL NonPharma NetSale,PL Pharma %,PL NonPharma %,PL Pharma % Bucket,PL NonPharma % Bucket,Net Sale PM1,Pharma PM1,NON Pharma PM1,Pharma PM1 %,NON Pharma PM1 %,Net Sale PM2,Pharma PM2,NON Pharma PM2,Pharma PM2 %,NON Pharma PM2 %
+1,INAPVSK50019,AKIS MEDICALS PARAVADA,AP,COFO,27-09-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"4,62,568","70,418","79,434",15.2%,17.2%,Above 12%,Above 12%,"3,97,328","63,549","74,679",16.0%,18.8%,"4,10,486","62,893","78,962",15.3%,19.2%
+2,INAPPDT50004,ARL PHARMACY BUS STOP PENDURTHI,AP,COFO,17-10-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"5,53,414","88,351","1,00,548",16.0%,18.2%,Above 12%,Above 12%,"5,29,782","91,905","1,03,802",17.4%,19.6%,"5,78,819","94,565","84,619",16.3%,14.6%
+3,INAPRCP50002,CHANDU ENTERPRISES GOLLALA MAMIDADA,AP,COFO,25-08-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"6,77,935","1,18,965","85,751",17.6%,12.7%,Above 12%,Above 12%,"6,42,460","1,01,215","80,445",15.8%,12.5%,"7,04,919","1,12,710","75,788",16.0%,10.8%
+4,INAPVZM50014,CHITTI AMMA MEDICALS KAMAKSHI NAGAR KANAPAKA,AP,COFO,23-11-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"2,48,366","28,780","38,992",11.6%,15.7%,10 - 12%,Above 12%,"2,45,940","34,943","31,813",14.2%,12.9%,"2,58,211","30,708","38,206",11.9%,14.8%
+5,INAPTLL50002,DURGA KARTHIKEYA MEDICALS TALLAREVU MAIN ROAD,AP,COFO,29-07-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"1,67,875","36,621","24,801",21.8%,14.8%,Above 12%,Above 12%,"1,57,593","34,117","32,509",21.7%,20.6%,"2,06,962","41,385","36,483",20.0%,17.6%
+6,INAPSKV50002,HEAL PHARMACY MAIN ROAD SANKHAVARAM,AP,COFO,11-02-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"2,41,273","76,373","31,620",31.7%,13.1%,Above 12%,Above 12%,"2,02,886","60,782","19,280",30.0%,9.5%,"1,87,719","51,817","24,376",27.6%,13.0%
+7,INAPKKD50010,JAGADEESH ENTERPRISES JAGANNAICKPUR,AP,COFO,25-08-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"5,02,950","1,31,424","51,253",26.1%,10.2%,Above 12%,10 - 12%,"5,70,864","1,28,431","56,516",22.5%,9.9%,"4,76,187","1,28,623","54,318",27.0%,11.4%
+8,INAPVSK50023,JAGADEESH MEDICALS PULGAVANIPALEM RD NETHAJI NAGAR,AP,COFO,11-07-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"4,83,197","67,075","92,660",13.9%,19.2%,Above 12%,Above 12%,"4,76,040","58,374","83,055",12.3%,17.5%,"2,09,979","21,474","48,836",10.2%,23.3%
+9,INAPCBL50002,JAHANAVI ENTERPRISES CHEBROLU,AP,COFO,27-02-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"1,20,493","11,767","12,953",9.8%,10.8%,8 - 10%,10 - 12%,"1,35,623","9,282","18,051",6.8%,13.3%,"1,39,943","10,120","20,950",7.2%,15.0%
+10,INAPDKM50004,KANAKA DURGA PHARMACY GOLLAPALEM VILLAGE,AP,COFO,27-02-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"1,20,504","22,097","14,556",18.3%,12.1%,Above 12%,Above 12%,"82,344","14,515","14,132",17.6%,17.2%,"98,406","14,760","16,993",15.0%,17.3%
+11,INAPSKM50002,KIRAN ENTERPRISES KALINGA ROAD SRIKAKULAM,AP,COFO,28-02-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"6,13,736","1,08,773","79,825",17.7%,13.0%,Above 12%,Above 12%,"6,14,641","1,03,237","87,313",16.8%,14.2%,"5,57,757","91,818","73,542",16.5%,13.2%
+12,INAPKKD50008,LAKSHMI ENTERPRISES BHANUGUDI KAKINADA,AP,COFO,25-08-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"6,23,499","1,18,332","45,260",19.0%,7.3%,Above 12%,5 - 8%,"6,88,690","1,22,529","63,232",17.8%,9.2%,"6,34,147","1,01,131","57,191",16.0%,9.0%
+13,INAPTLL50004,LAKSHMISRIKANYA MEDICALS AND GENERAL STORE INJARAM,AP,COFO,29-04-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"81,835","15,776","12,094",19.3%,14.8%,Above 12%,Above 12%,"1,20,509","22,327","11,709",18.5%,9.7%,"1,39,040","24,394","18,300",17.5%,13.2%
+14,INAPPPM50002,LOKA SMART ENTERPRISES KATTAMURU MAIN ROAD,AP,COFO,31-12-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"88,785","14,275","9,000",16.1%,10.1%,Above 12%,10 - 12%,"71,050","12,806","6,613",18.0%,9.3%,"72,325","14,393","7,881",19.9%,10.9%
+15,INAPDPL50006,MADHURI PHARMACY DEVARAPALLI VILLAGE MAIN RD,AP,COFO,13-04-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"96,941","9,206","21,751",9.5%,22.4%,8 - 10%,Above 12%,"1,00,308","7,890","31,831",7.9%,31.7%,"89,549","7,305","24,831",8.2%,27.7%
+16,INAPMPT50002,MANVITHA MEDICALS ALAMURU,AP,COFO,30-11-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"3,20,213","75,142","38,978",23.5%,12.2%,Above 12%,Above 12%,"2,86,915","65,325","33,474",22.8%,11.7%,"2,76,081","59,680","32,674",21.6%,11.8%
+17,INAPKKD00019,MEDPLUS   3 LIGHTS JUNCTION  RAMARAOPET,AP,COCO,01-06-2019,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"12,97,710","2,08,024","1,28,089",16.0%,9.9%,Above 12%,8 - 10%,"12,39,957","1,95,002","1,37,413",15.7%,11.1%,"13,01,974","1,77,598","1,21,360",13.6%,9.3%
+18,INAPKKD00003,MEDPLUS 100 BUILDING CENTRE,AP,COCO,31-03-2008,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"10,28,178","1,26,900","68,971",12.3%,6.7%,Above 12%,5 - 8%,"9,91,156","1,15,518","68,470",11.7%,6.9%,"10,95,398","1,32,626","68,235",12.1%,6.2%
+19,INAPVSK00103,MEDPLUS 80FT CROSS ROAD GAJUWAKA,AP,COCO,28-03-2024,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"8,49,549","1,47,292","1,21,151",17.3%,14.3%,Above 12%,Above 12%,"9,02,470","1,43,245","1,17,547",15.9%,13.0%,"8,29,150","1,42,391","1,32,926",17.2%,16.0%
+20,INAPVSK00098,MEDPLUS ADARSH NAGAR MAIN ROAD,AP,COCO,30-10-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"4,48,995","61,007","67,027",13.6%,14.9%,Above 12%,Above 12%,"4,43,041","61,949","75,148",14.0%,17.0%,"4,63,156","66,096","79,474",14.3%,17.2%
+21,INAPTHI00001,MEDPLUS ADDU ROAD TIMMAPURAM,AP,COCO,30-12-2025,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"3,78,937","52,246","65,036",13.8%,17.2%,Above 12%,Above 12%,"3,62,409","48,737","71,624",13.5%,19.8%,"3,63,779","42,337","82,750",11.6%,22.8%
+22,INAPVSK00092,MEDPLUS AGANAMPUDI MINI JAGADHAMBHA CENTER,AP,COCO,27-03-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"6,26,915","1,64,763","1,91,897",26.3%,30.6%,Above 12%,Above 12%,"6,33,524","1,71,129","1,85,388",27.0%,29.3%,"6,50,682","1,56,791","1,80,634",24.1%,27.8%
+23,INAPVSK00053,MEDPLUS AKKAYAPALEM,AP,COCO,31-03-2017,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"11,02,497","1,63,164","1,47,073",14.8%,13.3%,Above 12%,Above 12%,"11,40,729","1,60,266","1,29,837",14.1%,11.4%,"11,79,730","1,69,562","1,35,681",14.4%,11.5%
+24,INAPVZM00029,MEDPLUS ALAKANANDA COLONY CANTONMENT,AP,COCO,08-12-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"1,06,621","8,608","20,326",8.1%,19.1%,8 - 10%,Above 12%,"2,85,406","30,098","54,987",10.6%,19.3%,"2,91,247","29,537","53,862",10.1%,18.5%
+25,INAPVSK00023,MEDPLUS ALLIPURAM,AP,COCO,25-09-2008,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"5,77,390","82,485","78,963",14.3%,13.7%,Above 12%,Above 12%,"5,66,929","74,675","82,687",13.2%,14.6%,"6,05,100","77,018","90,505",12.7%,15.0%
+26,INAPADV00001,MEDPLUS AMADALAVALASA MAIN ROAD,AP,COCO,11-04-2022,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"8,31,270","1,30,443","1,50,551",15.7%,18.1%,Above 12%,Above 12%,"8,35,807","1,27,948","1,43,300",15.3%,17.2%,"8,37,482","1,28,895","1,55,793",15.4%,18.6%
+27,INAPADV00002,MEDPLUS AMADALAVALASA STATION ROAD,AP,COCO,19-09-2025,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"3,89,527","59,240","67,885",15.2%,17.4%,Above 12%,Above 12%,"3,91,892","57,282","70,069",14.6%,17.9%,"3,93,050","52,882","77,642",13.5%,19.8%
+28,INAPVSK00014,MEDPLUS ANAKAPALLI MADUGULA RD,AP,COCO,16-04-2008,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"7,23,844","1,05,556","1,34,478",14.6%,18.6%,Above 12%,Above 12%,"6,88,697","1,00,380","1,10,944",14.6%,16.1%,"7,39,609","1,05,948","1,13,216",14.3%,15.3%
+29,INAPVSK00013,MEDPLUS ANAKAPALLI MAIN ROAD,AP,COCO,03-03-2008,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"9,25,827","1,33,631","1,64,823",14.4%,17.8%,Above 12%,Above 12%,"8,42,514","1,04,300","1,63,641",12.4%,19.4%,"9,09,446","1,14,782","1,71,368",12.6%,18.8%
+30,INAPVSK00091,MEDPLUS ANANDHAPURAM MAIN ROAD,AP,COCO,28-03-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"4,66,927","1,14,821","1,10,566",24.6%,23.7%,Above 12%,Above 12%,"4,40,837","98,291","1,12,242",22.3%,25.5%,"4,55,940","1,15,442","1,07,278",25.3%,23.5%
+31,INAPANP00003,MEDPLUS ANAPARTI MAIN ROAD,AP,COCO,31-08-2024,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"6,98,657","1,33,284","1,70,979",19.1%,24.5%,Above 12%,Above 12%,"5,96,468","1,19,393","1,55,036",20.0%,26.0%,"6,03,667","1,11,741","1,45,882",18.5%,24.2%
+32,INAPANV00001,MEDPLUS ANNAVARAM MAIN ROAD,AP,COCO,31-10-2020,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"8,28,424","1,14,062","1,08,403",13.8%,13.1%,Above 12%,Above 12%,"8,24,569","98,666","1,09,188",12.0%,13.2%,"7,91,274","98,100","1,12,660",12.4%,14.2%
+33,INAPVSK00068,MEDPLUS APHB COLONY PM PALEM,AP,COCO,09-11-2019,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"9,33,724","1,66,152","1,26,414",17.8%,13.5%,Above 12%,Above 12%,"8,54,507","1,51,893","1,15,116",17.8%,13.5%,"9,25,467","1,54,290","1,27,266",16.7%,13.8%
+34,INAPSKM00018,MEDPLUS ARASAVALI MAIN ROAD,AP,COCO,15-02-2025,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"2,83,646","39,751","58,562",14.0%,20.7%,Above 12%,Above 12%,"2,69,405","32,946","46,530",12.2%,17.3%,"2,88,360","29,231","50,113",10.1%,17.4%
+35,INAPVSK00084,MEDPLUS ARILOVA MAIN ROAD,AP,COCO,27-07-2022,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"3,89,202","66,478","61,055",17.1%,15.7%,Above 12%,Above 12%,"2,99,771","45,177","51,229",15.1%,17.1%,"4,14,970","59,141","69,632",14.3%,16.8%
+36,INAPKKD00031,MEDPLUS ATCHUTAPURAM RAILWAY GATE,AP,COCO,13-02-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"9,06,660","1,12,009","83,853",12.4%,9.3%,Above 12%,8 - 10%,"9,19,219","1,04,734","80,302",11.4%,8.7%,"9,48,212","1,05,323","98,565",11.1%,10.4%
+37,INAPVSK00022,MEDPLUS AVN COLLEGE RD,AP,COCO,15-08-2008,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"6,56,586","1,03,781","92,445",15.8%,14.1%,Above 12%,Above 12%,"6,46,437","1,01,378","92,279",15.7%,14.3%,"6,40,552","97,630","96,757",15.2%,15.1%
+38,INAPVSK00005,MEDPLUS BALAYYA SASTRY LAYOUT,AP,COCO,05-05-2007,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"6,63,245","89,162","64,907",13.4%,9.8%,Above 12%,8 - 10%,"7,13,169","88,774","68,943",12.5%,9.7%,"6,73,676","93,097","73,824",13.8%,11.0%
+39,INAPVSK00099,MEDPLUS BC ROAD NEW GAJUWAKA,AP,COCO,23-03-2024,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"2,85,808","41,189","70,959",14.4%,24.8%,Above 12%,Above 12%,"2,49,487","39,226","52,548",15.7%,21.1%,"2,74,192","39,329","57,872",14.3%,21.1%
+40,INAPVSK00096,MEDPLUS BOWDRA RING ROAD SAI NAGAR MARRIPALEM,AP,COCO,29-09-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"3,70,384","63,809","54,007",17.2%,14.6%,Above 12%,Above 12%,"3,39,379","60,756","43,221",17.9%,12.7%,"3,88,778","57,563","59,692",14.8%,15.4%
+41,INAPVSK00049,MEDPLUS BUCHIRAJUPALEM,AP,COCO,06-02-2014,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"4,92,623","1,07,088","1,17,244",21.7%,23.8%,Above 12%,Above 12%,"4,62,406","1,01,507","92,868",22.0%,20.1%,"5,23,758","1,11,042","1,11,392",21.2%,21.3%
+42,INAPCPP00001,MEDPLUS CHEEPURUPALLI MAIN ROAD,AP,COCO,11-02-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"8,88,684","1,06,846","1,47,643",12.0%,16.6%,Above 12%,Above 12%,"8,59,245","98,344","1,55,915",11.5%,18.2%,"9,13,125","94,367","1,67,088",10.3%,18.3%
+43,INAPVSK00074,MEDPLUS CHIINA WALTAIR MAIN ROAD,AP,COCO,13-04-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"8,90,660","1,29,132","76,597",14.5%,8.6%,Above 12%,8 - 10%,"8,69,211","1,25,627","82,425",14.5%,9.5%,"9,08,672","1,25,682","87,054",13.8%,9.6%
+44,INAPVSK00076,MEDPLUS CHINAGANTYADA GAJUWAKA,AP,COCO,05-06-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"8,55,261","1,40,498","1,17,073",16.4%,13.7%,Above 12%,Above 12%,"7,76,958","1,08,353","1,14,656",14.0%,14.8%,"8,43,392","1,39,572","1,20,317",16.6%,14.3%
+45,INAPSKM00014,MEDPLUS CHINNA BAZAR STREET,AP,COCO,17-03-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"5,60,860","56,977","75,711",10.2%,13.5%,10 - 12%,Above 12%,"5,18,640","65,380","75,382",12.6%,14.5%,"5,67,239","73,138","73,337",12.9%,12.9%
+46,INAPVSK00078,MEDPLUS CHINNAMUSHIDIWADA PENDURTHI,AP,COCO,31-10-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"8,23,820","1,15,629","1,39,458",14.0%,16.9%,Above 12%,Above 12%,"8,78,117","1,37,192","1,61,445",15.6%,18.4%,"8,81,226","1,27,907","1,53,106",14.5%,17.4%
+47,INAPVSK00045,MEDPLUS CHINNAMUSIDIVADA,AP,COCO,15-12-2014,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"12,18,808","2,01,531","1,73,277",16.5%,14.2%,Above 12%,Above 12%,"11,79,501","2,23,972","1,54,872",19.0%,13.1%,"13,78,493","2,41,821","1,75,313",17.5%,12.7%
+48,INAPCHO00001,MEDPLUS CHODAVARAM MAIN ROAD,AP,COCO,30-07-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"4,22,598","60,231","92,082",14.3%,21.8%,Above 12%,Above 12%,"4,51,106","62,820","1,06,852",13.9%,23.7%,"4,53,783","57,744","1,05,907",12.7%,23.3%
+49,INAPKKD00017,MEDPLUS CINEMA ROAD,AP,COCO,17-11-2016,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"6,66,052","1,38,544","1,19,743",20.8%,18.0%,Above 12%,Above 12%,"6,63,279","1,39,953","1,11,127",21.1%,16.8%,"6,23,926","1,43,997","1,10,140",23.1%,17.7%
+50,INAPSKM00011,MEDPLUS DANDI STREET SRIKAKULAM,AP,COCO,19-11-2022,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"4,22,276","44,422","89,914",10.5%,21.3%,10 - 12%,Above 12%,"4,13,629","42,964","90,249",10.4%,21.8%,"4,01,338","45,921","85,286",11.4%,21.3%
+51,INAPVZM00014,MEDPLUS DASANNAPETA,AP,COCO,31-07-2020,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"12,43,795","1,86,348","1,99,766",15.0%,16.1%,Above 12%,Above 12%,"11,66,334","1,81,756","1,68,142",15.6%,14.4%,"12,25,287","1,87,811","1,84,887",15.3%,15.1%
+52,INAPVZM00023,MEDPLUS DHARMAPURI ROAD VIZIANAGARAM,AP,COCO,24-06-2022,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"12,08,896","1,83,361","1,70,922",15.2%,14.1%,Above 12%,Above 12%,"11,26,295","1,57,719","1,55,463",14.0%,13.8%,"11,68,444","1,66,436","1,76,020",14.2%,15.1%
+53,INAPVSK00073,MEDPLUS DONDAPARTHY VILLAGE,AP,COCO,18-03-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"6,94,479","1,34,617","1,05,924",19.4%,15.3%,Above 12%,Above 12%,"6,72,827","1,23,009","93,698",18.3%,13.9%,"6,58,593","1,16,791","94,372",17.7%,14.3%
+54,INAPRCP00007,MEDPLUS DRAKSHARAMAM,AP,COCO,26-08-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"4,66,534","65,327","58,650",14.0%,12.6%,Above 12%,Above 12%,"4,83,454","77,028","53,129",15.9%,11.0%,"5,00,219","78,225","63,564",15.6%,12.7%
+55,INAPKKD00029,MEDPLUS GAIGOLUPADU MAIN ROAD,AP,COCO,26-09-2022,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"4,64,970","79,786","46,796",17.2%,10.1%,Above 12%,10 - 12%,"4,70,487","76,266","58,859",16.2%,12.5%,"5,16,363","84,415","61,936",16.4%,12.0%
+56,INAPVSK00043,MEDPLUS GAJUWAKA BC ROAD,AP,COCO,18-08-2014,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"3,15,632","58,383","44,669",18.5%,14.2%,Above 12%,Above 12%,"3,13,952","54,820","42,832",17.5%,13.6%,"3,27,444","58,146","54,307",17.8%,16.6%
+57,INAPVSK00024,MEDPLUS GAJUWAKA KANITHI RD,AP,COCO,03-12-2008,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"7,47,745","1,04,171","1,10,334",13.9%,14.8%,Above 12%,Above 12%,"8,80,633","1,36,120","1,46,640",15.5%,16.7%,"8,49,433","1,21,821","1,52,941",14.3%,18.0%
+58,INAPKKD00013,MEDPLUS GANDHINAGAR,AP,COCO,04-05-2009,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"11,20,221","1,55,783","1,33,916",13.9%,12.0%,Above 12%,10 - 12%,"11,66,742","1,59,767","1,32,162",13.7%,11.3%,"11,49,176","1,52,650","1,23,382",13.3%,10.7%
+59,INAPVZM00016,MEDPLUS GANESH TEMPLE CANTONMENT AREA,AP,COCO,29-07-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"9,01,930","1,34,180","1,63,072",14.9%,18.1%,Above 12%,Above 12%,"9,28,512","1,51,859","1,89,004",16.4%,20.4%,"9,97,794","1,62,418","1,93,865",16.3%,19.4%
+60,INAPKKD00021,MEDPLUS GANGARAJU NAGAR,AP,COCO,16-11-2019,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"15,80,697","2,24,508","1,62,753",14.2%,10.3%,Above 12%,10 - 12%,"15,41,371","2,24,033","1,46,658",14.5%,9.5%,"15,94,238","2,28,178","1,60,355",14.3%,10.1%
+61,INAPVZM00021,MEDPLUS GARIVIDI KONDAPALEM VILLAGE,AP,COCO,24-11-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"6,56,755","87,090","1,06,589",13.3%,16.2%,Above 12%,Above 12%,"6,27,180","97,608","91,026",15.6%,14.5%,"6,59,921","89,512","1,09,725",13.6%,16.6%
+62,INAPKKD00036,MEDPLUS GATI CENTER,AP,COCO,31-12-2025,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"4,33,926","57,795","55,385",13.3%,12.8%,Above 12%,Above 12%,"3,69,240","55,527","50,885",15.0%,13.8%,"3,79,575","42,773","56,906",11.3%,15.0%
+63,INAPPIT00007,MEDPLUS GOLLAPROLU MAIN ROAD PITHAPURAM,AP,COCO,25-12-2024,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"3,35,024","41,911","63,268",12.5%,18.9%,Above 12%,Above 12%,"3,25,569","44,617","65,630",13.7%,20.2%,"3,29,158","39,385","62,035",12.0%,18.9%
+64,INAPVZM00022,MEDPLUS GOODS SHED ROAD VIZIANAGARAM,AP,COCO,01-12-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"10,12,304","1,49,721","1,43,095",14.8%,14.1%,Above 12%,Above 12%,"9,90,997","1,51,731","1,54,360",15.3%,15.6%,"10,92,967","1,59,812","1,62,364",14.6%,14.9%
+65,INAPVSK00080,MEDPLUS GOPALAPATNAM MAIN ROAD SHANTHI NAGAR,AP,COCO,08-12-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"5,87,708","82,242","67,655",14.0%,11.5%,Above 12%,10 - 12%,"5,95,743","90,469","70,161",15.2%,11.8%,"6,68,800","99,663","86,198",14.9%,12.9%
+66,INAPTUN00005,MEDPLUS GOVT HOSPITAL ROAD TUNI,AP,COCO,25-12-2024,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"14,17,983","2,51,862","2,32,093",17.8%,16.4%,Above 12%,Above 12%,"13,37,839","2,35,512","1,94,452",17.6%,14.5%,"13,03,417","2,32,803","2,03,877",17.9%,15.6%
+67,INAPSKM00009,MEDPLUS GUJARATHIPETA,AP,COCO,18-03-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"7,29,783","95,164","98,762",13.0%,13.5%,Above 12%,Above 12%,"6,92,749","1,05,319","91,053",15.2%,13.1%,"6,27,766","95,699","83,557",15.2%,13.3%
+68,INAPVZM00032,MEDPLUS HANUMAN JUNCTION,AP,COCO,31-01-2025,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"4,97,732","84,531","1,33,765",17.0%,26.9%,Above 12%,Above 12%,"5,11,549","91,346","1,32,225",17.9%,25.9%,"5,17,474","85,421","1,49,031",16.5%,28.8%
+69,INAPVSK00012,MEDPLUS HB COLONY,AP,COCO,06-07-2007,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"11,18,064","1,86,508","1,66,399",16.7%,14.9%,Above 12%,Above 12%,"11,22,611","1,70,417","1,45,287",15.2%,12.9%,"11,83,030","1,79,271","1,56,623",15.2%,13.2%
+70,INAPVSK00060,MEDPLUS HIGH SCHOOL ROAD GAJUWAKA,AP,COCO,26-09-2018,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"8,60,373","1,25,916","1,31,062",14.6%,15.2%,Above 12%,Above 12%,"8,81,732","1,15,021","1,35,624",13.0%,15.4%,"8,78,056","1,20,310","1,40,857",13.7%,16.0%
+71,INAPVZM00017,MEDPLUS INDIRA NAGAR,AP,COCO,17-06-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"9,10,499","1,47,177","1,45,805",16.2%,16.0%,Above 12%,Above 12%,"9,13,503","1,56,685","1,32,038",17.2%,14.5%,"9,02,300","1,45,360","1,39,339",16.1%,15.4%
+72,INAPKKD00032,MEDPLUS INDRA PALEM MAIN ROAD,AP,COCO,27-05-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"3,69,343","63,495","55,803",17.2%,15.1%,Above 12%,Above 12%,"3,71,158","58,050","66,474",15.6%,17.9%,"3,80,043","69,361","66,226",18.3%,17.4%
+73,INAPPPM00005,MEDPLUS JAGGAMPETA MAINROAD,AP,COCO,31-10-2020,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"8,36,391","1,60,098","1,50,205",19.1%,18.0%,Above 12%,Above 12%,"8,43,261","1,57,624","1,51,245",18.7%,17.9%,"7,92,046","1,54,371","1,47,872",19.5%,18.7%
+74,INAPJMI00001,MEDPLUS JAMI OLD MARKET ROAD,AP,COCO,14-02-2026,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"3,60,798","30,911","60,066",8.6%,16.7%,8 - 10%,Above 12%,"3,46,878","32,973","69,472",9.5%,20.0%,"3,52,966","34,094","67,727",9.7%,19.2%
+75,INAPVZM00028,MEDPLUS JAMMU JUNCTION PEDATHADIVADA,AP,COCO,07-12-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"3,24,011","77,144","80,933",23.8%,25.0%,Above 12%,Above 12%,"3,32,127","77,833","80,534",23.4%,24.3%,"3,30,411","72,089","86,161",21.8%,26.1%
+76,INAPAKP00006,MEDPLUS K KOTAPADU JUNCTION,AP,COCO,30-09-2024,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"1,64,914","13,931","66,284",8.5%,40.2%,8 - 10%,Above 12%,"1,61,108","15,991","60,029",9.9%,37.3%,"1,62,521","12,563","70,813",7.7%,43.6%
+77,INAPSKM00019,MEDPLUS KALINGA MAIN ROAD,AP,COCO,17-06-2025,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"3,38,095","30,244","50,095",9.0%,14.8%,8 - 10%,Above 12%,"3,26,815","32,630","59,906",10.0%,18.3%,"3,41,434","37,615","64,411",11.0%,18.9%
+78,INAPAKP00003,MEDPLUS KASIMKOTA MAIN ROAD,AP,COCO,25-08-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"2,94,606","61,514","97,393",20.9%,33.1%,Above 12%,Above 12%,"2,95,719","64,225","89,401",21.7%,30.2%,"3,04,574","69,824","92,118",22.9%,30.2%
+79,INAPSKM00010,MEDPLUS KONNA STREET RAMA LAXMANA ROAD,AP,COCO,10-08-2022,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"10,73,147","1,59,555","1,93,921",14.9%,18.1%,Above 12%,Above 12%,"10,37,106","1,61,450","1,62,588",15.6%,15.7%,"10,08,168","1,51,620","1,88,759",15.0%,18.7%
+80,INAPVSK00089,MEDPLUS KOTHAPALEM MAIN ROAD,AP,COCO,22-11-2022,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"7,58,568","1,12,015","1,31,843",14.8%,17.4%,Above 12%,Above 12%,"7,28,451","1,04,397","1,29,759",14.3%,17.8%,"8,08,158","1,13,375","1,47,709",14.0%,18.3%
+81,INAPVZM00015,MEDPLUS KOTHAVALASA,AP,COCO,23-01-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"9,37,266","1,22,429","1,68,332",13.1%,18.0%,Above 12%,Above 12%,"9,13,304","1,20,421","1,71,913",13.2%,18.8%,"9,00,189","1,24,784","1,59,357",13.9%,17.7%
+82,INAPPIT00004,MEDPLUS KOTTAGUMMAM CENETR PITHAPURAM ROAD,AP,COCO,23-02-2022,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"6,28,778","84,787","99,520",13.5%,15.8%,Above 12%,Above 12%,"6,39,364","89,906","92,153",14.1%,14.4%,"6,54,228","86,309","93,697",13.2%,14.3%
+83,INAPKKD00034,MEDPLUS KOVVADA MAIN ROAD EXP,AP,COCO,29-12-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"6,65,218","1,02,443","1,11,937",15.4%,16.8%,Above 12%,Above 12%,"6,75,265","1,02,481","1,08,697",15.2%,16.1%,"6,69,287","1,03,048","1,13,007",15.4%,16.9%
+84,INAPVSK00070,MEDPLUS KURMANNAPALEM,AP,COCO,19-09-2020,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"13,70,111","2,52,543","2,06,176",18.4%,15.1%,Above 12%,Above 12%,"13,94,298","2,55,688","1,97,602",18.3%,14.2%,"14,63,302","2,56,083","2,22,109",17.5%,15.2%
+85,INAPVSK00112,MEDPLUS KURMANNAPALEM ENTRANCE,AP,COCO,31-12-2025,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"7,61,611","1,20,385","1,16,910",15.8%,15.4%,Above 12%,Above 12%,"6,82,955","98,833","1,07,245",14.5%,15.7%,"7,36,969","1,17,575","1,30,026",16.0%,17.6%
+86,INAPVSK00111,MEDPLUS LFS PM PALEM MAIN ROAD,AP,COCO,16-04-2026,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"24,26,653","3,21,926","3,89,757",13.3%,16.1%,Above 12%,Above 12%,"21,76,457","2,90,132","3,44,103",13.3%,15.8%,"20,73,384","2,55,143","3,53,818",12.3%,17.1%
+87,INAPVSK00113,MEDPLUS LFS SEETHAMMAPETA MAIN ROAD,AP,COCO,29-04-2026,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"21,59,580","2,47,752","3,08,486",11.5%,14.3%,10 - 12%,Above 12%,"19,40,976","2,21,866","2,84,503",11.4%,14.7%,"18,87,175","1,85,620","2,43,316",9.8%,12.9%
+88,INAPVSK00039,MEDPLUS MADHAVADHARA,AP,COCO,29-01-2013,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"8,00,871","1,13,623","89,652",14.2%,11.2%,Above 12%,10 - 12%,"8,29,298","1,18,969","76,851",14.4%,9.3%,"7,92,552","1,06,553","87,973",13.4%,11.1%
+89,INAPVSK00063,MEDPLUS MADHAVADHARA RAMSAI CELEBRATIONS HOTEL,AP,COCO,17-04-2019,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"6,89,115","1,21,842","71,971",17.7%,10.4%,Above 12%,10 - 12%,"6,39,846","1,30,589","66,760",20.4%,10.4%,"6,60,584","1,42,425","74,447",21.6%,11.3%
+90,INAPVSK00079,MEDPLUS MADHURAWADA VILLAGE,AP,COCO,15-12-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"12,74,114","2,06,584","1,57,723",16.2%,12.4%,Above 12%,Above 12%,"12,70,342","2,15,370","1,45,492",17.0%,11.5%,"12,40,079","2,03,167","1,58,956",16.4%,12.8%
+91,INAPVZM00013,MEDPLUS MAHARAJPET,AP,COCO,03-07-2019,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"6,16,189","78,586","83,400",12.8%,13.5%,Above 12%,Above 12%,"5,83,754","76,736","72,773",13.2%,12.5%,"6,24,601","81,044","76,313",13.0%,12.2%
+92,INAPVSK00015,MEDPLUS MAHARANIPETA,AP,COCO,25-02-2008,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"15,42,981","2,11,581","1,64,030",13.7%,10.6%,Above 12%,10 - 12%,"14,98,889","2,01,434","1,65,612",13.4%,11.1%,"14,73,228","1,92,975","1,57,711",13.1%,10.7%
+93,INAPPTP00004,MEDPLUS MAIN ROAD PARAVATHIPURAM,AP,COCO,30-12-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"6,12,434","1,02,667","1,18,413",16.8%,19.3%,Above 12%,Above 12%,"5,94,179","1,03,498","1,02,089",17.4%,17.2%,"5,89,451","93,573","1,06,741",15.9%,18.1%
+94,INAPVSK00115,MEDPLUS MALKAPURAM VILLAGE,AP,COCO,24-02-2026,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"2,21,446","27,102","43,908",12.2%,19.8%,Above 12%,Above 12%,"2,22,160","25,833","43,846",11.6%,19.7%,"2,19,256","23,378","53,771",10.7%,24.5%
+95,INAPRCP00004,MEDPLUS MANDAPETA,AP,COCO,12-05-2014,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"16,01,170","3,00,713","2,38,947",18.8%,14.9%,Above 12%,Above 12%,"14,52,989","3,03,808","1,97,299",20.9%,13.6%,"15,56,830","3,12,468","2,10,931",20.1%,13.6%
+96,INAPVSK00025,MEDPLUS MARRIPALEM,AP,COCO,10-01-2009,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"10,61,407","1,94,016","1,34,117",18.3%,12.6%,Above 12%,Above 12%,"11,16,805","1,88,928","1,41,262",16.9%,12.7%,"11,44,653","1,77,646","1,46,761",15.5%,12.8%
+97,INAPKKD00023,MEDPLUS MASJID CENTER SALIPETA,AP,COCO,30-01-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"6,98,532","1,07,584","81,999",15.4%,11.7%,Above 12%,10 - 12%,"7,21,587","1,05,092","81,374",14.6%,11.3%,"6,88,518","1,02,385","74,463",14.9%,10.8%
+98,INAPKKD00020,MEDPLUS MUNICIFF JUNCTION YANAM ROAD,AP,COCO,03-08-2019,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"6,43,209","1,08,574","1,05,159",16.9%,16.4%,Above 12%,Above 12%,"6,31,593","1,21,908","1,06,722",19.3%,16.9%,"6,52,317","1,22,168","98,290",18.7%,15.1%
+99,INAPVSK00052,MEDPLUS MURALI NAGAR,AP,COCO,10-12-2016,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"6,74,569","1,19,227","89,849",17.7%,13.3%,Above 12%,Above 12%,"6,84,408","1,09,615","88,398",16.0%,12.9%,"8,10,106","1,23,453","1,06,110",15.2%,13.1%
+100,INAPVSK00008,MEDPLUS MURALINAGAR SAI COMPLEX,AP,COCO,23-07-2007,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"11,41,090","1,68,633","1,72,029",14.8%,15.1%,Above 12%,Above 12%,"12,32,944","1,82,670","1,56,286",14.8%,12.7%,"12,46,988","1,84,794","1,66,331",14.8%,13.3%
+101,INAPVSK00011,MEDPLUS MVP COLONY,AP,COCO,06-07-2007,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"17,07,434","2,08,607","1,48,217",12.2%,8.7%,Above 12%,8 - 10%,"16,98,894","2,10,311","1,50,778",12.4%,8.9%,"17,69,832","2,02,815","1,71,491",11.5%,9.7%
+102,INAPVSK00090,MEDPLUS MVP SECTOR 3 VISAKHAPATNAM,AP,COCO,30-11-2022,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"7,43,569","1,11,167","89,864",15.0%,12.1%,Above 12%,Above 12%,"7,31,696","1,02,858","74,633",14.1%,10.2%,"6,93,954","95,321","76,409",13.7%,11.0%
+103,INAPKKD00014,MEDPLUS NAGAMALLITHOTA,AP,COCO,25-05-2011,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"8,84,849","1,44,562","65,436",16.3%,7.4%,Above 12%,5 - 8%,"8,83,479","1,40,518","56,062",15.9%,6.4%,"8,63,575","1,42,158","49,673",16.5%,5.8%
+104,INAPVSK00086,MEDPLUS NAKKAVANIPALEM DOUBLE ROAD,AP,COCO,29-08-2022,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"2,52,063","48,914","55,149",19.4%,21.9%,Above 12%,Above 12%,"2,77,651","52,206","66,772",18.8%,24.1%,"2,78,828","58,114","70,079",20.8%,25.1%
+105,INAPNPT00002,MEDPLUS NARASANNAPETA,AP,COCO,05-06-2009,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"14,45,130","1,99,248","1,86,447",13.8%,12.9%,Above 12%,Above 12%,"13,37,836","1,95,421","1,66,224",14.6%,12.4%,"14,56,672","2,15,587","1,51,756",14.8%,10.4%
+106,INAPNPT00003,MEDPLUS NARASANNAPETA MAIN ROAD,AP,COCO,31-08-2024,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"7,34,473","83,480","1,40,980",11.4%,19.2%,10 - 12%,Above 12%,"6,60,420","70,097","1,21,147",10.6%,18.3%,"6,86,279","77,442","1,29,667",11.3%,18.9%
+107,INAPNRP00001,MEDPLUS NARSIPATNAM,AP,COCO,24-07-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"6,01,046","92,926","1,03,932",15.5%,17.3%,Above 12%,Above 12%,"5,94,072","93,359","1,13,414",15.7%,19.1%,"5,90,209","79,639","1,10,920",13.5%,18.8%
+108,INAPVZM00024,MEDPLUS NCS ROAD KOTHA AGRAHARAM,AP,COCO,31-07-2022,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"7,40,372","1,42,967","1,15,172",19.3%,15.6%,Above 12%,Above 12%,"7,04,210","1,34,961","1,11,186",19.2%,15.8%,"7,50,601","1,31,872","1,24,619",17.6%,16.6%
+109,INAPRJM00006,MEDPLUS NEAR VASAVI THEATER MAIN ROAD RAZAM,AP,COCO,28-12-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"5,80,714","84,206","88,132",14.5%,15.2%,Above 12%,Above 12%,"5,89,714","75,481","99,066",12.8%,16.8%,"5,97,058","68,589","1,03,412",11.5%,17.3%
+110,INAPVZM00019,MEDPLUS NELLIMARLA PALAKONDA ROAD,AP,COCO,17-12-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"3,98,610","52,419","84,293",13.2%,21.2%,Above 12%,Above 12%,"3,96,905","52,551","81,734",13.2%,20.6%,"4,03,549","56,236","82,042",13.9%,20.3%
+111,INAPVSK00081,MEDPLUS NRI HOSPITAL ROAD SEETHAMMADHARA,AP,COCO,09-03-2022,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"5,50,586","90,215","86,226",16.4%,15.7%,Above 12%,Above 12%,"5,91,558","84,743","97,006",14.3%,16.4%,"6,59,101","1,14,091","92,205",17.3%,14.0%
+112,INAPVSK00055,MEDPLUS OLD ITI JUNCTION,AP,COCO,19-01-2018,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"3,59,764","71,243","66,317",19.8%,18.4%,Above 12%,Above 12%,"3,31,909","59,055","66,048",17.8%,19.9%,"3,43,437","61,129","72,694",17.8%,21.2%
+113,INAPKKD00033,MEDPLUS OPP MSN CHARITIES JAGANNAICKPUR,AP,COCO,29-12-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"4,88,236","79,464","97,681",16.3%,20.0%,Above 12%,Above 12%,"4,51,605","66,705","82,299",14.8%,18.2%,"4,58,349","67,880","92,200",14.8%,20.1%
+114,INAPPKD00004,MEDPLUS PALAKONDA MAIN ROAD,AP,COCO,31-08-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"4,84,555","64,372","90,807",13.3%,18.7%,Above 12%,Above 12%,"4,87,927","73,902","83,560",15.2%,17.1%,"5,40,534","81,274","83,015",15.0%,15.4%
+115,INAPSKM00013,MEDPLUS PALAKONDA ROAD SRIKAKULAM,AP,COCO,25-02-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"6,52,497","86,709","1,25,457",13.3%,19.2%,Above 12%,Above 12%,"6,60,131","92,270","1,17,897",14.0%,17.9%,"7,02,266","93,150","1,17,452",13.3%,16.7%
+116,INAPPAS00001,MEDPLUS PALASA MAIN ROAD,AP,COCO,28-09-2024,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"3,70,325","63,028","86,375",17.0%,23.3%,Above 12%,Above 12%,"3,30,359","60,401","69,997",18.3%,21.2%,"3,53,116","66,669","82,966",18.9%,23.5%
+117,INAPPRP00001,MEDPLUS PAYAKARAOPETA TOWN ROAD,AP,COCO,26-11-2025,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"5,51,120","87,883","79,916",16.0%,14.5%,Above 12%,Above 12%,"5,31,688","83,120","68,625",15.6%,12.9%,"5,33,533","75,239","74,283",14.1%,13.9%
+118,INAPVSK00083,MEDPLUS PEDAGANTYADA X ROAD VUDA COLONY,AP,COCO,08-06-2022,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"10,55,297","2,09,346","1,73,332",19.8%,16.4%,Above 12%,Above 12%,"10,01,264","1,77,435","1,64,875",17.7%,16.5%,"10,45,598","1,89,458","1,76,878",18.1%,16.9%
+119,INAPPPM00003,MEDPLUS PEDDAPURAM,AP,COCO,21-03-2009,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"12,16,871","1,83,343","1,15,749",15.1%,9.5%,Above 12%,8 - 10%,"12,13,700","1,81,121","1,29,500",14.9%,10.7%,"12,57,043","1,80,758","1,27,310",14.4%,10.1%
+120,INAPPPM00006,MEDPLUS PEDDAPURAM RAJAHMUNDRY ROAD,AP,COCO,31-10-2020,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"8,76,849","1,20,741","1,37,065",13.8%,15.6%,Above 12%,Above 12%,"8,33,413","1,04,056","1,29,070",12.5%,15.5%,"8,23,534","97,685","1,14,684",11.9%,13.9%
+121,INAPVSK00118,MEDPLUS PHARMACY NARASIMHA NAGAR RYTHU BAZAAR,AP,COCO,31-08-2026,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"3,01,307","52,353","58,683",17.4%,19.5%,Above 12%,Above 12%,0,0,0,0.0%,0.0%,0,0,0,0.0%,0.0%
+122,INAPVSK00116,MEDPLUS PHARMACY USHODAYA JUNCTION,AP,COCO,07-08-2026,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"6,75,141","68,362","75,120",10.1%,11.1%,10 - 12%,10 - 12%,"4,13,149","45,433","56,707",11.0%,13.7%,0,0,0,0.0%,0.0%
+123,INAPPIT00003,MEDPLUS PITHAPURAM,AP,COCO,01-07-2009,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"6,02,341","76,647","97,369",12.7%,16.2%,Above 12%,Above 12%,"5,92,991","87,728","86,661",14.8%,14.6%,"5,69,811","78,462","82,061",13.8%,14.4%
+124,INAPVSK00101,MEDPLUS PRAHALADAPURAM MAIN ROAD,AP,COCO,14-02-2024,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"6,76,298","1,10,412","93,693",16.3%,13.9%,Above 12%,Above 12%,"6,79,827","1,09,755","1,04,632",16.1%,15.4%,"6,51,291","1,16,244","96,633",17.9%,14.8%
+125,INAPPPD00001,MEDPLUS PRATHIPADU MAIN ROAD,AP,COCO,28-07-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"4,15,709","54,392","80,361",13.1%,19.3%,Above 12%,Above 12%,"3,99,382","56,918","78,468",14.3%,19.7%,"3,92,225","51,200","77,442",13.1%,19.7%
+126,INAPSKM00016,MEDPLUS PYDIBIMAVARAM MAIN ROAD,AP,COCO,24-09-2024,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"3,30,092","38,321","72,815",11.6%,22.1%,10 - 12%,Above 12%,"3,31,537","35,230","86,218",10.6%,26.0%,"3,36,184","32,295","78,403",9.6%,23.3%
+127,INAPVSK00087,MEDPLUS RAILWAY NEW COLONY NEAR MASJID,AP,COCO,23-09-2022,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"3,95,839","56,377","70,349",14.2%,17.8%,Above 12%,Above 12%,"4,15,156","57,933","79,829",14.0%,19.2%,"4,34,048","55,045","77,527",12.7%,17.9%
+128,INAPRCP00006,MEDPLUS RAJAGOPAL CENTER,AP,COCO,27-02-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"6,75,956","1,06,322","1,06,884",15.7%,15.8%,Above 12%,Above 12%,"6,33,683","95,597","83,193",15.1%,13.1%,"6,07,793","99,186","1,04,773",16.3%,17.2%
+129,INAPSKM00007,MEDPLUS RAJAM SRIKAKULAM,AP,COCO,13-02-2019,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"11,49,110","2,29,098","1,50,429",19.9%,13.1%,Above 12%,Above 12%,"11,36,609","2,23,868","1,51,309",19.7%,13.3%,"11,99,201","2,20,774","1,58,166",18.4%,13.2%
+130,INAPSKM00008,MEDPLUS RAJAM TIRUMALA NAGAR SRIKAKULAM ROAD,AP,COCO,09-11-2020,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"8,30,409","1,00,754","1,05,478",12.1%,12.7%,Above 12%,Above 12%,"7,89,496","1,03,941","96,566",13.2%,12.2%,"8,54,500","1,03,386","1,08,730",12.1%,12.7%
+131,INAPVSK00110,MEDPLUS RAJEEV NAGAR,AP,COCO,17-11-2025,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"4,29,432","90,263","92,192",21.0%,21.5%,Above 12%,Above 12%,"3,97,219","87,675","84,293",22.1%,21.2%,"3,83,290","89,226","93,904",23.3%,24.5%
+132,INAPSKM00015,MEDPLUS RAMA LAXMANA JUNCTION,AP,COCO,10-05-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"6,77,132","1,00,066","1,26,139",14.8%,18.6%,Above 12%,Above 12%,"6,30,017","88,158","1,11,766",14.0%,17.7%,"6,74,041","79,139","1,17,743",11.7%,17.5%
+133,INAPRCP00005,MEDPLUS RAMACHANDRAPURAM,AP,COCO,15-07-2018,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"10,94,983","1,64,250","1,53,151",15.0%,14.0%,Above 12%,Above 12%,"10,03,774","1,83,348","1,46,464",18.3%,14.6%,"9,42,726","1,64,332","1,26,880",17.4%,13.5%
+134,INAPRPD00001,MEDPLUS ROWTHALAPUDI MAIN ROAD,AP,COCO,15-09-2022,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"5,79,689","94,334","1,02,017",16.3%,17.6%,Above 12%,Above 12%,"6,25,718","1,02,529","1,11,830",16.4%,17.9%,"5,89,328","87,919","1,05,982",14.9%,18.0%
+135,INAPAKP00001,MEDPLUS RTC COMPLEX ROAD,AP,COCO,19-06-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"3,86,584","71,146","79,742",18.4%,20.6%,Above 12%,Above 12%,"3,87,759","71,573","83,967",18.5%,21.7%,"3,73,066","71,346","87,988",19.1%,23.6%
+136,INAPSKT00003,MEDPLUS S KOTA,AP,COCO,13-02-2019,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"4,32,962","69,470","66,234",16.1%,15.3%,Above 12%,Above 12%,"4,17,217","61,730","66,438",14.8%,15.9%,"4,25,505","64,967","73,121",15.3%,17.2%
+137,INAPVSK00097,MEDPLUS SAGAR NAGAR MAIN ROAD,AP,COCO,30-09-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"7,41,861","1,39,269","99,652",18.8%,13.4%,Above 12%,Above 12%,"7,26,520","1,21,283","81,675",16.7%,11.2%,"7,24,305","1,26,305","98,901",17.4%,13.7%
+138,INAPSLR00001,MEDPLUS SALUR MAIN ROAD,AP,COCO,31-07-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"6,13,750","99,952","1,77,761",16.3%,29.0%,Above 12%,Above 12%,"6,01,000","1,02,536","1,75,013",17.1%,29.1%,"6,08,869","1,13,165","1,64,803",18.6%,27.1%
+139,INAPPPM00004,MEDPLUS SAMALKOT,AP,COCO,14-08-2019,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"8,52,494","1,33,962","1,13,673",15.7%,13.3%,Above 12%,Above 12%,"8,46,362","1,31,016","1,03,984",15.5%,12.3%,"8,15,641","1,29,159","1,10,677",15.8%,13.6%
+140,INAPKKD00011,MEDPLUS SARPAVARAM JN,AP,COCO,05-06-2009,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"9,86,835","1,39,764","91,334",14.2%,9.3%,Above 12%,8 - 10%,"9,45,527","1,39,107","77,876",14.7%,8.2%,"9,65,436","1,32,696","70,232",13.7%,7.3%
+141,INAPVSK00105,MEDPLUS SECTOR 2 MVP COLONY,AP,COCO,23-01-2025,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"8,22,377","1,29,116","1,30,198",15.7%,15.8%,Above 12%,Above 12%,"7,92,967","1,08,752","1,40,107",13.7%,17.7%,"8,63,618","1,00,724","1,31,991",11.7%,15.3%
+142,INAPVSK00069,MEDPLUS SEETHAMMADHARA APSEB COLONY,AP,COCO,10-07-2020,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"20,67,534","4,34,564","2,15,647",21.0%,10.4%,Above 12%,10 - 12%,"21,11,688","4,43,689","2,16,456",21.0%,10.3%,"22,01,616","4,47,422","1,77,190",20.3%,8.1%
+143,INAPVSK00062,MEDPLUS SEETHAMMAPETA,AP,COCO,23-01-2019,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"3,45,181","66,584","36,678",19.3%,10.6%,Above 12%,10 - 12%,"3,35,978","55,872","37,958",16.6%,11.3%,"3,56,946","66,098","40,364",18.5%,11.3%
+144,INAPNRP00002,MEDPLUS SHANTI NAGAR NARSIPATNAM,AP,COCO,24-07-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"7,74,706","1,11,331","1,07,859",14.4%,13.9%,Above 12%,Above 12%,"7,02,204","1,02,261","96,243",14.6%,13.7%,"7,89,182","1,08,437","1,05,262",13.7%,13.3%
+145,INAPVZM00031,MEDPLUS SHIRIDI SAI NAGAR TEMPLE ROAD,AP,COCO,31-07-2024,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"6,54,889","96,944","1,01,485",14.8%,15.5%,Above 12%,Above 12%,"6,65,542","89,415","1,00,227",13.4%,15.1%,"6,14,910","94,059","1,00,118",15.3%,16.3%
+146,INAPVSK00085,MEDPLUS SIMHACHALAM ROAD PRAHALADAPURAM,AP,COCO,20-07-2022,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"6,03,040","99,613","1,06,634",16.5%,17.7%,Above 12%,Above 12%,"5,78,428","87,075","92,714",15.1%,16.0%,"5,89,895","86,406","94,434",14.7%,16.0%
+147,INAPVSK00102,MEDPLUS SIVAJI PARK ROAD SHIVAJI PALEM,AP,COCO,18-03-2024,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"4,84,332","75,094","85,239",15.5%,17.6%,Above 12%,Above 12%,"4,89,051","75,721","83,511",15.5%,17.1%,"5,11,160","75,105","95,791",14.7%,18.7%
+148,INAPSMT00001,MEDPLUS SOMPETA MAIN ROAD,AP,COCO,30-10-2024,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"6,92,912","78,187","1,14,583",11.3%,16.5%,10 - 12%,Above 12%,"6,96,226","67,014","1,21,279",9.6%,17.4%,"6,85,575","73,219","1,15,774",10.7%,16.9%
+149,INAPMPT00003,MEDPLUS SRINAGAR MANDAPETA,AP,COCO,11-02-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"13,90,504","2,33,694","2,03,047",16.8%,14.6%,Above 12%,Above 12%,"13,60,105","2,52,511","1,83,305",18.6%,13.5%,"13,95,549","2,51,383","1,87,090",18.0%,13.4%
+150,INAPVSK00104,MEDPLUS SUJATHA NAGAR CROSS ROAD,AP,COCO,30-08-2024,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"10,43,619","1,74,608","1,75,426",16.7%,16.8%,Above 12%,Above 12%,"10,21,052","1,79,644","1,39,660",17.6%,13.7%,"9,97,887","1,72,047","1,43,415",17.2%,14.4%
+151,INAPVSK00082,MEDPLUS SUSARLA COLONY BUCHIRAJUPALEM,AP,COCO,25-08-2022,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"6,26,642","1,15,047","95,393",18.4%,15.2%,Above 12%,Above 12%,"6,13,455","1,18,819","96,203",19.4%,15.7%,"5,89,948","1,10,315","86,498",18.7%,14.7%
+152,INAPTKL00001,MEDPLUS TEKKALI MAIN ROAD,AP,COCO,30-11-2022,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"4,28,372","92,837","94,566",21.7%,22.1%,Above 12%,Above 12%,"4,17,952","72,525","98,092",17.4%,23.5%,"4,25,472","79,808","88,897",18.8%,20.9%
+153,INAPPIT00005,MEDPLUS UPPADA MAIN ROAD,AP,COCO,31-05-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"2,99,215","41,643","51,499",13.9%,17.2%,Above 12%,Above 12%,"3,12,056","46,690","61,617",15.0%,19.8%,"3,05,534","38,724","60,231",12.7%,19.7%
+154,INAPVSK00109,MEDPLUS URVASHI JUNCTION,AP,COCO,26-11-2025,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"3,22,725","52,676","59,777",16.3%,18.5%,Above 12%,Above 12%,"3,33,803","52,113","60,267",15.6%,18.1%,"3,41,316","51,840","58,779",15.2%,17.2%
+155,INAPVSK00040,MEDPLUS VADLAPUDI,AP,COCO,30-09-2013,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"6,67,468","92,525","1,02,060",13.9%,15.3%,Above 12%,Above 12%,"7,37,031","86,593","1,16,778",11.8%,15.8%,"7,20,302","88,046","1,25,208",12.2%,17.4%
+156,INAPKKD00030,MEDPLUS VALASAPAKALA KAKINADA,AP,COCO,21-09-2022,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"9,00,268","1,91,099","1,54,839",21.2%,17.2%,Above 12%,Above 12%,"9,64,015","1,93,451","1,52,889",20.1%,15.9%,"9,39,262","1,69,881","1,67,677",18.1%,17.9%
+157,INAPPTP00003,MEDPLUS VEERAGHATTAM MAIN ROAD,AP,COCO,31-07-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"6,71,026","57,586","1,15,309",8.6%,17.2%,8 - 10%,Above 12%,"6,16,684","49,454","83,611",8.0%,13.6%,"6,81,597","55,853","1,00,613",8.2%,14.8%
+158,INAPKKD00004,MEDPLUS VEERKAMAL THEATRE,AP,COCO,31-03-2008,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"12,07,715","1,51,772","90,439",12.6%,7.5%,Above 12%,5 - 8%,"13,39,728","1,58,293","89,873",11.8%,6.7%,"12,28,805","1,53,905","1,10,146",12.5%,9.0%
+159,INAPAKP00002,MEDPLUS VENKANNAPALEM CHODAVARAM ROAD GANDHI NAGAR,AP,COCO,13-05-2023,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"3,60,182","43,509","97,917",12.1%,27.2%,Above 12%,Above 12%,"3,59,979","38,128","87,303",10.6%,24.3%,"3,51,381","34,930","94,557",9.9%,26.9%
+160,INAPKKD00026,MEDPLUS VENKATNAGAR GUDARI GUNTA ROAD,AP,COCO,28-09-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Pathalam Sankara Rao,"14,82,683","2,05,882","1,32,266",13.9%,8.9%,Above 12%,8 - 10%,"14,15,545","2,12,993","1,06,953",15.1%,7.6%,"13,96,471","2,12,857","1,10,174",15.2%,7.9%
+161,INAPVSK00058,MEDPLUS VEPAGUNTA JUNCTION,AP,COCO,12-10-2018,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"6,76,527","1,51,228","1,22,712",22.4%,18.1%,Above 12%,Above 12%,"6,31,772","1,28,595","1,13,598",20.4%,18.0%,"6,50,794","1,18,703","1,07,912",18.2%,16.6%
+162,INAPVSK00046,MEDPLUS VISALAKSHI NAGAR,AP,COCO,30-11-2014,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"12,24,383","1,95,688","1,88,565",16.0%,15.4%,Above 12%,Above 12%,"11,84,499","1,99,012","1,72,235",16.8%,14.5%,"11,26,314","1,60,082","1,55,533",14.2%,13.8%
+163,INAPVZM00034,MEDPLUS VIZIANAGARAM CANTONMENT STORE,AP,COCO,30-07-2025,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"8,09,561","98,167","1,25,221",12.1%,15.5%,Above 12%,Above 12%,"7,66,053","1,07,425","1,12,857",14.0%,14.7%,"8,09,554","99,388","1,23,992",12.3%,15.3%
+164,INAPVZM00033,MEDPLUS VUDA COLONY MAIN ROAD,AP,COCO,26-08-2026,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"2,16,407","27,085","38,068",12.5%,17.6%,Above 12%,Above 12%,0,0,0,0.0%,0.0%,0,0,0,0.0%,0.0%
+165,INAPVSK00059,MEDPLUS VUDA LAYOUT MARRIPALEM,AP,COCO,26-09-2018,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Korra Simhachalam,"5,42,106","81,256","71,568",15.0%,13.2%,Above 12%,Above 12%,"6,10,757","80,055","81,446",13.1%,13.3%,"6,57,981","90,095","86,581",13.7%,13.2%
+166,INAPSKM00017,MEDPLUS WOMENS COLLEGE ROAD,AP,COCO,12-12-2024,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"4,19,681","51,526","69,521",12.3%,16.6%,Above 12%,Above 12%,"4,32,204","51,059","76,185",11.8%,17.6%,"4,23,245","51,591","71,784",12.2%,17.0%
+167,INAPYLM00001,MEDPLUS YELAMANCHILI,AP,COCO,13-11-2019,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"7,14,728","85,018","1,20,688",11.9%,16.9%,10 - 12%,Above 12%,"6,82,489","81,487","1,16,951",11.9%,17.1%,"7,14,015","84,605","1,35,517",11.9%,19.0%
+168,INAPKKD00028,MEDPLUS YELESWARAM,AP,COCO,28-11-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"5,18,074","67,812","95,529",13.1%,18.4%,Above 12%,Above 12%,"5,21,262","73,968","88,758",14.2%,17.0%,"5,40,565","72,630","87,406",13.4%,16.2%
+169,INAPVSK00066,MEDPLUS YENDADA,AP,COCO,09-11-2019,Datla Vivekananda Varma,Raikindi Prem Kumar,Patnala Sai Kumar,Neyyala Dharmarao,"15,63,412","3,05,688","1,93,541",19.6%,12.4%,Above 12%,Above 12%,"14,58,011","2,82,330","1,93,945",19.4%,13.3%,"13,18,339","2,47,752","1,90,889",18.8%,14.5%
+170,INAPSKM00005,MEDPLUS ZILLA PARISHAD JCN,AP,COCO,30-04-2008,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Palina Tejeswara rao,"9,45,309","1,01,767","1,02,350",10.8%,10.8%,10 - 12%,10 - 12%,"9,12,081","1,07,709","1,03,990",11.8%,11.4%,"9,63,080","99,951","1,19,063",10.4%,12.4%
+171,INAPVSK50013,MEENA MEDICAL SERVICES MADHURAWADA REVALLAPALEM RD,AP,COFO,30-03-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"7,33,163","1,48,304","82,259",20.2%,11.2%,Above 12%,10 - 12%,"7,10,822","1,30,341","86,239",18.3%,12.1%,"7,12,145","1,30,913","77,681",18.4%,10.9%
+172,INAPSKM50004,MEGA ENTERPRISES 80 FEET ROAD SRIKAKULAM,AP,COFO,30-12-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"1,70,898","14,197","25,853",8.3%,15.1%,8 - 10%,Above 12%,"1,53,074","12,230","29,125",8.0%,19.0%,"1,48,990","14,492","26,769",9.7%,18.0%
+173,INAPBOB50008,MURALI KRISHNA MEDICAL AND GENERAL STORES RAMABHAD,AP,COFO,22-08-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"3,44,465","63,554","55,681",18.5%,16.2%,Above 12%,Above 12%,"3,56,457","61,670","62,814",17.3%,17.6%,"3,71,810","59,552","64,716",16.0%,17.4%
+174,INAPPPD50002,NARESH MEDICALS KIRLAMPUDI,AP,COFO,31-12-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"1,55,049","28,899","28,319",18.6%,18.3%,Above 12%,Above 12%,"1,45,557","23,943","27,395",16.5%,18.8%,"1,57,112","22,309","29,760",14.2%,18.9%
+175,INAPBOB50010,NETRA SRI PHARMACY SEETHANAGARAM,AP,COFO,31-01-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"1,42,662","16,082","23,687",11.3%,16.6%,10 - 12%,Above 12%,"1,40,671","14,956","33,077",10.6%,23.5%,"1,46,172","12,386","29,776",8.5%,20.4%
+176,INAPNRP50002,PREM MEDICALS AND GENERAL STORES KOTAVURATLA,AP,COFO,29-06-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"1,30,099","12,744","19,488",9.8%,15.0%,8 - 10%,Above 12%,"1,24,255","9,035","19,078",7.3%,15.4%,"88,687","4,735","13,330",5.3%,15.0%
+177,INAPBOB50006,RAMESH PHARMACY NAGASAPU VEEDHI BOBBILI,AP,COFO,09-06-2017,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"4,06,534","33,077","41,113",8.1%,10.1%,8 - 10%,10 - 12%,"3,90,031","33,089","36,273",8.5%,9.3%,"3,80,750","31,028","37,819",8.2%,9.9%
+178,INAPRST50002,SAI TEJA MEDICALS JAGANNADHARAJAPURAM RANASTALAM,AP,COFO,26-09-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"3,48,269","41,503","54,027",11.9%,15.5%,10 - 12%,Above 12%,"3,61,662","39,332","57,400",10.9%,15.9%,"3,61,804","44,242","60,665",12.2%,16.8%
+179,INAPKRP50002,SANVIKA SRI ENTERPRISES KARAPA VILLAGE,AP,COFO,30-08-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"10,16,386","2,13,153","1,27,162",21.0%,12.5%,Above 12%,Above 12%,"9,45,385","1,87,870","1,18,701",19.9%,12.6%,"9,86,952","2,03,853","1,16,043",20.7%,11.8%
+180,INAPVZM50008,SATISH MEDICAL POOLBAGH ROAD VIZIANAGARAM,AP,COFO,30-06-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"5,11,175","1,21,012","95,939",23.7%,18.8%,Above 12%,Above 12%,"4,91,585","97,888","89,459",19.9%,18.2%,"5,36,328","1,17,975","92,375",22.0%,17.2%
+181,INAPVSK50021,SIMHA ENTERPRISES SABBAVARAM MAIN ROAD,AP,COFO,31-12-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"4,22,169","79,089","85,699",18.7%,20.3%,Above 12%,Above 12%,"3,97,017","75,179","77,037",18.9%,19.4%,"3,50,653","66,742","62,608",19.0%,17.9%
+182,INAPSKM50008,SIVA SAI MEDICALS VOPPANGI,AP,COFO,24-01-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"1,38,350","29,686","25,240",21.5%,18.2%,Above 12%,Above 12%,"1,46,858","35,846","31,591",24.4%,21.5%,"1,35,401","22,127","25,469",16.3%,18.8%
+183,INAPVZM00038,SIVALAYAM VEEDHIVIZIANAGARAM,AP,COCO,13-12-2025,Datla Vivekananda Varma,Raikindi Prem Kumar,Challa Erikinaidu,Perugula Suresh,"4,13,411","58,603","66,983",14.2%,16.2%,Above 12%,Above 12%,"3,91,270","52,626","63,849",13.5%,16.3%,"3,99,871","56,681","68,617",14.2%,17.2%
+184,INAPAKP50005,SR NIHAAN ENTERPRISES BUTCHAYYAPETA JUNCTION,AP,COFO,07-03-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"1,04,202","17,390","24,882",16.7%,23.9%,Above 12%,Above 12%,"94,592","15,823","20,229",16.7%,21.4%,"95,656","15,761","16,091",16.5%,16.8%
+185,INAPCHO50003,SR NIHAAN ENTERPRISES RAVIKAMATHAM VILLAGE,AP,COFO,29-04-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"1,46,724","9,014","33,969",6.1%,23.2%,5 - 8%,Above 12%,"1,23,690","5,281","38,180",4.3%,30.9%,"1,04,593","6,703","24,148",6.4%,23.1%
+186,INAPAKP50004,SR NIHAAN ENTERPRISES SHARADHA NAGAR ANAKAPALLI,AP,COFO,24-04-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"1,25,003","19,543","30,262",15.6%,24.2%,Above 12%,Above 12%,"1,36,024","24,972","32,274",18.4%,23.7%,"1,05,628","17,998","29,619",17.0%,28.0%
+187,INAPBOB50012,SRAVYA PHARMACY DUGGERU ROAD MAKKUVA,AP,COFO,29-01-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"21,172","2,086","4,783",9.9%,22.6%,8 - 10%,Above 12%,"84,490","5,285","13,307",6.3%,15.8%,"1,26,299","7,873","17,943",6.2%,14.2%
+188,INAPBVL50002,SREE LAKSHMI ENTERPRISES BIKKAVOLU,AP,COFO,19-08-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"6,88,771","1,58,583","95,060",23.0%,13.8%,Above 12%,Above 12%,"6,72,780","1,37,713","84,552",20.5%,12.6%,"6,71,484","1,47,068","78,802",21.9%,11.7%
+189,INAPPPD50004,SRI ASHOKA MEDICALS DIVILI,AP,COFO,27-03-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"1,67,219","20,796","22,760",12.4%,13.6%,Above 12%,Above 12%,"1,38,891","21,860","20,033",15.7%,14.4%,"1,62,386","21,620","23,935",13.3%,14.7%
+190,INAPDKM50006,SRI GANESH DATTA MEDICAL AND GENERAL STORES KAJULU,AP,COFO,09-07-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"2,52,846","42,502","29,842",16.8%,11.8%,Above 12%,10 - 12%,"2,55,833","28,844","40,318",11.3%,15.8%,"1,26,007","7,955","28,274",6.3%,22.4%
+191,INAPRNM50006,SRI GOWRI SRINIVASA GLOBAL ENTERPRISES RANGAMPETA,AP,COFO,25-12-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"2,49,551","41,994","44,221",16.8%,17.7%,Above 12%,Above 12%,"2,43,783","44,367","42,790",18.2%,17.6%,"2,32,808","39,450","37,464",17.0%,16.1%
+192,INAPACH50002,SRI NOOKAMBICA MEDICALS AND GENERALS MUNGAPAKA,AP,COFO,13-05-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"1,33,169","30,169","31,044",22.7%,23.3%,Above 12%,Above 12%,"1,21,847","25,825","29,036",21.2%,23.8%,"1,08,156","18,907","25,812",17.5%,23.9%
+193,INAPPTP50002,SRI RAMA ENETERPRISES BALIJIPETA,AP,COFO,27-12-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"1,11,232","8,664","21,933",7.8%,19.7%,5 - 8%,Above 12%,"1,16,489","10,402","24,157",8.9%,20.7%,"1,18,684","6,112","21,348",5.2%,18.0%
+194,INAPKTD50002,SRI VENKATESWARA MEDICALS MAIN ROAD KATHIPUDI,AP,COFO,15-11-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"1,87,463","18,609","31,972",9.9%,17.1%,8 - 10%,Above 12%,"1,58,383","14,428","30,909",9.1%,19.5%,"1,99,048","17,274","30,833",8.7%,15.5%
+195,INAPVZM50018,SRI VINAYAKA PHARMACY KL PURAM BOBBILI ROAD,AP,COFO,09-07-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"5,16,638","1,10,106","1,07,715",21.3%,20.9%,Above 12%,Above 12%,"5,07,263","1,08,309","1,15,217",21.4%,22.7%,"2,80,425","53,448","67,421",19.1%,24.0%
+196,INAPVZM50010,SRINIVASA MEDICALS AND GENERAL STORE ZIDDUVARI STR,AP,COFO,26-07-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"4,67,605","1,01,170","66,425",21.6%,14.2%,Above 12%,Above 12%,"4,48,647","93,671","68,714",20.9%,15.3%,"4,63,160","89,410","65,389",19.3%,14.1%
+197,INAPSMK50002,SRINIVASU ENTERPRISES RADHAM CENTRE SAMARLAKOTA,AP,COFO,28-07-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"7,16,315","1,21,089","75,945",16.9%,10.6%,Above 12%,10 - 12%,"7,17,244","1,11,108","77,962",15.5%,10.9%,"6,55,696","1,05,594","62,430",16.1%,9.5%
+198,INAPKOU50002,SRR PHARMACY KOTTURU,AP,COFO,27-11-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"2,34,878","31,204","35,552",13.3%,15.1%,Above 12%,Above 12%,"2,40,627","34,978","45,206",14.5%,18.8%,"2,19,655","33,246","36,335",15.1%,16.5%
+199,INAPHDL50001,SRR PHARMACY NEAR BUS STAND HIRAMANDALAM,AP,FOFO,02-01-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"67,451","13,195","9,254",19.6%,13.7%,Above 12%,Above 12%,"98,719","12,526","17,729",12.7%,18.0%,"1,05,359","16,769","24,305",15.9%,23.1%
+200,INAPVSK50007,SUVARNA VEDASRI ENTERPRISES AKKAYYAPALEM,AP,COFO,29-09-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"6,59,775","63,996","51,324",9.7%,7.8%,8 - 10%,5 - 8%,"6,05,995","64,455","57,463",10.6%,9.5%,"5,68,900","64,031","39,661",11.3%,7.0%
+201,INAPPUD50001,SUVARNA VEDASRI ENTERPRISES GOVINDAPURAM PUNDI,AP,COFO,30-08-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"3,91,842","52,911","45,470",13.5%,11.6%,Above 12%,10 - 12%,"3,20,922","37,115","45,622",11.6%,14.2%,"3,11,518","43,145","30,877",13.9%,9.9%
+202,INAPKBM50001,SUVARNA VEDASRI ENTERPRISES KOTABOMMALI,AP,COFO,31-07-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"3,82,466","32,509","91,895",8.5%,24.0%,8 - 10%,Above 12%,"3,25,488","29,884","41,856",9.2%,12.9%,"3,76,174","40,929","42,872",10.9%,11.4%
+203,INAPAAA50002,SWATHI MEDICALS ANGARA,AP,COFO,30-11-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"2,62,084","41,436","26,683",15.8%,10.2%,Above 12%,10 - 12%,"2,40,821","26,369","27,983",11.0%,11.6%,"2,19,642","33,696","17,138",15.3%,7.8%
+204,INAPVZM50016,VARAHI PHARMACY PHOOLBAGH COLONY VIZIANAGARAM,AP,COFO,06-02-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"1,42,532","25,685","27,373",18.0%,19.2%,Above 12%,Above 12%,"96,798","9,232","22,793",9.5%,23.6%,"1,00,897","12,200","19,143",12.1%,19.0%
+205,INAPDKM50002,VARALAKSHMI ENTERPRISES DRAKSHARAMAM,AP,COFO,23-07-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"7,02,038","1,32,299","1,10,187",18.8%,15.7%,Above 12%,Above 12%,"6,89,641","1,24,390","1,02,267",18.0%,14.8%,"6,72,408","1,25,367","1,03,165",18.6%,15.3%
+206,INAPAKP50002,VENKATA PADMA ENTERPRISES THUMMAPALA ANAKAPALLE,AP,COFO,29-09-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"1,68,933","23,540","33,885",13.9%,20.1%,Above 12%,Above 12%,"1,91,950","22,749","43,909",11.9%,22.9%,"1,77,015","23,286","30,626",13.2%,17.3%
+207,INAPSKM50006,VMC PHARMACY L N PETA JUNCTION ROTARY NAGAR,AP,COFO,25-12-2025,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Tangudu Saikumar,"2,13,368","16,429","28,591",7.7%,13.4%,5 - 8%,Above 12%,"2,19,179","16,666","21,454",7.6%,9.8%,"2,17,322","18,089","28,158",8.3%,13.0%
+208,INAPPIT50002,YAVE PHARMACY MULAPETA VILLAGE,AP,COFO,07-02-2026,VADDAY SATYANARAYANA RAO,Raikindi Prem Kumar,Torlapati Sandeep,Gudla Lokesh,"2,08,846","14,881","33,649",7.1%,16.1%,5 - 8%,Above 12%,"1,89,786","13,748","26,862",7.2%,14.2%,"1,96,331","15,170","32,465",7.7%,16.5%
+209,INPYYNM00001,MEDPLUS PILLARAYA STREET YANAM,PY,COCO,22-12-2021,Datla Vivekananda Varma,Raikindi Prem Kumar,Kesarapu Lakshman Rao,Parri Appalanaidlu,"13,62,727","2,31,018","1,86,541",17.0%,13.7%,Above 12%,Above 12%,"13,18,444","2,24,602","1,84,288",17.0%,14.0%,"13,17,956","2,10,671","1,74,311",16.0%,13.2%
+Total,,,,,,,,,,"13,54,02,351","2,12,11,036","2,02,57,098",15.7%,15.0%,,,"13,17,93,160","2,04,51,874","1,94,50,579",15.5%,14.8%,"13,29,48,368","2,01,87,335","1,97,52,743",15.2%,14.9%
