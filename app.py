@@ -173,10 +173,10 @@ else:
     tot_sales = f_df['MTD NetSale'].sum()
     pharma_pct = (f_df['PL Pharma NetSale'].sum() / tot_sales * 100) if tot_sales > 0 else 0.0
     non_pharma_pct = (f_df['PL NonPharma NetSale'].sum() / tot_sales * 100) if tot_sales > 0 else 0.0
-    
     pm1_sales = f_df['Net Sale PM1'].sum()
     pm1_pharma_pct = (f_df['Pharma PM1'].sum() / pm1_sales * 100) if pm1_sales > 0 else 0.0
     pm1_non_pharma_pct = (f_df['NON Pharma PM1'].sum() / pm1_sales * 100) if pm1_sales > 0 else 0.0
+    
     pm2_sales = f_df['Net Sale PM2'].sum()
     pm2_pharma_pct = (f_df['Pharma PM2'].sum() / pm2_sales * 100) if pm2_sales > 0 else 0.0
     pm2_non_pharma_pct = (f_df['NON Pharma PM2'].sum() / pm2_sales * 100) if pm2_sales > 0 else 0.0
@@ -226,7 +226,6 @@ else:
         st.metric(label="🛍️ Non-Pharma % Diff (1M)", value=f"{non_pharma_diff_1m:+.2f}%", delta=f"{non_pharma_diff_1m:.2f}%")
         
     st.markdown("---")
-
     # 7. PROACTIVE MARGIN RESCUE & TRAFFIC SIMULATION INTERFACE
     st.subheader("🔮 Predictive Margin Optimization Dashboard")
     st.markdown("### Interactive Profitability Scenario Modeling")
@@ -236,6 +235,7 @@ else:
         st.markdown("#### Scenario Metrics Control")
         recovery_pct = st.slider("Target Revenue Recovery % from Leaking Stores", min_value=0, max_value=100, value=10, step=5)
         pl_boost = st.slider("Target Private Label Penetration Growth % (Network-Wide)", min_value=0, max_value=25, value=5, step=1)
+    
     with sim_col2:
         brand_margin_rate = 0.18
         pl_margin_rate = 0.42
@@ -319,42 +319,82 @@ else:
 
     st.dataframe(styled_super_summary, use_container_width=True, hide_index=True)
     st.markdown("---")
-    # 9. Dual-Dimensional Network Pacing Trends (Leakage vs Generation Chart Panels)
+    # 9. DUAL-DIMENSIONAL RETRACTION TRENDS & PORTFOLIO BREAKDOWN VISUALS
+    st.header(f"📈 Strategic Visual Performance Framework — Active Filter: {selected_sup}")
+    
     chart_col1, chart_col2 = st.columns(2)
     with chart_col1:
         st.subheader("📉 Top 10 Revenue Leaking Outlets")
-        leaking_stores = f_df.nsmallest(10, 'Net_Variance_Vs_PM1')
-        leaking_stores['Absolute_Leakage'] = abs(leaking_stores['Net_Variance_Vs_PM1'])
-        fig_leak = px.bar(
-            leaking_stores, x='Absolute_Leakage', y='StoreName', orientation='h',
-            title="Highest Value Drops (Current Month vs PM1)",
-            color='Absolute_Leakage', color_continuous_scale='Reds',
-            labels={'Absolute_Leakage': 'Net Revenue Lost (₹)', 'StoreName': 'Location'}
-        )
-        fig_leak.update_layout(yaxis={'categoryorder':'total ascending'}, coloraxis_showscale=False)
-        st.plotly_chart(fig_leak, use_container_width=True)
+        leaking_stores = f_df[f_df['Net_Variance_Vs_PM1'] < 0]
+        if not leaking_stores.empty:
+            leaking_top10 = leaking_stores.nsmallest(10, 'Net_Variance_Vs_PM1')
+            leaking_top10['Absolute_Leakage'] = abs(leaking_top10['Net_Variance_Vs_PM1'])
+            fig_leak = px.bar(
+                leaking_top10, x='Absolute_Leakage', y='StoreName', orientation='h',
+                title="Highest Value Drops (Current Month vs PM1)",
+                color='Absolute_Leakage', color_continuous_scale='Reds',
+                labels={'Absolute_Leakage': 'Net Revenue Lost (₹)', 'StoreName': 'Location'}
+            )
+            fig_leak.update_layout(yaxis={'categoryorder':'total ascending'}, coloraxis_showscale=False)
+            st.plotly_chart(fig_leak, use_container_width=True)
+        else:
+            st.info("🟢 Zero revenue leaking outlets identified inside this specific filtered territory pool.")
 
     with chart_col2:
         st.subheader("📈 Top 10 Revenue Generating Outlets")
-        generating_stores = f_df.nlargest(10, 'Net_Variance_Vs_PM1')
-        fig_gen = px.bar(
-            generating_stores, x='Net_Variance_Vs_PM1', y='StoreName', orientation='h',
-            title="Highest Value Gains (Current Month vs PM1)",
-            color='Net_Variance_Vs_PM1', color_continuous_scale='Greens',
-            labels={'Net_Variance_Vs_PM1': 'Net Revenue Gained (₹)', 'StoreName': 'Location'}
+        generating_stores = f_df[f_df['Net_Variance_Vs_PM1'] >= 0]
+        if not generating_stores.empty:
+            generating_top10 = generating_stores.nlargest(10, 'Net_Variance_Vs_PM1')
+            fig_gen = px.bar(
+                generating_top10, x='Net_Variance_Vs_PM1', y='StoreName', orientation='h',
+                title="Highest Value Gains (Current Month vs PM1)",
+                color='Net_Variance_Vs_PM1', color_continuous_scale='Greens',
+                labels={'Net_Variance_Vs_PM1': 'Net Revenue Gained (₹)', 'StoreName': 'Location'}
+            )
+            fig_gen.update_layout(yaxis={'categoryorder':'total ascending'}, coloraxis_showscale=False)
+            st.plotly_chart(fig_gen, use_container_width=True)
+        else:
+            st.info("⚠️ Zero growth outlets identified inside this specific filtered territory pool.")
+
+    st.markdown("---")
+    
+    # 4-Category Operational Split Pie Layout Row Injection
+    pie_layout_col1, pie_layout_col2 = st.columns([1, 2])
+    with pie_layout_col1:
+        st.subheader("📊 Portfolio Health Composition")
+        st.markdown(f"Operational health trajectory distribution split for **{selected_sup}** across four primary performance quadrants.")
+        
+        class_counts = f_df['Operational Classification'].value_counts().reset_index()
+        class_counts.columns = ['Classification', 'Count']
+        
+        fig_pie = px.pie(
+            class_counts, values='Count', names='Classification', color='Classification',
+            color_discrete_map={
+                '💥 Critical Core Decline (2M Drop)': '#dc2626',
+                '🚨 High Risk Shift (1M Drop)': '#f59e0b',
+                '🔄 Volatile Swing Outlet': '#38bdf8',
+                '⭐ Shooting Star Outlet': '#10b981'
+            },
+            title="Operational Split for Filtered Portfolio"
         )
-        fig_gen.update_layout(yaxis={'categoryorder':'total ascending'}, coloraxis_showscale=False)
-        st.plotly_chart(fig_gen, use_container_width=True)
+        st.plotly_chart(fig_pie, use_container_width=True)
+        
+    with pie_layout_col2:
+        st.subheader("📋 Executive Trajectory Definition Key")
+        st.markdown("""
+        * 🟥 **Critical Core Decline (2M Drop)**: Core revenue is down both MoM and against the longer-term two-month average ledger baseline. *Immediate intervention required.*
+        * 🟧 **High Risk Shift (1M Drop)**: Down this month against last month, but still pacing above the two-month running baseline average. *Requires close monitoring.*
+        * 🪪 **Volatile Swing Outlet**: Generated positive gains this month but remains below its cumulative two-month average due to deep historic drops. *Stabilizing path.*
+        * 🟩 **Shooting Star Outlet**: Outperforming on both vectors. Volume is up MoM and completely tracking above the long-term running baseline average. *Pacing template.*
+        """)
         
     st.markdown("---")
-
     # 10. RE-BRANDED STORE PERFORMANCE LEADERBOARD WITH SECURE STOREID KEYS
     st.subheader("🏆 Store Performance Leaderboard")
     st.markdown("Ranks branches based on absolute 1-month revenue variances. Growing outlets display in green with explicit '+' headers.")
     
     leaderboard_df = f_df.copy().sort_values(by="Net_Variance_Vs_PM1", ascending=False).reset_index(drop=True)
     
-    # Securely map StoreID into the display column arrays
     leader_cols = ["StoreID", "StoreName", "Manager", "Supervisor", "MTD NetSale", "Net Sale PM1", "Net_Variance_Vs_PM1"]
     display_leader_df = leaderboard_df[leader_cols].copy()
 
@@ -387,7 +427,6 @@ else:
     st.subheader("🔬 Operational Target Drilldown Control Panel")
     st.markdown("**Color Code Key:** 🟥 Red = 2-Month Degrowth | 🟧 Orange = 1-Month Degrowth | 🟪 Blue = 1-Month Growth | 🟩 Green = 2-Month Growth")
     
-    # FIXED: Re-injected the missing 4th category option to provide comprehensive operational tracking
     selected_class = st.selectbox(
         "Isolate Stores by Management Classification Profile:", 
         [
