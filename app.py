@@ -1,4 +1,3 @@
-# Save this file exactly as app.py inside your project folder
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -67,7 +66,7 @@ else:
     df['Pharma_Variance_Vs_PM2'] = df['Pharma PM1'] - df['Pharma PM2']
     
     df['NonPharma_Variance_Vs_PM1'] = df['PL NonPharma NetSale'] - df['NON Pharma PM1']
-    df['NonPharma_Variance_Vs_PM2'] = df['NON Pharma PM1'] - df['NON Pharma PM2']
+    df['NonPharma_Variance_Vs_PM2'] = df['NON Pharma PM1'] - df['NonPharma_Variance_Vs_PM2']
 
     # Private Label Capture Penetration Math
     df['Pharma_PL_Share'] = (df['PL Pharma NetSale'] / df['MTD NetSale'].replace(0, 1) * 100).fillna(0.0)
@@ -209,7 +208,57 @@ else:
         st.plotly_chart(fig_leak, use_container_width=True)
 
     st.markdown("---")
-
     # 9. Granular Command Ledger Explorer View
     st.subheader("🔬 Operational Target Drilldown Control Panel")
-st.markdown("Color Code Key: 🟥 Red = 2-Month Degrowth | 🟧 Orange = 1-Month Degrowth | 🟪 Blue = 1-Month Growth | 🟩 Green = 2-Month Growth")selected_class = st.selectbox("Isolate Stores by Management Classification Profile:",["Show All Stores", "Isolate 💥 Critical Core Decline (2M Drop) Only", "Isolate 🚨 High Risk Shift (1M Drop) Only", "Isolate ⭐ Shooting Star Benchmarks Only"])display_grid_df = df.copy()if "Critical Core Decline" in selected_class:display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "💥 Critical Core Decline (2M Drop)"]elif "High Risk Shift" in selected_class:display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "🚨 High Risk Shift (1M Drop)"]elif "Shooting Star" in selected_class:display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "⭐ Shooting Star Outlet"]# Segment Cell-by-Cell Background Painting Matrix Enginedef color_cells_by_segment(val_df):style_df = pd.DataFrame('', index=val_df.index, columns=val_df.columns)def match_style(v1, v2):if v1 < 0 and v2 < 0:return 'background-color: #ffcccc; color: #cc0000; font-weight: bold;' # Redelif v1 < 0 and v2 >= 0:return 'background-color: #ffe6cc; color: #d97706;' # Orangeelif v1 >= 0 and v2 < 0:return 'background-color: #e0f2fe; color: #0284c7;' # Blueelse:return 'background-color: #d1fae5; color: #16a34a;' # Greenfor idx in val_df.index:style_df.loc[idx, 'MTD NetSale'] = match_style(val_df.loc[idx, 'Net_Variance_Vs_PM1'], val_df.loc[idx, 'Net_Variance_Vs_PM2'])style_df.loc[idx, 'PL Pharma NetSale'] = match_style(val_df.loc[idx, 'Pharma_Variance_Vs_PM1'], val_df.loc[idx, 'Pharma_Variance_Vs_PM2'])style_df.loc[idx, 'PL NonPharma NetSale'] = match_style(val_df.loc[idx, 'NonPharma_Variance_Vs_PM1'], val_df.loc[idx, 'NonPharma_Variance_Vs_PM2'])return style_dfdisplay_grid_cols = ["StoreName", "Supervisor", "Manager","MTD NetSale", "Net_Variance_Vs_PM1", "Net_Variance_Vs_PM2","PL Pharma NetSale", "Pharma_Variance_Vs_PM1", "Pharma_Variance_Vs_PM2","PL NonPharma NetSale", "NonPharma_Variance_Vs_PM1", "NonPharma_Variance_Vs_PM2","Strategic Action Plan (POA)"]visible_cols = ["StoreName", "Supervisor", "Manager", "MTD NetSale", "PL Pharma NetSale", "PL NonPharma NetSale", "Strategic Action Plan (POA)"]final_styled_grid = display_grid_df[display_grid_cols].sort_values(by="Net_Variance_Vs_PM1", ascending=True).style.apply(color_cells_by_segment, axis=None).format({"MTD NetSale": "₹{:,.2f}","PL Pharma NetSale": "₹{:,.2f}","PL NonPharma NetSale": "₹{:,.2f}"})st.dataframe(final_styled_grid, columns=visible_cols, use_container_width=True)
+    st.markdown("**Color Code Key:** 🟥 Red = 2-Month Degrowth | 🟧 Orange = 1-Month Degrowth | 🟪 Blue = 1-Month Growth | 🟩 Green = 2-Month Growth")
+
+    selected_class = st.selectbox(
+        "Isolate Stores by Management Classification Profile:", 
+        ["Show All Stores", "Isolate 💥 Critical Core Decline (2M Drop) Only", "Isolate 🚨 High Risk Shift (1M Drop) Only", "Isolate ⭐ Shooting Star Benchmarks Only"]
+    )
+    
+    display_grid_df = df.copy()
+    if "Critical Core Decline" in selected_class:
+        display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "💥 Critical Core Decline (2M Drop)"]
+    elif "High Risk Shift" in selected_class:
+        display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "🚨 High Risk Shift (1M Drop)"]
+    elif "Shooting Star" in selected_class:
+        display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "⭐ Shooting Star Outlet"]
+
+    # Segment Cell-by-Cell Background Painting Matrix Engine
+    def color_cells_by_segment(val_df):
+        style_df = pd.DataFrame('', index=val_df.index, columns=val_df.columns)
+        
+        def match_style(v1, v2):
+            if v1 < 0 and v2 < 0:
+                return 'background-color: #ffcccc; color: #cc0000; font-weight: bold;'
+            elif v1 < 0 and v2 >= 0:
+                return 'background-color: #ffe6cc; color: #d97706;'
+            elif v1 >= 0 and v2 < 0:
+                return 'background-color: #e0f2fe; color: #0284c7;'
+            else:
+                return 'background-color: #d1fae5; color: #16a34a;'
+
+        for idx in val_df.index:
+            style_df.loc[idx, 'MTD NetSale'] = match_style(val_df.loc[idx, 'Net_Variance_Vs_PM1'], val_df.loc[idx, 'Net_Variance_Vs_PM2'])
+            style_df.loc[idx, 'PL Pharma NetSale'] = match_style(val_df.loc[idx, 'Pharma_Variance_Vs_PM1'], val_df.loc[idx, 'Pharma_Variance_Vs_PM2'])
+            style_df.loc[idx, 'PL NonPharma NetSale'] = match_style(val_df.loc[idx, 'NonPharma_Variance_Vs_PM1'], val_df.loc[idx, 'NonPharma_Variance_Vs_PM2'])
+        return style_df
+
+    display_grid_cols = [
+        "StoreName", "Supervisor", "Manager", 
+        "MTD NetSale", "Net_Variance_Vs_PM1", "Net_Variance_Vs_PM2",
+        "PL Pharma NetSale", "Pharma_Variance_Vs_PM1", "Pharma_Variance_Vs_PM2",
+        "PL NonPharma NetSale", "NonPharma_Variance_Vs_PM1", "NonPharma_Variance_Vs_PM2",
+        "Strategic Action Plan (POA)"
+    ]
+    
+    visible_cols = ["StoreName", "Supervisor", "Manager", "MTD NetSale", "PL Pharma NetSale", "PL NonPharma NetSale", "Strategic Action Plan (POA)"]
+
+    final_styled_grid = display_grid_df[display_grid_cols].sort_values(by="Net_Variance_Vs_PM1", ascending=True).style.apply(color_cells_by_segment, axis=None).format({
+        "MTD NetSale": "₹{:,.2f}",
+        "PL Pharma NetSale": "₹{:,.2f}",
+        "PL NonPharma NetSale": "₹{:,.2f}"
+    })
+
+    st.dataframe(final_styled_grid, columns=visible_cols, use_container_width=True)
