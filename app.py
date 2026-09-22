@@ -4,7 +4,7 @@ import plotly.express as px
 import io
 import re
 
-# 1. Page Configuration & Professional Boardroom Typography/Styles
+# 1. Page Configuration & Sophisticated Boardroom Typography/Styles
 st.set_page_config(page_title="Executive Operations Turnaround Command", layout="wide")
 
 st.markdown("""
@@ -66,7 +66,6 @@ def load_data_with_temporal_parse():
         with open("sales_data.csv", "r", encoding="utf-8", errors="ignore") as f:
             first_line = f.readline()
         
-        # Regex to scan for dd-mm-yyyy or dd/mm/yyyy string profiles in the header row
         date_match = re.search(r'(\d{1,2})[-/](\d{1,2})[-/](\d{4})', first_line)
         if date_match:
             extracted_days = int(date_match.group(1))
@@ -117,7 +116,7 @@ def load_data_with_temporal_parse():
 
 df, mtd_days_elapsed = load_data_with_temporal_parse()
 if df.empty:
-    st.warning("⚠️ Critical: 'sales_data.csv' missing from repository workspace.")
+    st.warning("⚠️ Critical: 'sales_data.csv' missing from repository.")
 else:
     # 4. Analytics Computation Layer
     df['Net_Variance_Vs_PM1'] = df['MTD NetSale'] - df['Net Sale PM1']
@@ -128,7 +127,7 @@ else:
     df['Pharma_Variance_Vs_PM1'] = df['PL Pharma NetSale'] - df['Pharma PM1']
     df['Pharma_Variance_Vs_PM2'] = df['Pharma PM1'] - df['Pharma PM2']
     df['NonPharma_Variance_Vs_PM1'] = df['PL NonPharma NetSale'] - df['NON Pharma PM1']
-    df['NonPharma_Variance_Vs_PM2'] = df['NON Pharma PM1'] - df['NonPharma_Variance_Vs_NM2' if 'NonPharma_Variance_Vs_NM2' in df.columns else 'NON Pharma PM2']
+    df['NonPharma_Variance_Vs_PM2'] = df['NON Pharma PM1'] - df['NON Pharma PM2']
     
     df['Total_PL_Sales'] = df['PL Pharma NetSale'] + df['PL NonPharma NetSale']
 
@@ -183,7 +182,7 @@ else:
     df['Manager Action Plan (POA)'] = df.apply(build_manager_poa, axis=1)
     df['Supervisor Strategic Mandate'] = df.apply(build_supervisor_poa, axis=1)
 
-    # 6. MASTER DATA HUB - CONSOLIDATED DOWNLOAD AT START
+    # 5. MASTER DATA HUB - CONSOLIDATED DOWNLOAD AT START
     st.subheader("📥 Master Operational Data Hub")
     master_buffer = io.BytesIO()
     with pd.ExcelWriter(master_buffer, engine='xlsxwriter') as excel_writer:
@@ -201,7 +200,7 @@ else:
     )
     st.markdown("---")
 
-    # 7. DYNAMIC SUPERVISOR PERFORMANCE COMMAND CENTER
+    # 6. DYNAMIC SUPERVISOR PERFORMANCE COMMAND CENTER
     st.subheader("📌 Corporate Network Financial Health Command")
     st.info(f"📆 Temporal Context Engine Auto-Detected: **{mtd_days_elapsed} Days Elapsed** in the current tracking period.")
     
@@ -297,7 +296,7 @@ else:
         st.metric(label="🛍️ Non-Pharma % Diff (1M)", value=f"{non_pharma_diff_1m:+.2f}%")
         st.markdown(f"<div class='custom-subtext'>Mix Shift: {arrow_nf} {abs(non_pharma_diff_1m):.2f}%</div>", unsafe_allow_html=True)
         
-    # INTEGRATED TIER-2 VALUES TRACKING MATRIX (WITH RE-BUILT GREEN FOR GROWTH RULE)
+    # INTEGRATED TIER-2 VALUES TRACKING MATRIX
     st.markdown("##### 💰 Dynamic Tier-2 Financial Velocity Tracking Matrix")
     t2_col1, t2_col2, t2_col3, t2_col4 = st.columns(4)
     
@@ -384,77 +383,67 @@ else:
     st.dataframe(styled_super_summary, use_container_width=True, hide_index=True)
     st.markdown("---")
 
-    # 9. DUAL-DIMENSIONAL RETRACTION TRENDS & PORTFOLIO BREAKDOWN VISUALS
-    st.header("📈 Strategic Visual Performance Framework")
+    # 9. HIGH-COMPRESSION TRI-COLUMN EXECUTIVE VISUALIZATION CORE
+    st.subheader("📈 Strategic Visual Performance Framework")
     
     chart_supervisors = ["All Supervisors"] + sorted(list(df['Supervisor'].dropna().unique()))
     chart_selected_sup = st.selectbox("🔍 Filter Visual Framework Charts by Supervisor:", chart_supervisors, key="visual_framework_sup_filter")
     
     chart_df = df if chart_selected_sup == "All Supervisors" else df[df['Supervisor'] == chart_selected_sup]
-    chart_col1, chart_col2 = st.columns(2)
-    with chart_col1:
-        st.subheader("📉 Top 10 Revenue Leaking Outlets")
+    # FIXED: Placed both bar charts and the operational pie chart directly side-by-side inside a high-compression 3-column system
+    v_col1, v_col2, v_col3 = st.columns(3)
+    
+    with v_col1:
         leaking_stores = chart_df[chart_df['Net_Variance_Vs_PM1'] < 0]
         if not leaking_stores.empty:
             leaking_top10 = leaking_stores.nsmallest(10, 'Net_Variance_Vs_PM1')
             leaking_top10['Absolute_Leakage'] = abs(leaking_top10['Net_Variance_Vs_PM1'])
             fig_leak = px.bar(
                 leaking_top10, x='Absolute_Leakage', y='StoreName', orientation='h',
-                title="Highest Value Drops (Current Month vs PM1)",
-                color='Absolute_Leakage', color_continuous_scale='Reds',
-                labels={'Absolute_Leakage': 'Net Revenue Lost (₹)', 'StoreName': 'Location'}
+                title="Top 10 Leakages (vs PM1)", color='Absolute_Leakage', color_continuous_scale='Reds',
+                labels={'Absolute_Leakage': 'Lost (₹)', 'StoreName': 'Location'}
             )
-            fig_leak.update_layout(yaxis={'categoryorder':'total ascending'}, coloraxis_showscale=False)
+            fig_leak.update_layout(yaxis={'categoryorder':'total ascending'}, coloraxis_showscale=False, margin=dict(l=10, r=10, t=30, b=10))
             st.plotly_chart(fig_leak, use_container_width=True)
         else:
-            st.info(f"🟢 Zero revenue leaking outlets inside {chart_selected_sup}'s territory pool.")
+            st.info("🟢 Zero revenue leaking outlets inside this pool.")
 
-    with chart_col2:
-        st.subheader("📈 Top 10 Revenue Generating Outlets")
+    with v_col2:
         generating_stores = chart_df[chart_df['Net_Variance_Vs_PM1'] >= 0]
         if not generating_stores.empty:
             generating_top10 = generating_stores.nlargest(10, 'Net_Variance_Vs_PM1')
             fig_gen = px.bar(
                 generating_top10, x='Net_Variance_Vs_PM1', y='StoreName', orientation='h',
-                title="Highest Value Gains (Current Month vs PM1)",
-                color='Net_Variance_Vs_PM1', color_continuous_scale='Greens',
-                labels={'Net_Variance_Vs_PM1': 'Net Revenue Gained (₹)', 'StoreName': 'Location'}
+                title="Top 10 Gains (vs PM1)", color='Net_Variance_Vs_PM1', color_continuous_scale='Greens',
+                labels={'Net_Variance_Vs_PM1': 'Gained (₹)', 'StoreName': 'Location'}
             )
-            fig_gen.update_layout(yaxis={'categoryorder':'total ascending'}, coloraxis_showscale=False)
+            fig_gen.update_layout(yaxis={'categoryorder':'total ascending'}, coloraxis_showscale=False, margin=dict(l=10, r=10, t=30, b=10))
             st.plotly_chart(fig_gen, use_container_width=True)
         else:
-            st.info(f"⚠️ Zero growth outlets identified inside {chart_selected_sup}'s territory pool.")
+            st.info("⚠️ Zero growth outlets identified inside this pool.")
 
-    st.markdown("---")
-    
-    # 4-Category Operational Split Pie Layout Row Injection with Condensed Drop-down Definitions
-    pie_layout_col1, pie_layout_col2 = st.columns(2)
-    with pie_layout_col1:
-        st.subheader("📊 Portfolio Health Composition")
+    with v_col3:
         class_counts = chart_df['Operational Classification'].value_counts().reset_index()
         class_counts.columns = ['Classification', 'Count']
-        
         fig_pie = px.pie(
             class_counts, values='Count', names='Classification', color='Classification',
             color_discrete_map={
-                '💥 Critical Core Decline (2M Drop)': '#dc2626',
-                '🚨 High Risk Shift (1M Drop)': '#f59e0b',
-                '🔄 Volatile Swing Outlet': '#38bdf8',
-                '⭐ Shooting Star Outlet': '#10b981'
+                '💥 Critical Core Decline (2M Drop)': '#dc2626', '🚨 High Risk Shift (1M Drop)': '#f59e0b',
+                '🔄 Volatile Swing Outlet': '#38bdf8', '⭐ Shooting Star Outlet': '#10b981'
             },
-            title="Operational Split for Filtered Portfolio"
+            title="Portfolio Composition"
         )
+        fig_pie.update_layout(margin=dict(l=10, r=10, t=30, b=10))
         st.plotly_chart(fig_pie, use_container_width=True)
         
-    with pie_layout_col2:
-        st.subheader("📋 Trajectory Matrix Guidelines")
-        with st.expander("Quadrant Keys Definition", expanded=False):
-            st.markdown("""
-            * 🟥 **Critical Core Decline (2M Drop)**: Down MoM and down below long-term 2M baseline average. *Critical risk.*
-            * 🟧 **High Risk Shift (1M Drop)**: Down MoM but still running above the long-term historical 2M average baseline.
-            * 🪪 **Volatile Swing Outlet**: Up MoM but remains below 2M running baseline average due to heavy historic drops.
-            * 🟩 **Shooting Star Outlet**: Up MoM and pacing securely above the long-term 2M running baseline average. *Elite pacing.*
-            """)
+    # FIXED: Guidelines and definition metrics compressed completely into a clean drop-down note
+    with st.expander("📖 Short Note: Trajectory Quadrant Definitions", expanded=False):
+        st.markdown("""
+        * **💥 Critical Core Decline (2M Drop)**: Down MoM and down below long-term 2M baseline average. *Critical risk.*
+        * **🚨 High Risk Shift (1M Drop)**: Down MoM but still running above the long-term historical 2M average baseline.
+        * **🔄 Volatile Swing Outlet**: Up MoM but remains below 2M running baseline average due to deep historic drops.
+        * **⭐ Shooting Star Outlet**: Up MoM and pacing securely above the long-term 2M running baseline average. *Elite pacing.*
+        """)
         
     st.markdown("---")
 
@@ -488,10 +477,7 @@ else:
                 style_df.loc[idx, 'Net Variance (1M)'] = 'color: #b91c1c; font-weight: bold; background-color: #ffcccc;'
         return style_df
 
-    st.dataframe(
-        display_leader_df[final_leader_cols].style.apply(final_text_styler, axis=None), 
-        use_container_width=True, hide_index=True
-    )
+    st.dataframe(display_leader_df[final_leader_cols].style.apply(final_text_styler, axis=None), use_container_width=True, hide_index=True)
     st.markdown("---")
 
     # 11. Granular Executive Command Grid View
@@ -533,7 +519,8 @@ else:
             style_df.loc[idx, 'PL NonPharma NetSale'] = match_style(display_grid_df.loc[idx, 'NonPharma_Variance_Vs_PM1'], display_grid_df.loc[idx, 'NonPharma_Variance_Vs_PM2'])
         return style_df
 
-    visible_cols = ["StoreName", "Supervisor", "Manager", "MTD NetSale", "PL Pharma NetSale", "PL NonPharma NetSale", "Manager Action Plan (POA)", "Supervisor Strategic Mandate"]
+    # FIXED: Added StoreID explicitly to the drilldown matrix column collection array
+    visible_cols = ["StoreID", "StoreName", "Supervisor", "Manager", "MTD NetSale", "PL Pharma NetSale", "PL NonPharma NetSale", "Manager Action Plan (POA)", "Supervisor Strategic Mandate"]
     
     filtered_display_df = display_grid_df[visible_cols].copy()
     filtered_display_df['MTD NetSale'] = filtered_display_df['MTD NetSale'].apply(format_indian_currency)
