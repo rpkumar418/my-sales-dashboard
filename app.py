@@ -12,17 +12,52 @@ st.markdown("""
     [data-testid="stMetricLabel"] { font-size: 13px !important; font-weight: 600 !important; color: #475569 !important; }
     .custom-subtext { font-size: 11px; color: #64748b; margin-top: -8px; margin-bottom: 12px; font-weight: 500; }
     .poa-container { background-color: #fef2f2; border: 1px solid #fee2e2; padding: 15px; border-radius: 8px; color: #991b1b; font-family: monospace; white-space: pre-wrap; }
-    .medplus-logo-box { background-color: #e11d48; color: #ffffff; font-family: Arial, sans-serif; font-size: 28px; font-weight: 800; padding: 6px 20px; border-radius: 6px; display: inline-block; letter-spacing: -1px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-top: 15px; }
+    
+    /* Elegant Inline Branding Flexbox Matrix */
+    .brand-header-container {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+    .medplus-logo-box { 
+        background-color: #e11d48; 
+        color: #ffffff; 
+        font-family: Arial, sans-serif; 
+        font-size: 32px; 
+        font-weight: 800; 
+        padding: 6px 22px; 
+        border-radius: 6px; 
+        display: inline-block; 
+        letter-spacing: -1px; 
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); 
+    }
     .medplus-plus-sign { color: #22c55e; font-weight: 900; margin-left: 2px; }
+    .title-text-box h1 {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 34px !important;
+        color: #0f172a !important;
+    }
+    .title-text-box h5 {
+        margin: 4px 0 0 0 !important;
+        padding: 0 !important;
+        color: #64748b !important;
+    }
     </style>
 """, unsafe_allow_html=True)
 
-col_logo, col_title = st.columns([1, 6])
-with col_logo:
-    st.markdown('<div class="medplus-logo-box">MedPlus<span class="medplus-plus-sign">+</span></div>', unsafe_allow_html=True)
-with col_title:
-    st.title("Supervisor Performance Dashboard")
-    st.markdown("##### Enterprise Margin Optimization & Turnaround Engine")
+# FIXED: Re-engineered inline flex layout to prevent header collapsing issues
+st.markdown("""
+    <div class="brand-header-container">
+        <div class="medplus-logo-box">MedPlus<span class="medplus-plus-sign">+</span></div>
+        <div class="title-text-box">
+            <h1>Supervisor Performance Dashboard</h1>
+            <h5>Enterprise Margin Optimization & Turnaround Engine</h5>
+        </div>
+    </div>
+""", unsafe_allow_html=True)
 st.markdown("---")
 
 def format_indian_currency(number):
@@ -105,7 +140,6 @@ else:
     master_buffer = io.BytesIO()
     with pd.ExcelWriter(master_buffer, engine='xlsxwriter') as writer:
         export_cols = ["StoreID", "StoreName", "Supervisor", "Manager", "MTD NetSale", "Net Sale PM1", "Net Sale PM2", "PL Pharma NetSale", "PL NonPharma NetSale", "Net_Variance_Vs_PM1", "Operational Classification"]
-        # FIXED: Resolved NameError on variable mapping lookup lists
         valid_cols = [col for col in export_cols if col in df.columns]
         df[valid_cols].sort_values(by="Net_Variance_Vs_PM1", ascending=True).to_excel(writer, sheet_name="MasterRegistry", index=False)
     st.download_button("📥 Download Master Operations & POA Report (.xlsx)", master_buffer.getvalue(), "Master_Operations_Turnaround_Registry.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
@@ -120,9 +154,12 @@ else:
     tot_sales = f_df['MTD NetSale'].sum()
     ph_pct = (f_df['PL Pharma NetSale'].sum() / tot_sales * 100) if tot_sales > 0 else 0.0
     np_pct = (f_df['PL NonPharma NetSale'].sum() / tot_sales * 100) if tot_sales > 0 else 0.0
+    
+    # FIXED: Re-mapped metric names defensively to completely erase the line 145 NameError
     pm1_sales = f_df['Net Sale PM1'].sum()
     pm1_ph_pct = (f_df['Pharma PM1'].sum() / pm1_sales * 100) if pm1_sales > 0 else 0.0
     pm1_np_pct = (f_df['NON Pharma PM1'].sum() / pm1_sales * 100) if pm1_sales > 0 else 0.0
+    
     pm2_sales = f_df['Net Sale PM2'].sum()
     pm2_ph_pct = (f_df['Pharma PM2'].sum() / pm2_sales * 100) if pm2_sales > 0 else 0.0
     pm2_np_pct = (f_df['NON Pharma PM2'].sum() / pm2_sales * 100) if pm2_sales > 0 else 0.0
@@ -142,7 +179,7 @@ else:
     r2_c1, r2_c2, r2_c3 = st.columns(3)
     r2_c1.metric("🗓️ PM1 Network Gross Sales", format_indian_currency(pm1_sales))
     r2_c1.markdown(f"<div class='custom-subtext'>▼ Daily Store Avg: {format_indian_currency(pm1_sales/num_stores/mtd_days_elapsed)}</div>", unsafe_allow_html=True)
-    r2_c2.metric("💊 PM1 Pharma %", f"{pm1_pharma_pct:.2f}%")
+    r2_c2.metric("💊 PM1 Pharma %", f"{pm1_ph_pct:.2f}%")
     r2_c2.markdown("<div class='custom-subtext'>Historical Baseline</div>", unsafe_allow_html=True)
     r2_c3.metric("🛍️ PM1 Non-Pharma %", f"{pm1_np_pct:.2f}%")
     r2_c3.markdown("<div class='custom-subtext'>Historical Baseline</div>", unsafe_allow_html=True)
@@ -150,7 +187,7 @@ else:
     r3_c1, r3_c2, r3_c3 = st.columns(3)
     r3_c1.metric("🗓️ PM2 Network Gross Sales", format_indian_currency(pm2_sales))
     r3_c1.markdown(f"<div class='custom-subtext'>▼ Daily Store Avg: {format_indian_currency(pm2_sales/num_stores/mtd_days_elapsed)}</div>", unsafe_allow_html=True)
-    r3_c2.metric("💊 PM2 Pharma %", f"{pm2_pharma_pct:.2f}%")
+    r3_c2.metric("💊 PM2 Pharma %", f"{pm2_ph_pct:.2f}%")
     r3_c2.markdown("<div class='custom-subtext'>Historical Baseline</div>", unsafe_allow_html=True)
     r3_c3.metric("🛍️ PM2 Non-Pharma %", f"{pm2_np_pct:.2f}%")
     r3_c3.markdown("<div class='custom-subtext'>Historical Baseline</div>", unsafe_allow_html=True)
