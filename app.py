@@ -1,3 +1,4 @@
+# Save this file exactly as app.py inside your project folder
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -5,7 +6,7 @@ import io
 
 # 1. Premium Page Setup
 st.set_page_config(page_title="Supervisor Performance Dashboard", layout="wide")
-st.title("🦅 Supervisor Performance Dashboard")
+st.title("📊 Supervisor Performance Dashboard")
 st.markdown("### Strategic Turnaround Management Network Platform")
 st.markdown("---")
 
@@ -61,8 +62,12 @@ else:
     # 3. Advanced Retail Analytics Computation Engine
     df['Net_Variance_Vs_PM1'] = df['MTD NetSale'] - df['Net Sale PM1']
     df['Net_Variance_Vs_PM2'] = df['Net Sale PM1'] - df['Net Sale PM2']
+    
     df['Pharma_Variance_Vs_PM1'] = df['PL Pharma NetSale'] - df['Pharma PM1']
+    df['Pharma_Variance_Vs_PM2'] = df['Pharma PM1'] - df['Pharma PM2']
+    
     df['NonPharma_Variance_Vs_PM1'] = df['PL NonPharma NetSale'] - df['NON Pharma PM1']
+    df['NonPharma_Variance_Vs_PM2'] = df['NON Pharma PM1'] - df['NON Pharma PM2']
 
     # Private Label Capture Penetration Math
     df['Pharma_PL_Share'] = (df['PL Pharma NetSale'] / df['MTD NetSale'].replace(0, 1) * 100).fillna(0.0)
@@ -78,18 +83,26 @@ else:
         return "⭐ Shooting Star Outlet"
 
     def calculate_poa(row):
+        actions = []
         if row['Net_Variance_Vs_PM1'] < 0 and row['Net_Variance_Vs_PM2'] < 0:
-            return "CRITICAL: Downward revenue spiral. ACTION: Initiate field freeze audit within 48 hours. Deploy senior supervisor to execute customer recovery drive, check competitive pricing entry, and evaluate immediate overhead pruning options."
-        elif row['Net_Variance_Vs_PM1'] < 0 and row['Net_Variance_Vs_PM2'] >= 0:
-            return "WARNING: Recent performance drop. ACTION: Store manager must review counter wait times, check item availability log, and audit morning/evening peak-hour shift compliance."
-        elif row['Net_Variance_Vs_PM1'] >= 0 and row['Net_Variance_Vs_PM2'] < 0:
-            return "MONITOR: Recent bounce back. ACTION: Keep momentum alive. Ensure fast-moving promotional items are fully stocked at checkout counters and review target-incentive tiers with local salespeople."
-        return "STABLE GROWTH: Leading network pacing. ACTION: Lock in current inventory replenishment lines. Document manager's upselling pitch style to share as training materials for underperforming teams."
+            actions.append("🚨 [REVENUE CRITICAL] Launch local community health camps to restart customer footfall traffic immediately.")
+        elif row['Net_Variance_Vs_PM1'] < 0:
+            actions.append("⚠️ [REVENUE DROP] Review counter wait times and morning/evening peak-hour shift compliance.")
+        
+        if row['Pharma_Variance_Vs_PM1'] < 0 and row['Pharma_Variance_Vs_PM2'] < 0:
+            actions.append("💊 [PHARMA CRITICAL] Immediate audit of prescription substitution rates and Private Label upselling.")
+        
+        if row['NonPharma_Variance_Vs_PM1'] < 0 and row['NonPharma_Variance_Vs_PM2'] < 0:
+            actions.append("🛍️ [NON-PHARMA CRITICAL] Restructure cash-counter layout and enforce checkout bundle cross-selling.")
+            
+        if not actions:
+            return "🟢 [STABLE GROWTH] Maintain lines. Document pitch styles to share as training materials for the network."
+        return " | ".join(actions)
 
     df['Operational Classification'] = df.apply(calculate_classification, axis=1)
     df['Strategic Action Plan (POA)'] = df.apply(calculate_poa, axis=1)
 
-    # 5. Core Executive KPIs (Rupee Leakage Focus)
+    # 5. Core Executive KPIs
     st.subheader("📌 Corporate Network Financial Health Command")
     
     network_gross = df['MTD NetSale'].sum()
@@ -132,8 +145,7 @@ else:
 
     # 7. Portfolio Health by District Supervisor Line
     st.subheader("📋 District Supervisor Strategic Portfolio Summary")
-    st.markdown("This matrix lists your supervisors based on total network leakage, helping you see where support is needed most.")
-
+    
     super_ops_summary = df.groupby('Supervisor').agg(
         Managed_Portfolio_Size=('StoreID', 'nunique'),
         Total_Current_Sales=('MTD NetSale', 'sum'),
@@ -196,10 +208,8 @@ else:
         fig_leak.update_layout(yaxis={'categoryorder':'total ascending'}, coloraxis_showscale=False)
         st.plotly_chart(fig_leak, use_container_width=True)
 
-        st.markdown("---")
+    st.markdown("---")
 
     # 9. Granular Command Ledger Explorer View
     st.subheader("🔬 Operational Target Drilldown Control Panel")
-    
-    selected_class = st.selectbox(
-        "Isolate Stores by Management Classification Profile:", 
+st.markdown("Color Code Key: 🟥 Red = 2-Month Degrowth | 🟧 Orange = 1-Month Degrowth | 🟪 Blue = 1-Month Growth | 🟩 Green = 2-Month Growth")selected_class = st.selectbox("Isolate Stores by Management Classification Profile:",["Show All Stores", "Isolate 💥 Critical Core Decline (2M Drop) Only", "Isolate 🚨 High Risk Shift (1M Drop) Only", "Isolate ⭐ Shooting Star Benchmarks Only"])display_grid_df = df.copy()if "Critical Core Decline" in selected_class:display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "💥 Critical Core Decline (2M Drop)"]elif "High Risk Shift" in selected_class:display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "🚨 High Risk Shift (1M Drop)"]elif "Shooting Star" in selected_class:display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "⭐ Shooting Star Outlet"]# Segment Cell-by-Cell Background Painting Matrix Enginedef color_cells_by_segment(val_df):style_df = pd.DataFrame('', index=val_df.index, columns=val_df.columns)def match_style(v1, v2):if v1 < 0 and v2 < 0:return 'background-color: #ffcccc; color: #cc0000; font-weight: bold;' # Redelif v1 < 0 and v2 >= 0:return 'background-color: #ffe6cc; color: #d97706;' # Orangeelif v1 >= 0 and v2 < 0:return 'background-color: #e0f2fe; color: #0284c7;' # Blueelse:return 'background-color: #d1fae5; color: #16a34a;' # Greenfor idx in val_df.index:style_df.loc[idx, 'MTD NetSale'] = match_style(val_df.loc[idx, 'Net_Variance_Vs_PM1'], val_df.loc[idx, 'Net_Variance_Vs_PM2'])style_df.loc[idx, 'PL Pharma NetSale'] = match_style(val_df.loc[idx, 'Pharma_Variance_Vs_PM1'], val_df.loc[idx, 'Pharma_Variance_Vs_PM2'])style_df.loc[idx, 'PL NonPharma NetSale'] = match_style(val_df.loc[idx, 'NonPharma_Variance_Vs_PM1'], val_df.loc[idx, 'NonPharma_Variance_Vs_PM2'])return style_dfdisplay_grid_cols = ["StoreName", "Supervisor", "Manager","MTD NetSale", "Net_Variance_Vs_PM1", "Net_Variance_Vs_PM2","PL Pharma NetSale", "Pharma_Variance_Vs_PM1", "Pharma_Variance_Vs_PM2","PL NonPharma NetSale", "NonPharma_Variance_Vs_PM1", "NonPharma_Variance_Vs_PM2","Strategic Action Plan (POA)"]visible_cols = ["StoreName", "Supervisor", "Manager", "MTD NetSale", "PL Pharma NetSale", "PL NonPharma NetSale", "Strategic Action Plan (POA)"]final_styled_grid = display_grid_df[display_grid_cols].sort_values(by="Net_Variance_Vs_PM1", ascending=True).style.apply(color_cells_by_segment, axis=None).format({"MTD NetSale": "₹{:,.2f}","PL Pharma NetSale": "₹{:,.2f}","PL NonPharma NetSale": "₹{:,.2f}"})st.dataframe(final_styled_grid, columns=visible_cols, use_container_width=True)
