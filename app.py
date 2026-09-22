@@ -17,7 +17,8 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-col_logo, col_title = st.columns()
+# FIXED: Passed explicit column layout proportions to completely resolve the Streamlit TypeError loop
+col_logo, col_title = st.columns([1, 6])
 with col_logo:
     st.markdown('<div class="medplus-logo-box">MedPlus<span class="medplus-plus-sign">+</span></div>', unsafe_allow_html=True)
 with col_title:
@@ -138,7 +139,6 @@ else:
     r1_c2.markdown("<div class='custom-subtext'>Target Mix: 35.00%</div>", unsafe_allow_html=True)
     r1_c3.metric("🛍️ Non-Pharma % (Current)", f"{np_pct:.2f}%")
     r1_c3.markdown("<div class='custom-subtext'>Target Mix: 65.00%</div>", unsafe_allow_html=True)
-    
     r2_c1, r2_c2, r2_c3 = st.columns(3)
     r2_c1.metric("🗓️ PM1 Network Gross Sales", format_indian_currency(pm1_sales))
     r2_c1.markdown(f"<div class='custom-subtext'>▼ Daily Store Avg: {format_indian_currency(pm1_sales/num_stores/mtd_days_elapsed)}</div>", unsafe_allow_html=True)
@@ -146,6 +146,7 @@ else:
     r2_c2.markdown("<div class='custom-subtext'>Historical Baseline</div>", unsafe_allow_html=True)
     r2_c3.metric("🛍️ PM1 Non-Pharma %", f"{pm1_np_pct:.2f}%")
     r2_c3.markdown("<div class='custom-subtext'>Historical Baseline</div>", unsafe_allow_html=True)
+    
     r3_c1, r3_c2, r3_c3 = st.columns(3)
     r3_c1.metric("🗓️ PM2 Network Gross Sales", format_indian_currency(pm2_sales))
     r3_c1.markdown(f"<div class='custom-subtext'>▼ Daily Store Avg: {format_indian_currency(pm2_sales/num_stores/mtd_days_elapsed)}</div>", unsafe_allow_html=True)
@@ -232,7 +233,7 @@ else:
         st.subheader("📊 Portfolio Split")
         st.plotly_chart(px.pie(c_df['Operational Classification'].value_counts().reset_index(), values='count', names='Operational Classification', color='Operational Classification', color_discrete_map={'💥 Critical Core Decline (2M Drop)': '#dc2626', '🚨 High Risk Shift (1M Drop)': '#f59e0b', '🔄 Volatile Swing Outlet': '#38bdf8', '⭐ Shooting Star Outlet': '#10b981'}), use_container_width=True)
     with st.expander("📖 Short Note: Trajectory Quadrant Definitions", expanded=False):
-        st.markdown("* **💥 Critical Decline**: Down MoM and down below long-term 2M average baseline.\n* **🚨 High Risk Shift**: Down MoM but still running above the historical 2M average baseline.\n* **🔄 Volatile Swing**: Up MoM but remains below 2M baseline due to deep historic drops.\n* **⭐ Shooting Star**: Up MoM and pacing securely above the long-term 2M running baseline.")
+        st.markdown("* **💥 Critical Decline**: Down MoM and down below long-term 2M average baseline.\n* **🚨 High Risk Shift**: Down MoM but still running above the historical 2M average baseline.\n* **🔄 Volatile Swing**: Up MoM but remains below 2M baseline due to heavy historic drops.\n* **⭐ Shooting Star**: Up MoM and pacing securely above the long-term 2M running baseline.")
     st.markdown("---")
 
     st.subheader("🏆 Store Performance Leaderboard")
@@ -251,7 +252,7 @@ else:
     if crit_list:
         sel_store = st.selectbox("🎯 Select Leaking Store to Generate Escalation Script:", crit_list)
         t_row = f_df[f_df['StoreName'] == sel_store].iloc[0]
-        script = f"MEDPLUS DISTRICT PERFORMANCE NOTICE\nTO: Store Manager - {t_row.get('Manager','Manager')} (ID: {t_row.get('StoreID','N/A')})\nFROM: Operations Command\nURGENCY: CRITICAL MANDATE - 2-MONTH LEAKAGE ISOLATION\n\nYour outlet at '{sel_store}' has flagged a major revenue retraction of {format_indian_currency(abs(t_row.get('Net_Variance_Vs_PM1',0)))} compared to last period. This consecutive multi-month slide requires immediate localized correction lines.\n\nUpdate operations counter-turnaround logs within 48 hours.\n\nBest Regards,\nOperations Command\nMedPlus Health Services Ltd."
+        script = f"MEDPLUS PERFORMANCE NOTICE\nTO: Store Manager - {t_row.get('Manager','Manager')} (ID: {t_row.get('StoreID','N/A')})\nFROM: Operations Command\nURGENCY: CRITICAL MANDATE - 2-MONTH LEAKAGE ISOLATION\n\nYour outlet at '{sel_store}' has flagged a major revenue retraction of {format_indian_currency(abs(t_row.get('Net_Variance_Vs_PM1',0)))} compared to last period. This consecutive multi-month slide requires immediate localized correction lines.\n\nUpdate operations turnaround logs within 48 hours.\n\nBest Regards,\nOperations Command\nMedPlus Health Services Ltd."
         st.markdown(f"<div class='poa-container'>{script}</div>", unsafe_allow_html=True)
     else: st.success("🟩 Excellence Note: Zero stores under consecutive 2-Month decline conditions.")
     st.markdown("---")
