@@ -440,12 +440,24 @@ else:
 
     st.dataframe(styled_super_summary, use_container_width=True, hide_index=True)
     st.markdown("---")
-
     # 9. HIGH-COMPRESSION SIDE-BY-SIDE TRI-COLUMN EXECUTIVE VISUALIZATION CORE
     st.header("📈 Strategic Visual Performance Framework")
     chart_supervisors = ["All Supervisors"] + sorted(list(df['Supervisor'].dropna().unique()))
     chart_selected_sup = st.selectbox("🔍 Filter Visual Framework Charts by Supervisor:", chart_supervisors, key="visual_framework_sup_filter")
     chart_df = df if chart_selected_sup == "All Supervisors" else df[df['Supervisor'] == chart_selected_sup]
+
+    # FIXED: Grouped all column initializations inside Part 15 so Parts 16 & 17 can safely append grids
+    v_col1, v_col2, v_col3 = st.columns(3)
+    
+    with v_col1:
+        leaking_stores = chart_df[chart_df['Net_Variance_Vs_PM1'] < 0]
+        if not leaking_stores.empty:
+            leaking_top10 = leaking_stores.nsmallest(10, 'Net_Variance_Vs_PM1')
+            leaking_top10['Absolute_Leakage'] = abs(leaking_top10['Net_Variance_Vs_PM1'])
+            fig_leak = px.bar(leaking_top10, x='StoreName', y='Absolute_Leakage', title="Top 10 Leakages (vs PM1)", color='Absolute_Leakage', color_continuous_scale='Reds', labels={'Absolute_Leakage': 'Lost (₹)', 'StoreName': 'Location'})
+            fig_leak.update_layout(xaxis={'categoryorder':'total descending', 'tickangle': 45}, coloraxis_showscale=False, margin=dict(l=10, r=10, t=30, b=10))
+            st.plotly_chart(fig_leak, use_container_width=True)
+        else: st.info("🟢 Zero revenue leaking outlets inside this pool.")
     with v_col2:
         generating_stores = chart_df[chart_df['Net_Variance_Vs_PM1'] >= 0]
         if not generating_stores.empty:
@@ -454,7 +466,6 @@ else:
             fig_gen.update_layout(xaxis={'categoryorder':'total descending', 'tickangle': 45}, coloraxis_showscale=False, margin=dict(l=10, r=10, t=30, b=10))
             st.plotly_chart(fig_gen, use_container_width=True)
         else: st.info("⚠️ Zero growth outlets identified inside this pool.")
-
     with v_col3:
         class_counts = chart_df['Operational Classification'].value_counts().reset_index()
         class_counts.columns = ['Classification', 'Count']
@@ -512,24 +523,23 @@ else:
         target_sub_df = f_df[f_df['StoreName'] == selected_target_store]
         
         if not target_sub_df.empty:
-            # FIXED: Added native index scalar formatting indexers (.item()) to strip bracket arrays completely
             t_manager = str(target_sub_df['Manager'].values[0]) if 'Manager' in target_sub_df.columns else "Branch Manager"
             t_id = str(target_sub_df['StoreID'].values[0]) if 'StoreID' in target_sub_df.columns else "N/A"
             t_sup = str(target_sub_df['Supervisor'].values[0]) if 'Supervisor' in target_sub_df.columns else "Operations Lead"
             t_loss = abs(float(target_sub_df['Net_Variance_Vs_PM1'].values[0])) if 'Net_Variance_Vs_PM1' in target_sub_df.columns else 0.0
             t_rivals = int(target_sub_df['Territory_Competitor_Count'].values[0]) if 'Territory_Competitor_Count' in target_sub_df.columns else 1
             t_disc = float(target_sub_df['Competitor_Max_Discount_Pct'].values[0]) if 'Competitor_Max_Discount_Pct' in target_sub_df.columns else 10.0
-            # FIXED: Migrated text logic to a clean multi-line triple quoted syntax block to force clean paragraph breaks
+            
             script_body = f"""MEDPLUS EXECUTIVE TURNAROUND MANDATE
 ----------------------------------
 TO: Store Manager - {t_manager} (ID: {t_id})
-FROM: Operations Command / Portfolio Supervisor {t_sup}
+FROM: Operations Command / Supervisor {t_sup}
 URGENCY: CRITICAL CORRECTION LINE — REVENUE TURNAROUND ENGINE
 SUBJECT: UNCOMPROMISING GROWTH AND PRIVATE LABEL CONVERSION DIRECTIVE
 
 Manager {t_manager},
 
-Your store at '{selected_target_store}' has flagged a major consecutive two-month retraction, registering an absolute revenue leakage of {format_indian_currency(t_loss)}. Our circle territory intelligence identifies {t_rivals} active rival discount pharmacies undercutting our pricing architecture with an aggressive competitor discount benchmark of up to {t_disc:.0f}%.
+Your store at '{selected_target_store}' has flagged a major consecutive two-month retraction, registering an absolute revenue leakage of {format_indian_currency(t_loss)} compared to the last period. Our localized territory density tracking shows {t_rivals} active rival discount operations around your perimeter undercutting our pharmacy pool with up to {t_disc:.0f}% customer discounts.
 
 To offset this density threat and pivot your outlet into our network's highest-performing growth store, you are hereby ordered to execute the following non-negotiable operational pivots immediately:
 
@@ -546,7 +556,6 @@ MedPlus Health Services Ltd."""
             
             st.markdown(f"<div class='poa-container'>{script_body}</div>", unsafe_allow_html=True)
             
-            # NEW ADDITION: URL Text URL Encoding logic mapping routine for the click to trigger script
             encoded_whatsapp_text = urllib.parse.quote(script_body)
             whatsapp_deep_link = f"https://whatsapp.com{encoded_whatsapp_text}"
             
@@ -557,10 +566,8 @@ MedPlus Health Services Ltd."""
                     </div>
                 </a>
             """, unsafe_allow_html=True)
-        else:
-            st.error("⚠️ Failed to extract target store data matrices safely.")
-    else:
-        st.success("🟩 Excellence Note: The selected filter pool contains zero stores under consecutive 2-Month decline conditions.")
+        else: st.error("⚠️ Failed to extract target store data matrices safely.")
+    else: st.success("🟩 Excellence Note: The selected filter pool contains zero stores under consecutive 2-Month decline conditions.")
     st.markdown("---")
     # 11. Granular Executive Command Grid View
     st.subheader("🔬 Operational Target Drilldown Control Panel")
