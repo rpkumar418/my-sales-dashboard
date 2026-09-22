@@ -5,7 +5,7 @@ import io
 import re
 import urllib.parse
 
-# 1. Page Configuration & Sophisticated Boardroom Typography/Styles
+# 1. Page Configuration & Boardroom Typography/Styles
 st.set_page_config(page_title="MedPlus Executive Turnaround Command", layout="wide")
 
 st.markdown("""
@@ -87,8 +87,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown("---")
-
-# 2. FIXED: Indian Currency Formatting Engine (Fixed Scalar Array Splitting Bug)
+# 2. Indian Currency Formatting Engine (Lakhs & Crores Routine)
 def format_indian_currency(number):
     try:
         is_negative = number < 0
@@ -319,6 +318,7 @@ else:
         arrow_nf = "▲" if non_pharma_diff_1m >= 0 else "▼"
         st.metric(label="🛍️ Non-Pharma % Diff (1M)", value=f"{non_pharma_diff_1m:+.2f}%")
         st.markdown(f"<div class='custom-subtext'>Mix Shift: {arrow_nf} {abs(non_pharma_diff_1m):.2f}%</div>", unsafe_allow_html=True)
+        
     # INTEGRATED TIER-2 VALUES TRACKING MATRIX
     st.markdown("##### 💰 Dynamic Tier-2 Financial Velocity Tracking Matrix")
     t2_col1, t2_col2, t2_col3, t2_col4 = st.columns(4)
@@ -330,7 +330,6 @@ else:
     m2_growth_mask = f_df['Net_Variance_Vs_Avg2M'] >= 0
     m2_growth_pool_val = f_df[m2_growth_mask]['Net_Variance_Vs_Avg2M'].sum()
     m2_degrow_pool_val = f_df[~m2_growth_mask]['Net_Variance_Vs_Avg2M'].sum()
-    
     with t2_col1:
         st.markdown("<p style='font-size:13px; color:#475569; font-weight:600; margin-bottom:2px;'>🟩 1M Growth Value</p>", unsafe_allow_html=True)
         st.markdown(f"<p style='font-size:18px; color:#16a34a; font-weight:700; margin:0;'>{format_indian_currency(m1_growth_pool_val)}</p>", unsafe_allow_html=True)
@@ -356,7 +355,6 @@ else:
         pl_pharma_margin = st.slider("Private Label Pharma Margin Rate (%)", 30, 55, 42, 1) / 100.0
         brand_non_pharma_margin = st.slider("Brand Non-Pharma Margin Rate (%)", 12, 28, 18, 1) / 100.0
         pl_non_pharma_margin = st.slider("Private Label Non-Pharma Margin Rate (%)", 35, 60, 45, 1) / 100.0
-    
     with sim_col2:
         st.markdown("**Volume Migration Targets**")
         pharma_pl_boost = st.slider("Target Pharma Share Shift to PL (%)", 0, 30, 5, 1) / 100.0
@@ -440,13 +438,12 @@ else:
 
     st.dataframe(styled_super_summary, use_container_width=True, hide_index=True)
     st.markdown("---")
-
     # 9. HIGH-COMPRESSION SIDE-BY-SIDE TRI-COLUMN EXECUTIVE VISUALIZATION CORE
     st.header("📈 Strategic Visual Performance Framework")
     chart_supervisors = ["All Supervisors"] + sorted(list(df['Supervisor'].dropna().unique()))
     chart_selected_sup = st.selectbox("🔍 Filter Visual Framework Charts by Supervisor:", chart_supervisors, key="visual_framework_sup_filter")
     chart_df = df if chart_selected_sup == "All Supervisors" else df[df['Supervisor'] == chart_selected_sup]
-    # FIXED: Grouped all column initializations inside Part 15 so Parts 16 & 17 can safely append grids
+
     v_col1, v_col2, v_col3 = st.columns(3)
     
     with v_col1:
@@ -466,6 +463,7 @@ else:
             fig_gen.update_layout(xaxis={'categoryorder':'total descending', 'tickangle': 45}, coloraxis_showscale=False, margin=dict(l=10, r=10, t=30, b=10))
             st.plotly_chart(fig_gen, use_container_width=True)
         else: st.info("⚠️ Zero growth outlets identified inside this pool.")
+
     with v_col3:
         class_counts = chart_df['Operational Classification'].value_counts().reset_index()
         class_counts.columns = ['Classification', 'Count']
@@ -512,7 +510,7 @@ else:
 
     st.dataframe(display_leader_df.style.apply(final_text_styler, axis=None), use_container_width=True, hide_index=True)
     st.markdown("---")
-    # MODULE 2: INTERACTIVE MANAGER INTERVENTION SCRIPT GENERATOR WITH FIXED SPACING & PLAIN TEXT RENDERING
+    # MODULE 2: INTERACTIVE MANAGER INTERVENTION SCRIPT GENERATOR WITH HIGH-VELOCITY OPERATIONAL TARGETS
     st.subheader("📢 Automated Manager Intervention Script Generator")
     st.markdown("Select an underperforming store inside your 2-Month decline pool to automatically draft a formal turnaround directive.")
     
@@ -523,15 +521,16 @@ else:
         target_sub_df = f_df[f_df['StoreName'] == selected_target_store]
         
         if not target_sub_df.empty:
-            # FIXED: Safely parsing string elements by extracting scalar values directly out of index positions (.values[0])
-            t_manager = str(target_sub_df['Manager'].values[0]) if 'Manager' in target_sub_df.columns else "Branch Manager"
-            t_id = str(target_sub_df['StoreID'].values[0]) if 'StoreID' in target_sub_df.columns else "N/A"
-            t_sup = str(target_sub_df['Supervisor'].values[0]) if 'Supervisor' in target_sub_df.columns else "Operations Lead"
-            t_loss = abs(float(target_sub_df['Net_Variance_Vs_PM1'].values[0])) if 'Net_Variance_Vs_PM1' in target_sub_df.columns else 0.0
-            t_rivals = int(target_sub_df['Territory_Competitor_Count'].values[0]) if 'Territory_Competitor_Count' in target_sub_df.columns else 1
-            t_disc = float(target_sub_df['Competitor_Max_Discount_Pct'].values[0]) if 'Competitor_Max_Discount_Pct' in target_sub_df.columns else 10.0
+            # FIXED: Safe explicit dictionary row item locator extraction to completely bypass series array bracket formatting crashes
+            t_row = target_sub_df.iloc[0]
+            t_manager = str(t_row['Manager']).strip() if 'Manager' in target_sub_df.columns else "Branch Manager"
+            t_id = str(t_row['StoreID']).strip() if 'StoreID' in target_sub_df.columns else "N/A"
+            t_sup = str(t_row['Supervisor']).strip() if 'Supervisor' in target_sub_df.columns else "Operations Lead"
+            t_loss = abs(float(t_row['Net_Variance_Vs_PM1'])) if 'Net_Variance_Vs_PM1' in target_sub_df.columns else 0.0
+            t_rivals = int(t_row['Territory_Competitor_Count']) if 'Territory_Competitor_Count' in target_sub_df.columns else 1
+            t_disc = float(t_row['Competitor_Max_Discount_Pct']) if 'Competitor_Max_Discount_Pct' in target_sub_df.columns else 10.0
             
-            script_body = f"""MEDPLUS EXECUTIVE TURNAROUND MANDATE
+            html_script_body = f"""MEDPLUS EXECUTIVE TURNAROUND MANDATE
 ----------------------------------
 TO: Store Manager - {t_manager} (ID: {t_id})
 FROM: Operations Command / Supervisor {t_sup}
@@ -544,20 +543,22 @@ Your store at '{selected_target_store}' has flagged a major consecutive two-mont
 
 To offset this density threat and pivot your outlet into our network's highest-performing growth store, you are hereby ordered to execute the following non-negotiable operational pivots immediately:
 
-1. COMPULSORY LOYALTY MIGRATION: Enforce a strict front-counter loyalty signup rule. Target a 95% mobile number capture rate on all footfall to permanently isolate chronic prescription walkaways.
-2. BASKET SIZE OPTIMIZATION (CROSS-SELLING): Run mandatory staff coaching loops on multi-item billing parameters. Every prescription containing chronic brand drugs must be combined with a localized private label wellness cross-sell.
-3. PRESTIGE PRIVATE LABEL MERCHANDISING: Re-engineer your visual merchandising layout within the next 24 hours. Shift your premium MedPlus private label alternatives from secondary rear storage rows onto center-shelf eye-level parameters.
-4. PERIMETER PROMOTION OUTREACH: Deploy floor counter staff during low-traffic off-peak windows to distribute strategic counter-discount flyers within a 1.5KM perimeter loop of your pharmacy structure.
-
+<ol style="margin-left: 20px; padding-left: 5px; line-height: 1.6;">
+    <li style="margin-bottom: 10px;"><strong>COMPULSORY LOYALTY MIGRATION:</strong> Enforce a strict front-counter loyalty signup rule. Target a 95% mobile number capture rate on all footfall to permanently isolate chronic prescription walkaways.</li>
+    <li style="margin-bottom: 10px;"><strong>BASKET SIZE OPTIMIZATION (CROSS-SELLING):</strong> Run mandatory staff coaching loops on multi-item billing parameters. Every prescription containing chronic brand drugs must be combined with a localized private label wellness cross-sell.</li>
+    <li style="margin-bottom: 10px;"><strong>PRESTIGE PRIVATE LABEL MERCHANDISING:</strong> Re-engineer your visual merchandising layout within the next 24 hours. Shift your premium MedPlus private label alternatives from secondary rear storage rows onto center-shelf eye-level parameters.</li>
+    <li style="margin-bottom: 10px;"><strong>PERIMETER PROMOTION OUTREACH:</strong> Deploy floor counter staff during low-traffic off-peak windows to distribute strategic counter-discount flyers within a 1.5KM perimeter loop of your pharmacy structure.</li>
+</ol>
 This operational slide stops now. You are expected to transform this leakage area into a high-margin growth vehicle. Update your Supervisor with an itemized turnaround checklist within 48 hours.
 
 Best Regards,
 Operations Command
 MedPlus Health Services Ltd."""
             
-            st.markdown(f"<div class='poa-container'>{script_body}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='poa-container'>{html_script_body}</div>", unsafe_allow_html=True)
             
-            encoded_whatsapp_text = urllib.parse.quote(script_body)
+            raw_whatsapp_text = f"MEDPLUS EXECUTIVE TURNAROUND MANDATE\\n----------------------------------\\nTO: Store Manager - {t_manager} (ID: {t_id})\\nFROM: Operations Command / Supervisor {t_sup}\\nURGENCY: CRITICAL CORRECTION LINE\\n\\nManager {t_manager},\\n\\nYour store at '{selected_target_store}' has flagged a major revenue retraction of {format_indian_currency(t_loss)}. Rivals are matching up to {t_disc:.0f}% discount tiers. Execute these pivots:\\n\\n1. COMPULSORY LOYALTY MIGRATION: Target 95% footfall registration.\\n2. BASKET SIZE OPTIMIZATION: Cross-sell Private Label wellness alternatives.\\n3. PRESTIGE PRIVATE LABEL MERCHANDISING: Move house items to eye-level shelves.\\n4. PERIMETER PROMOTION OUTREACH: Distribute flyers in a 1.5KM radius.\\n\\nUpdate your supervisor with an itemized checklist within 48 hours.\\n\\nBest Regards,\\nOperations Command"
+            encoded_whatsapp_text = urllib.parse.quote(raw_whatsapp_text)
             whatsapp_deep_link = f"https://whatsapp.com{encoded_whatsapp_text}"
             
             st.markdown(f"""
@@ -570,6 +571,7 @@ MedPlus Health Services Ltd."""
         else: st.error("⚠️ Failed to extract target store data matrices safely.")
     else: st.success("🟩 Excellence Note: The selected filter pool contains zero stores under consecutive 2-Month decline conditions.")
     st.markdown("---")
+
     # 11. Granular Executive Command Grid View
     st.subheader("🔬 Operational Target Drilldown Control Panel")
     selected_class = st.selectbox("Isolate Stores by Management Classification Profile:", ["Show All Stores", "Isolate Decline Only", "Isolate High Risk Only", "Isolate Volatile Only", "Isolate Stars Only"])
