@@ -27,43 +27,62 @@ st.markdown("""
         margin-bottom: 12px;
         font-weight: 500;
     }
+    /* Fixed readable presentation styles for the script output terminal */
     .poa-container {
         background-color: #fef2f2;
         border: 1px solid #fee2e2;
-        padding: 15px;
+        padding: 24px;
         border-radius: 8px;
-        color: #991b1b;
-        font-family: monospace;
+        color: #1e293b;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 14px;
+        line-height: 1.6 !important;
         white-space: pre-wrap;
+        box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
     }
-    /* Fixed Alignment CSS Vector Logo block */
+    /* Fixed Block-Stack Logo Layout to completely prevent heading text collisions */
+    .medplus-header-block {
+        margin-bottom: 20px;
+    }
     .medplus-logo-box {
         background-color: #e11d48;
         color: #ffffff;
         font-family: 'Helvetica Neue', Arial, sans-serif;
-        font-size: 30px;
+        font-size: 32px;
         font-weight: 800;
-        padding: 6px 20px;
+        padding: 8px 24px;
         border-radius: 6px;
         display: inline-block;
         letter-spacing: -1px;
         box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-        margin-top: 15px;
+        margin-bottom: 10px;
     }
     .medplus-plus-sign {
         color: #22c55e;
         font-weight: 900;
         margin-left: 2px;
     }
+    .medplus-title-heading {
+        font-size: 32px !important;
+        font-weight: 700 !important;
+        color: #0f172a !important;
+        margin: 5px 0 0 0 !important;
+    }
+    .medplus-subtitle-heading {
+        font-size: 16px !important;
+        color: #64748b !important;
+        margin: 2px 0 0 0 !important;
+    }
     </style>
 """, unsafe_allow_html=True)
-# Branding Update: Instant CSS Popup Logo Row Layout Block
-col_logo, col_title = st.columns([1, 6])
-with col_logo:
-    st.markdown('<div class="medplus-logo-box">MedPlus<span class="medplus-plus-sign">+</span></div>', unsafe_allow_html=True)
-with col_title:
-    st.title("Supervisor Performance Dashboard")
-    st.markdown("##### Enterprise Margin Optimization & Turnaround Engine")
+# Branding Update: Instant CSS Popup Logo Block-Stack Layout
+st.markdown("""
+    <div class="medplus-header-block">
+        <div class="medplus-logo-box">MedPlus<span class="medplus-plus-sign">+</span></div>
+        <h1 class="medplus-title-heading">Supervisor Performance Dashboard</h1>
+        <p class="medplus-subtitle-heading">Enterprise Margin Optimization & Turnaround Engine</p>
+    </div>
+""", unsafe_allow_html=True)
 
 st.markdown("---")
 
@@ -419,12 +438,12 @@ else:
 
     st.dataframe(styled_super_summary, use_container_width=True, hide_index=True)
     st.markdown("---")
+
     # 9. HIGH-COMPRESSION SIDE-BY-SIDE TRI-COLUMN EXECUTIVE VISUALIZATION CORE
     st.header("📈 Strategic Visual Performance Framework")
     chart_supervisors = ["All Supervisors"] + sorted(list(df['Supervisor'].dropna().unique()))
     chart_selected_sup = st.selectbox("🔍 Filter Visual Framework Charts by Supervisor:", chart_supervisors, key="visual_framework_sup_filter")
     chart_df = df if chart_selected_sup == "All Supervisors" else df[df['Supervisor'] == chart_selected_sup]
-
     v_col1, v_col2, v_col3 = st.columns(3)
     with v_col1:
         leaking_stores = chart_df[chart_df['Net_Variance_Vs_PM1'] < 0]
@@ -490,7 +509,7 @@ else:
 
     st.dataframe(display_leader_df.style.apply(final_text_styler, axis=None), use_container_width=True, hide_index=True)
     st.markdown("---")
-    # MODULE 2: INTERACTIVE MANAGER INTERVENTION SCRIPT GENERATOR WITH ALL DYNAMIC FIELDS
+    # MODULE 2: INTERACTIVE MANAGER INTERVENTION SCRIPT GENERATOR WITH FIXED SPACING & PLAIN TEXT RENDERING
     st.subheader("📢 Automated Manager Intervention Script Generator")
     st.markdown("Select an underperforming store inside your 2-Month decline pool to automatically draft a formal intervention mandate.")
     
@@ -498,18 +517,49 @@ else:
     
     if critical_stores_list:
         selected_target_store = st.selectbox("🎯 Select Leaking Store to Generate Escalation Script:", critical_stores_list)
-        target_series = f_df[f_df['StoreName'] == selected_target_store].iloc[0]
         
-        t_manager = target_series['Manager'] if 'Manager' in target_series else "Branch Manager"
-        t_id = target_series['StoreID'] if 'StoreID' in target_series else "N/A"
-        t_sup = target_series['Supervisor'] if 'Supervisor' in target_series else "Operations Lead"
-        t_loss = abs(target_series['Net_Variance_Vs_PM1']) if 'Net_Variance_Vs_PM1' in target_series else 0.0
-        t_rivals = target_series['Territory_Competitor_Count'] if 'Territory_Competitor_Count' in target_series else 1
-        t_disc = target_series['Competitor_Max_Discount_Pct'] if 'Competitor_Max_Discount_Pct' in target_series else 10.0
+        # Pull core location variables safely using standard filtering metrics
+        target_sub_df = f_df[f_df['StoreName'] == selected_target_store]
         
-        script_body = f"MEDPLUS PERFORMANCE NOTICE\\n----------------------------------\\nTO: Store Manager - {t_manager} (ID: {t_id})\\nFROM: Operations Command / Supervisor {t_sup}\\nURGENCY: CRITICAL MANDATE - 2-MONTH LEAKAGE ISOLATION\\n\\nManager {t_manager},\\n\\nYour outlet at '{selected_target_store}' has flagged a major revenue retraction of {format_indian_currency(t_loss)} compared to the last period. Our localized territory density tracking shows {t_rivals} active rival discount operations around your perimeter undercutting our pharmacy pool with up to {t_disc:.0f}% customer discounts.\\n\\nThis consecutive multi-month slide requires immediate localized correction lines:\\n1. Enforce a mandatory front-counter loyalty signup rule for every walking patient.\\n2. Deploy field staff to run a counter-discount flyer campaign within a 2KM radius.\\n3. Reposition Private Label pharma alternatives to premium center-shelf focal levels.\\n\\nUpdate your Supervisor with a formal, itemized turnaround status log within 48 hours.\\n\\nBest Regards,\\nOperations Command\\nMedPlus Health Services Ltd."
-        st.markdown(f"<div class='poa-container'>{script_body}</div>", unsafe_allow_html=True)
-    else: st.success("🟩 Excellence Note: The selected filter pool contains zero stores under consecutive 2-Month decline conditions.")
+        if not target_sub_df.empty:
+            t_manager = str(target_sub_df['Manager'].values[0]) if 'Manager' in target_sub_df.columns else "Branch Manager"
+            t_id = str(target_sub_df['StoreID'].values[0]) if 'StoreID' in target_sub_df.columns else "N/A"
+            t_sup = str(target_sub_df['Supervisor'].values[0]) if 'Supervisor' in target_sub_df.columns else "Operations Lead"
+            t_loss = abs(float(target_sub_df['Net_Variance_Vs_PM1'].values[0])) if 'Net_Variance_Vs_PM1' in target_sub_df.columns else 0.0
+            t_rivals = int(target_sub_df['Territory_Competitor_Count'].values[0]) if 'Territory_Competitor_Count' in target_sub_df.columns else 1
+            t_disc = float(target_sub_df['Competitor_Max_Discount_Pct'].values[0]) if 'Competitor_Max_Discount_Pct' in target_sub_df.columns else 10.0
+            
+            # FIXED: Built explicit line-breaks with formatted plaintext layouts to secure clear scannability
+            script_lines = [
+                "MEDPLUS PERFORMANCE NOTICE",
+                "----------------------------------",
+                f"TO: Store Manager - {t_manager} (ID: {t_id})",
+                f"FROM: Operations Command / Supervisor {t_sup}",
+                "URGENCY: CRITICAL MANDATE - 2-MONTH LEAKAGE ISOLATION",
+                "",
+                f"Manager {t_manager},",
+                "",
+                f"Your outlet at '{selected_target_store}' has flagged a major revenue retraction of {format_indian_currency(t_loss)} compared to the last period.",
+                f"Our localized territory density tracking shows {t_rivals} active rival discount operations around your perimeter undercutting our pharmacy pool with up to {t_disc:.0f}% customer discounts.",
+                "",
+                "This consecutive multi-month slide requires immediate localized correction lines:",
+                "1. Enforce a mandatory front-counter loyalty signup rule for every walking patient.",
+                "2. Deploy field staff to run a counter-discount flyer campaign within a 2KM radius.",
+                "3. Reposition Private Label pharma alternatives to premium center-shelf focal levels.",
+                "",
+                "Update your Supervisor with a formal, itemized turnaround status log within 48 hours.",
+                "",
+                "Best Regards,",
+                "Operations Command",
+                "MedPlus Health Services Ltd."
+            ]
+            
+            script_body = "\\n".join(script_lines)
+            st.markdown(f"<div class='poa-container'>{script_body}</div>", unsafe_allow_html=True)
+        else:
+            st.error("⚠️ Failed to extract target store data matrices safely.")
+    else:
+        st.success("🟩 Excellence Note: The selected filter pool contains zero stores under consecutive 2-Month decline conditions.")
     st.markdown("---")
 
     # 11. Granular Executive Command Grid View
