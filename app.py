@@ -226,6 +226,7 @@ else:
         st.metric(label="🛍️ Non-Pharma % Diff (1M)", value=f"{non_pharma_diff_1m:+.2f}%", delta=f"{non_pharma_diff_1m:.2f}%")
         
     st.markdown("---")
+
     # 7. PROACTIVE MARGIN RESCUE & TRAFFIC SIMULATION INTERFACE
     st.subheader("🔮 Predictive Margin Optimization Dashboard")
     st.markdown("### Interactive Profitability Scenario Modeling")
@@ -235,7 +236,6 @@ else:
         st.markdown("#### Scenario Metrics Control")
         recovery_pct = st.slider("Target Revenue Recovery % from Leaking Stores", min_value=0, max_value=100, value=10, step=5)
         pl_boost = st.slider("Target Private Label Penetration Growth % (Network-Wide)", min_value=0, max_value=25, value=5, step=1)
-    
     with sim_col2:
         brand_margin_rate = 0.18
         pl_margin_rate = 0.42
@@ -320,12 +320,18 @@ else:
     st.dataframe(styled_super_summary, use_container_width=True, hide_index=True)
     st.markdown("---")
     # 9. DUAL-DIMENSIONAL RETRACTION TRENDS & PORTFOLIO BREAKDOWN VISUALS
-    st.header(f"📈 Strategic Visual Performance Framework — Active Filter: {selected_sup}")
+    st.header("📈 Strategic Visual Performance Framework")
+    
+    # FIXED: Re-engineered chart visualization supervisor level filter layout mapping constraints
+    chart_supervisors = ["All Supervisors"] + sorted(list(df['Supervisor'].dropna().unique()))
+    chart_selected_sup = st.selectbox("🔍 Filter Visual Framework Charts by Supervisor:", chart_supervisors, key="visual_framework_sup_filter")
+    
+    chart_df = df if chart_selected_sup == "All Supervisors" else df[df['Supervisor'] == chart_selected_sup]
     
     chart_col1, chart_col2 = st.columns(2)
     with chart_col1:
         st.subheader("📉 Top 10 Revenue Leaking Outlets")
-        leaking_stores = f_df[f_df['Net_Variance_Vs_PM1'] < 0]
+        leaking_stores = chart_df[chart_df['Net_Variance_Vs_PM1'] < 0]
         if not leaking_stores.empty:
             leaking_top10 = leaking_stores.nsmallest(10, 'Net_Variance_Vs_PM1')
             leaking_top10['Absolute_Leakage'] = abs(leaking_top10['Net_Variance_Vs_PM1'])
@@ -338,11 +344,11 @@ else:
             fig_leak.update_layout(yaxis={'categoryorder':'total ascending'}, coloraxis_showscale=False)
             st.plotly_chart(fig_leak, use_container_width=True)
         else:
-            st.info("🟢 Zero revenue leaking outlets identified inside this specific filtered territory pool.")
+            st.info(f"🟢 Zero revenue leaking outlets inside {chart_selected_sup}'s territory pool.")
 
     with chart_col2:
         st.subheader("📈 Top 10 Revenue Generating Outlets")
-        generating_stores = f_df[f_df['Net_Variance_Vs_PM1'] >= 0]
+        generating_stores = chart_df[chart_df['Net_Variance_Vs_PM1'] >= 0]
         if not generating_stores.empty:
             generating_top10 = generating_stores.nlargest(10, 'Net_Variance_Vs_PM1')
             fig_gen = px.bar(
@@ -354,17 +360,17 @@ else:
             fig_gen.update_layout(yaxis={'categoryorder':'total ascending'}, coloraxis_showscale=False)
             st.plotly_chart(fig_gen, use_container_width=True)
         else:
-            st.info("⚠️ Zero growth outlets identified inside this specific filtered territory pool.")
+            st.info(f"⚠️ Zero growth outlets identified inside {chart_selected_sup}'s territory pool.")
 
     st.markdown("---")
     
     # 4-Category Operational Split Pie Layout Row Injection
-    pie_layout_col1, pie_layout_col2 = st.columns([1, 2])
+    pie_layout_col1, pie_layout_col2 = st.columns(2)
     with pie_layout_col1:
         st.subheader("📊 Portfolio Health Composition")
-        st.markdown(f"Operational health trajectory distribution split for **{selected_sup}** across four primary performance quadrants.")
+        st.markdown(f"Operational health trajectory distribution split for **{chart_selected_sup}** across four primary performance quadrants.")
         
-        class_counts = f_df['Operational Classification'].value_counts().reset_index()
+        class_counts = chart_df['Operational Classification'].value_counts().reset_index()
         class_counts.columns = ['Classification', 'Count']
         
         fig_pie = px.pie(
