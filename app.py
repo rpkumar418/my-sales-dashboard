@@ -1,13 +1,15 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import io
 
-# 1. Page Configuration
-st.set_page_config(page_title="Multi-Month Sales Decline Analysis", layout="wide")
-st.title("%#x1f53d; Multi-Month Performance Decline Dashboard")
-st.markdown("This control center monitors consecutive month-over-month trends (**Current MTD vs PM1 vs PM2**) to identify sustained portfolio risks at the Supervisor level.")
+# 1. Premium Page Setup
+st.set_page_config(page_title="Supervisor Performance Dashboard", layout="wide")
+st.title("🦅 Supervisor Performance Dashboard")
+st.markdown("### Strategic Turnaround Management Network Platform")
+st.markdown("---")
 
-# 2. Data Cleaning and Transformation Engine
+# 2. Heavy-Duty Enterprise Data Intake Pipeline
 @st.cache_data
 def load_data():
     try:
@@ -23,7 +25,7 @@ def load_data():
         df = pd.read_csv("sales_data.csv", skiprows=header_idx)
         df.columns = [str(col).strip() for col in df.columns]
         
-        # Prune total row lines
+        # Safe filter for the final ledger totals
         if 'S. No.' in df.columns:
             df = df[df['S. No.'].astype(str).str.lower().str.strip() != 'total']
         if 'StoreName' in df.columns:
@@ -35,7 +37,6 @@ def load_data():
             val_str = str(val).replace('"', '').replace(',', '').strip()
             return pd.to_numeric(val_str, errors='coerce') if val_str else 0.0
 
-        # Include PM2 performance tracking matrices into the parsing loop
         numeric_cols = [
             'MTD NetSale', 'PL Pharma NetSale', 'PL NonPharma NetSale',
             'Net Sale PM1', 'Pharma PM1', 'NON Pharma PM1',
@@ -49,122 +50,156 @@ def load_data():
         
         return df
     except Exception as e:
-        st.error(f"Error compiling ledger: {e}")
+        st.error(f"Operational Intake Pipeline Failure: {e}")
         return pd.DataFrame()
 
 df = load_data()
 
 if df.empty:
-    st.warning("%#x26a0;️ Dataset empty or corrupted. Verify filename on GitHub.")
+    st.warning("⚠️ Operational ledger sheet missing. Verify 'sales_data.csv' position on GitHub.")
 else:
-    try:
-        # 3. Compute Month-over-Month Variances
-        df['Net_Var_PM1'] = df['MTD NetSale'] - df['Net Sale PM1']
-        df['Pharma_Var_PM1'] = df['PL Pharma NetSale'] - df['Pharma PM1']
-        df['NonPharma_Var_PM1'] = df['PL NonPharma NetSale'] - df['NON Pharma PM1']
+    # 3. Advanced Retail Analytics Computation Engine
+    df['Net_Variance_Vs_PM1'] = df['MTD NetSale'] - df['Net Sale PM1']
+    df['Net_Variance_Vs_PM2'] = df['Net Sale PM1'] - df['Net Sale PM2']
+    df['Pharma_Variance_Vs_PM1'] = df['PL Pharma NetSale'] - df['Pharma PM1']
+    df['NonPharma_Variance_Vs_PM1'] = df['PL NonPharma NetSale'] - df['NON Pharma PM1']
 
-        df['Net_Var_PM2'] = df['Net Sale PM1'] - df['Net Sale PM2']
-        df['Pharma_Var_PM2'] = df['Pharma PM1'] - df['Pharma PM2']
-        df['NonPharma_Var_PM2'] = df['NON Pharma PM1'] - df['NON Pharma PM2']
+    # Private Label Capture Penetration Math
+    df['Pharma_PL_Share'] = (df['PL Pharma NetSale'] / df['MTD NetSale'].replace(0, 1) * 100).fillna(0.0)
 
-        # 4. Flags for Consecutive 2-Month Multi-Month Decline
-        df['Net_Multi_Decline'] = (df['Net_Var_PM1'] < 0) & (df['Net_Var_PM2'] < 0)
-        df['Pharma_Multi_Decline'] = (df['Pharma_Var_PM1'] < 0) & (df['Pharma_Var_PM2'] < 0)
-        df['NonPharma_Multi_Decline'] = (df['NonPharma_Var_PM1'] < 0) & (df['NonPharma_Var_PM2'] < 0)
+    # 4. Multi-Month Execution Diagnostics & Dynamic Action Generation
+    def calculate_classification(row):
+        if row['Net_Variance_Vs_PM1'] < 0 and row['Net_Variance_Vs_PM2'] < 0:
+            return "💥 Critical Core Decline (2M Drop)"
+        elif row['Net_Variance_Vs_PM1'] < 0 and row['Net_Variance_Vs_PM2'] >= 0:
+            return "🚨 High Risk Shift (1M Drop)"
+        elif row['Net_Variance_Vs_PM1'] >= 0 and row['Net_Variance_Vs_PM2'] < 0:
+            return "🔄 Volatile Swing Outlet"
+        return "⭐ Shooting Star Outlet"
 
-        # 5. Core Executive Health Scorecards
-        st.subheader("📌 Sustained Risk Critical Flags")
-        tot_stores = len(df)
-        tot_net_streak = df['Net_Multi_Decline'].sum()
-        tot_pharma_streak = df['Pharma_Multi_Decline'].sum()
-        tot_nonpharma_streak = df['NonPharma_Multi_Decline'].sum()
+    def calculate_poa(row):
+        if row['Net_Variance_Vs_PM1'] < 0 and row['Net_Variance_Vs_PM2'] < 0:
+            return "CRITICAL: Downward revenue spiral. ACTION: Initiate field freeze audit within 48 hours. Deploy senior supervisor to execute customer recovery drive, check competitive pricing entry, and evaluate immediate overhead pruning options."
+        elif row['Net_Variance_Vs_PM1'] < 0 and row['Net_Variance_Vs_PM2'] >= 0:
+            return "WARNING: Recent performance drop. ACTION: Store manager must review counter wait times, check item availability log, and audit morning/evening peak-hour shift compliance."
+        elif row['Net_Variance_Vs_PM1'] >= 0 and row['Net_Variance_Vs_PM2'] < 0:
+            return "MONITOR: Recent bounce back. ACTION: Keep momentum alive. Ensure fast-moving promotional items are fully stocked at checkout counters and review target-incentive tiers with local salespeople."
+        return "STABLE GROWTH: Leading network pacing. ACTION: Lock in current inventory replenishment lines. Document manager's upselling pitch style to share as training materials for underperforming teams."
 
-        col1, col2, col3, col4 = st.columns(4)
-        with col1:
-            st.metric(label="🏬 Network Footprint", value=f"{tot_stores} Total Stores")
-        with col2:
-            st.metric(label="⚠️ Net Revenue Decline Streak", value=f"{tot_net_streak} Outlets", delta="Sustained Drop", delta_color="inverse")
-        with col3:
-            st.metric(label="⚠️ Pharma Decline Streak", value=f"{tot_pharma_streak} Outlets", delta="Sustained Drop", delta_color="inverse")
-        with col4:
-            st.metric(label="⚠️ Non-Pharma Decline Streak", value=f"{tot_nonpharma_streak} Outlets", delta="Sustained Drop", delta_color="inverse")
+    df['Operational Classification'] = df.apply(calculate_classification, axis=1)
+    df['Strategic Action Plan (POA)'] = df.apply(calculate_poa, axis=1)
 
-        st.markdown("---")
+    # 5. Core Executive KPIs (Rupee Leakage Focus)
+    st.subheader("📌 Corporate Network Financial Health Command")
+    
+    network_gross = df['MTD NetSale'].sum()
+    total_leakage = df[df['Net_Variance_Vs_PM1'] < 0]['Net_Variance_Vs_PM1'].sum()
+    critical_count = (df['Operational Classification'] == "💥 Critical Core Decline (2M Drop)").sum()
+    star_count = (df['Operational Classification'] == "⭐ Shooting Star Outlet").sum()
+    
+    metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
+    with metric_col1:
+        st.metric(label="💼 Total Network Gross Sales", value=f"₹{network_gross:,.2f}")
+    with metric_col2:
+        st.metric(label="📉 Monthly Rupee Value Leakage", value=f"₹{abs(total_leakage):,.2f}", delta="Action Required", delta_color="inverse")
+    with metric_col3:
+        st.metric(label="🚨 Stores in 2-Month Spiral", value=f"{critical_count} Branches", delta=f"{(critical_count/len(df))*100:.1f}% of network", delta_color="inverse")
+    with metric_col4:
+        st.metric(label="🏆 Star Benchmark Outlets", value=f"{star_count} Branches", delta="Network Benchmarks")
 
-        # 6. Supervisor Risk Portfolio Ledger Block
-        st.subheader("📋 Supervisor Portfolio Multi-Month Risk Matrix")
-        st.markdown("Review which supervisors have the highest concentration of outlets showing multi-month performance declines.")
+    st.markdown("---")
 
-        supervisor_summary = df.groupby('Supervisor').agg(
-            Total_Assigned_Stores=('StoreID', 'nunique'),
-            Net_De_growth_PM1=('Net_Var_PM1', lambda x: (x < 0).sum()),
-            Sustained_Net_Decline=('Net_Multi_Decline', 'sum'),
-            Sustained_Pharma_Decline=('Pharma_Multi_Decline', 'sum'),
-            Sustained_NonPharma_Decline=('NonPharma_Multi_Decline', 'sum'),
-            Current_MTD_Net_Sales=('MTD NetSale', 'sum')
-        ).reset_index()
-
-        display_summary = supervisor_summary.copy()
-        display_summary.columns = [
-            "Supervisor Name", "Total Stores", "Stores down this month (vs PM1)",
-            "🔥 Critical Net Sale Streak Drop", "🚨 Sustained Pharma Decline", "🛍️ Sustained Non-Pharma Decline", "Current Net Value (₹)"
+    # 6. Strategic Excel Recovery Sheet Exporter
+    st.subheader("📥 Export Enterprise Recovery Spreadsheet")
+    st.markdown("Download this data to give your district supervisors a clear, prioritized list of which stores are losing the most revenue and what action steps they need to take.")
+    
+    excel_buffer = io.BytesIO()
+    with pd.ExcelWriter(excel_buffer, engine='xlsxwriter') as script_writer:
+        columns_to_export = [
+            "StoreID", "StoreName", "Supervisor", "Manager", "MTD NetSale", 
+            "Net_Variance_Vs_PM1", "Pharma_PL_Share", "Operational Classification", "Strategic Action Plan (POA)"
         ]
+        df[columns_to_export].sort_values(by="Net_Variance_Vs_PM1", ascending=True).to_excel(script_writer, sheet_name="Operations Recovery Action", index=False)
+        
+    st.download_button(
+        label="📥 Download Priority Field Recovery Action Ledger (.xlsx)",
+        data=excel_buffer.getvalue(),
+        file_name="Executive_Retail_Turnaround_Ledger.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
 
-        st.dataframe(
-            display_summary.style.format({
-                "Current Net Value (₹)": "₹{:,.2f}"
-            }).background_gradient(subset=["🔥 Critical Net Sale Streak Drop"], cmap="Oranges"),
-            use_container_width=True
+    st.markdown("---")
+
+    # 7. Portfolio Health by District Supervisor Line
+    st.subheader("📋 District Supervisor Strategic Portfolio Summary")
+    st.markdown("This matrix lists your supervisors based on total network leakage, helping you see where support is needed most.")
+
+    super_ops_summary = df.groupby('Supervisor').agg(
+        Managed_Portfolio_Size=('StoreID', 'nunique'),
+        Total_Current_Sales=('MTD NetSale', 'sum'),
+        Total_Net_Leakage=('Net_Variance_Vs_PM1', lambda x: x[x < 0].sum()),
+        Critical_Spiraling_Stores=('Operational Classification', lambda x: (x == "💥 Critical Core Decline (2M Drop)").sum()),
+        Star_Outlets_Count=('Operational Classification', lambda x: (x == "⭐ Shooting Star Outlet").sum())
+    ).reset_index().sort_values(by="Total_Net_Leakage", ascending=True)
+
+    super_ops_summary.columns = [
+        "Supervisor Name", "Portfolio Size (Stores)", "Current Net Performance (₹)", 
+        "Total Leakage Value (₹)", "💥 2-Month Decline Count", "⭐ Benchmark Star Count"
+    ]
+
+    st.dataframe(
+        super_ops_summary.style.format({
+            "Current Net Performance (₹)": "₹{:,.2f}",
+            "Total Leakage Value (₹)": "₹{:,.2f}"
+        }).background_gradient(subset=["Total Leakage Value (₹)"], cmap="Reds_r"),
+        use_container_width=True
+    )
+
+    st.markdown("---")
+
+    # 8. Interactive Multi-Dimensional Visualizations
+    chart_col1, chart_col2 = st.columns(2)
+    
+    with chart_col1:
+        st.subheader("📊 Network Portfolio Status Breakdown")
+        class_counts = df['Operational Classification'].value_counts().reset_index()
+        class_counts.columns = ['Classification', 'Count']
+        
+        fig_pie = px.pie(
+            class_counts, values='Count', names='Classification',
+            color='Classification',
+            color_discrete_map={
+                '💥 Critical Core Decline (2M Drop)': '#dc2626',
+                '🚨 High Risk Shift (1M Drop)': '#f59e0b',
+                '🔄 Volatile Swing Outlet': '#38bdf8',
+                '⭐ Shooting Star Outlet': '#10b981'
+            },
+            title="Operational Health Split across Network"
         )
+        st.plotly_chart(fig_pie, use_container_width=True)
+
+    with chart_col2:
+        st.subheader("📉 Top 10 Revenue Leaking Outlets")
+        leaking_stores_top10 = df.nsmallest(10, 'Net_Variance_Vs_PM1')
+        leaking_stores_top10['Absolute_Leakage'] = abs(leaking_stores_top10['Net_Variance_Vs_PM1'])
+        
+        fig_leak = px.bar(
+            leaking_stores_top10,
+            x='Absolute_Leakage',
+            y='StoreName',
+            orientation='h',
+            title="Highest Financial Value Drops (Current Month vs PM1)",
+            color='Absolute_Leakage',
+            color_continuous_scale='Reds',
+            labels={'Absolute_Leakage': 'Net Revenue Lost (₹)', 'StoreName': 'Store Location'}
+        )
+        fig_leak.update_layout(yaxis={'categoryorder':'total ascending'}, coloraxis_showscale=False)
+        st.plotly_chart(fig_leak, use_container_width=True)
 
         st.markdown("---")
 
-        # 7. Multi-Month Trend Visualization Chart
-        st.subheader("📊 Volumetric Breakdown of Long-Term Decline Risks")
-        
-        melted_trends = pd.melt(
-            supervisor_summary,
-            id_vars=['Supervisor'],
-            value_vars=['Sustained_Net_Decline', 'Sustained_Pharma_Decline', 'Sustained_NonPharma_Decline'],
-            var_name='Risk Category',
-            value_name='Count of Stores'
-        )
-        melted_trends['Risk Category'] = melted_trends['Risk Category'].map({
-            'Sustained_Net_Decline': 'Net Sales Drop (2+ Months)',
-            'Sustained_Pharma_Decline': 'Pharma PL Drop (2+ Months)',
-            'Sustained_NonPharma_Decline': 'Non-Pharma PL Drop (2+ Months)'
-        })
-
-        fig_trends = px.bar(
-            melted_trends,
-            x="Supervisor",
-            y="Count of Stores",
-            color="Risk Category",
-            barmode="group",
-            title="Portfolio Volume experiencing Multi-Month Decline Stretches",
-            color_discrete_sequence=px.colors.sequential.Flame_r
-        )
-        st.plotly_chart(fig_trends, use_container_width=True)
-
-        st.markdown("---")
-
-        # 8. Filtered Risk Action List Finder
-        st.subheader("🔍 Critical Multi-Month Risk Outlet Finder")
-        
-        risk_filter = st.radio("Isolate Stores by Risk Status:", ["Show Stores with Sustained Net Sales Drop", "Show Entire Network Data Profile"])
-        
-        drilldown_cols = [
-            "StoreName", "Supervisor", "Manager", "MTD NetSale", "Net Sale PM1", "Net Sale PM2",
-            "PL Pharma NetSale", "Pharma PM1", "Pharma PM2",
-            "PL NonPharma NetSale", "NON Pharma PM1", "NON Pharma PM2"
-        ]
-        
-        if "Sustained Net Sales Drop" in risk_filter:
-            action_df = df[df['Net_Multi_Decline'] == True]
-        else:
-            action_df = df
-
-        st.dataframe(action_df[drilldown_cols].sort_values(by="MTD NetSale"), use_container_width=True)
-        
-    except Exception as calculation_error:
-        st.error(f"Error processing layout calculations: {calculation_error}")
+    # 9. Granular Command Ledger Explorer View
+    st.subheader("🔬 Operational Target Drilldown Control Panel")
+    
+    selected_class = st.selectbox(
+        "Isolate Stores by Management Classification Profile:", 
