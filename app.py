@@ -29,15 +29,14 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Branding Update: Replaced Eagle Symbol with Corporate MedPlus Identity Layout Block
+# Branding Update: Official Red MedPlus Corporate Logo Header Placement
 col_logo, col_title = st.columns([1, 11])
 with col_logo:
-    # Official MedPlus transparent branding banner image link asset
-    st.image("https://medplusmart.com", width=110)
+    st.image("https://medplusmart.com", width=140)
 with col_title:
     st.title("Supervisor Performance Dashboard")
-    
-st.markdown("### 🗺️ Enterprise Margin Optimization & Turnaround Engine")
+    st.markdown("##### Enterprise Margin Optimization & Turnaround Engine")
+
 st.markdown("---")
 
 # 2. Indian Currency Formatting Engine (Lakhs & Crores Routine)
@@ -80,7 +79,6 @@ def load_data_with_temporal_parse():
                 extracted_days = 30
     except:
         pass
-        
     try:
         with open("sales_data.csv", "r", encoding="utf-8", errors="ignore") as f:
             lines = f.readlines()
@@ -122,8 +120,9 @@ def load_data_with_temporal_parse():
         return pd.DataFrame(), extracted_days
 
 df, mtd_days_elapsed = load_data_with_temporal_parse()
+
 if df.empty:
-    st.warning("⚠️ Critical: 'sales_data.csv' missing from repository.")
+    st.warning("⚠️ Critical: 'sales_data.csv' missing from repository directory.")
 else:
     # 4. Analytics Computation Layer
     df['Net_Variance_Vs_PM1'] = df['MTD NetSale'] - df['Net Sale PM1']
@@ -137,7 +136,6 @@ else:
     df['NonPharma_Variance_Vs_PM2'] = df['NON Pharma PM1'] - df['NON Pharma PM2']
     
     df['Total_PL_Sales'] = df['PL Pharma NetSale'] + df['PL NonPharma NetSale']
-
     # Dynamic Competitor Mapping
     def calculate_market_density(store_id):
         val = sum(ord(char) for char in str(store_id))
@@ -174,6 +172,7 @@ else:
         elif status == "🔄 Volatile Swing Outlet":
             return f"🟪 MANAGER {name}: Secure stock parameters. Competition is discounting at {max_disc:.0f}%. Run weekend health camps."
         return f"🟩 MANAGER {name}: Outperforming market standard. Maintain supply lines for top 20 SKUs."
+
     def build_supervisor_poa(row):
         status = row['Operational Classification']
         name = row['Supervisor']
@@ -188,7 +187,6 @@ else:
     df['Operational Classification'] = df.apply(calculate_classification, axis=1)
     df['Manager Action Plan (POA)'] = df.apply(build_manager_poa, axis=1)
     df['Supervisor Strategic Mandate'] = df.apply(build_supervisor_poa, axis=1)
-
     # 5. MASTER DATA HUB - CONSOLIDATED DOWNLOAD AT START
     st.subheader("📥 Master Operational Data Hub")
     master_buffer = io.BytesIO()
@@ -222,6 +220,7 @@ else:
     tot_sales = f_df['MTD NetSale'].sum()
     pharma_pct = (f_df['PL Pharma NetSale'].sum() / tot_sales * 100) if tot_sales > 0 else 0.0
     non_pharma_pct = (f_df['PL NonPharma NetSale'].sum() / tot_sales * 100) if tot_sales > 0 else 0.0
+    
     pm1_sales = f_df['Net Sale PM1'].sum()
     pm1_pharma_pct = (f_df['Pharma PM1'].sum() / pm1_sales * 100) if pm1_sales > 0 else 0.0
     pm1_non_pharma_pct = (f_df['NON Pharma PM1'].sum() / pm1_sales * 100) if pm1_sales > 0 else 0.0
@@ -229,7 +228,6 @@ else:
     pm2_sales = f_df['Net Sale PM2'].sum()
     pm2_pharma_pct = (f_df['Pharma PM2'].sum() / pm2_sales * 100) if pm2_sales > 0 else 0.0
     pm2_non_pharma_pct = (f_df['NON Pharma PM2'].sum() / pm2_sales * 100) if pm2_sales > 0 else 0.0
-    
     sales_diff_1m = tot_sales - pm1_sales
     avg_2m_sales_base = (pm1_sales + pm2_sales) / 2
     avg_sales_diff_2m = tot_sales - avg_2m_sales_base
@@ -270,6 +268,7 @@ else:
     with r2_c3:
         st.metric(label="🛍️ PM1 Non-Pharma %", value=f"{pm1_non_pharma_pct:.2f}%")
         st.markdown("<div class='custom-subtext'>Historical Mix Baseline</div>", unsafe_allow_html=True)
+
     # Row 3: Past Month Two Metrics Panel View
     r3_c1, r3_c2, r3_c3 = st.columns(3)
     with r3_c1:
@@ -281,7 +280,6 @@ else:
     with r3_c3:
         st.metric(label="🛍️ PM2 Non-Pharma %", value=f"{pm2_non_pharma_pct:.2f}%")
         st.markdown("<div class='custom-subtext'>Historical Mix Baseline</div>", unsafe_allow_html=True)
-        
     # Row 4: Growth Tracking and Rupee Variances with Sign Arrow Alignment Indicators
     st.markdown("##### 📈 Growth & Trajectory Tracking Variances")
     r4_c1, r4_c2, r4_c3, r4_c4 = st.columns(4)
@@ -390,14 +388,14 @@ else:
 
     st.dataframe(styled_super_summary, use_container_width=True, hide_index=True)
     st.markdown("---")
-
-    # 9. HIGH-COMPRESSION TRI-COLUMN EXECUTIVE VISUALIZATION CORE
+    # 9. HIGH-COMPRESSION SIDE-BY-SIDE TRI-COLUMN EXECUTIVE VISUALIZATION CORE
     st.subheader("📈 Strategic Visual Performance Framework")
     
     chart_supervisors = ["All Supervisors"] + sorted(list(df['Supervisor'].dropna().unique()))
     chart_selected_sup = st.selectbox("🔍 Filter Visual Framework Charts by Supervisor:", chart_supervisors, key="visual_framework_sup_filter")
     
     chart_df = df if chart_selected_sup == "All Supervisors" else df[df['Supervisor'] == chart_selected_sup]
+
     v_col1, v_col2, v_col3 = st.columns(3)
     
     with v_col1:
