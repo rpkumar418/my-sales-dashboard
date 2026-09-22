@@ -263,8 +263,16 @@ else:
 
     st.markdown("---")
 
-    # 8. SUPERVISOR PORTFOLIO SUMMARY WITH ADVANCED RATIO METRICS
+    # 8. SUPERVISOR PORTFOLIO SUMMARY WITH ADVANCED RATIO METRICS & AUDIT GUIDELINES
     st.subheader("📋 Supervisor Portfolio Summary")
+    
+    with st.expander("📖 Boardroom Review & Audit Guidelines (Click to Expand)", expanded=True):
+        st.markdown("""
+        * **Total Stores Balancing Check**: Total Stores must mathematically equal `1M Degrowth Count + 1M Growth Count` AND `2M Degrowth Count + 2M Growth Count`.
+        * **1M Degrowth Definition**: Store net volume dropped this month compared directly to last month (PM1).
+        * **2M Degrowth Definition**: Store net volume dropped this month compared to the historical **2-Months Sales Average** `((PM1 + PM2) / 2)`.
+        * **Interpretation Strategy**: Prioritize auditing teams showing high counts under **2M Degrowth Value (Red Filled Cells)**. This flags long-term structural customer loss rather than minor monthly promotional volatility.
+        """)
 
     super_matrix = []
     for sup_name, sup_data in df.groupby('Supervisor'):
@@ -281,7 +289,6 @@ else:
         growth_2m_count = (~degrowth_2m_mask).sum()
         degrowth_2m_val = sup_data[degrowth_2m_mask]['Net_Variance_Vs_Avg2M'].sum()
         
-        # Cumulative Territory Growth Index Rating Calculation
         pm1_sum = sup_data['Net Sale PM1'].sum()
         growth_index = ((cm_sales - pm1_sum) / pm1_sum * 100) if pm1_sum > 0 else 0.0
         
@@ -307,65 +314,57 @@ else:
         return style_matrix
 
     styled_super_summary = super_summary_df.style.apply(boardroom_summary_styler, axis=None).format({
-        "CM Net Sales": "₹{:,.2f}",
-        "1M Degrowth Value": "₹{:,.2f}",
-        "2M Degrowth Value": "₹{:,.2f}",
-        "🏆 Territory Growth Index": "{:+.2f}%"
+        "CM Net Sales": "₹{:,.2f}", "1M Degrowth Value": "₹{:,.2f}", "2M Degrowth Value": "₹{:,.2f}", "🏆 Territory Growth Index": "{:+.2f}%"
     }).background_gradient(subset=["🏆 Territory Growth Index"], cmap="RdYlGn")
 
     st.dataframe(styled_super_summary, use_container_width=True, hide_index=True)
     st.markdown("---")
-    # 9. Interactive Visualizations
+    # 9. Dual-Dimensional Network Pacing Trends (Leakage vs Generation Chart Panels)
     chart_col1, chart_col2 = st.columns(2)
     with chart_col1:
-        st.subheader("📊 Network Portfolio Status Breakdown")
-        class_counts = f_df['Operational Classification'].value_counts().reset_index()
-        class_counts.columns = ['Classification', 'Count']
-        fig_pie = px.pie(
-            class_counts, values='Count', names='Classification', color='Classification',
-            color_discrete_map={
-                '💥 Critical Core Decline (2M Drop)': '#dc2626',
-                '🚨 High Risk Shift (1M Drop)': '#f59e0b',
-                '🔄 Volatile Swing Outlet': '#38bdf8',
-                '⭐ Shooting Star Outlet': '#10b981'
-            },
-            title="Operational Split for Selected Portfolio"
-        )
-        st.plotly_chart(fig_pie, use_container_width=True)
-
-    with chart_col2:
-        st.subheader("📉 Top Revenue Leaking Outlets")
-        leaking_stores_top10 = f_df.nsmallest(10, 'Net_Variance_Vs_PM1')
-        leaking_stores_top10['Absolute_Leakage'] = abs(leaking_stores_top10['Net_Variance_Vs_PM1'])
+        st.subheader("📉 Top 10 Revenue Leaking Outlets")
+        leaking_stores = f_df.nsmallest(10, 'Net_Variance_Vs_PM1')
+        leaking_stores['Absolute_Leakage'] = abs(leaking_stores['Net_Variance_Vs_PM1'])
         fig_leak = px.bar(
-            leaking_stores_top10, x='Absolute_Leakage', y='StoreName', orientation='h',
-            title="Highest Financial Value Drops in Selected Portfolio",
+            leaking_stores, x='Absolute_Leakage', y='StoreName', orientation='h',
+            title="Highest Value Drops (Current Month vs PM1)",
             color='Absolute_Leakage', color_continuous_scale='Reds',
-            labels={'Absolute_Leakage': 'Net Revenue Lost (₹)', 'StoreName': 'Store Location'}
+            labels={'Absolute_Leakage': 'Net Revenue Lost (₹)', 'StoreName': 'Location'}
         )
         fig_leak.update_layout(yaxis={'categoryorder':'total ascending'}, coloraxis_showscale=False)
         st.plotly_chart(fig_leak, use_container_width=True)
+
+    with chart_col2:
+        st.subheader("📈 Top 10 Revenue Generating Outlets")
+        generating_stores = f_df.nlargest(10, 'Net_Variance_Vs_PM1')
+        fig_gen = px.bar(
+            generating_stores, x='Net_Variance_Vs_PM1', y='StoreName', orientation='h',
+            title="Highest Value Gains (Current Month vs PM1)",
+            color='Net_Variance_Vs_PM1', color_continuous_scale='Greens',
+            labels={'Net_Variance_Vs_PM1': 'Net Revenue Gained (₹)', 'StoreName': 'Location'}
+        )
+        fig_gen.update_layout(yaxis={'categoryorder':'total ascending'}, coloraxis_showscale=False)
+        st.plotly_chart(fig_gen, use_container_width=True)
+        
     st.markdown("---")
 
-    # 10. STRATEGIC COMPONENT: STORE PERFORMANCE LEADERBOARD WITH COLOR CODE HIGHLIGHTS
+    # 10. RE-BRANDED STORE PERFORMANCE LEADERBOARD WITH SECURE STOREID KEYS
     st.subheader("🏆 Store Performance Leaderboard")
-    st.markdown("High-Impact Operational Directory. Growth values are highlighted in emerald green, while decreasing values display in bold red layout fields.")
+    st.markdown("Ranks branches based on absolute 1-month revenue variances. Growing outlets display in green with explicit '+' headers.")
     
     leaderboard_df = f_df.copy().sort_values(by="Net_Variance_Vs_PM1", ascending=False).reset_index(drop=True)
-    leaderboard_df.index = leaderboard_df.index + 1
-    leaderboard_df.index.name = 'Portfolio Rank'
     
-    leader_cols = ["StoreName", "Manager", "Supervisor", "MTD NetSale", "Net Sale PM1", "Net_Variance_Vs_PM1"]
+    # Securely map StoreID into the display column arrays
+    leader_cols = ["StoreID", "StoreName", "Manager", "Supervisor", "MTD NetSale", "Net Sale PM1", "Net_Variance_Vs_PM1"]
     display_leader_df = leaderboard_df[leader_cols].copy()
 
-    # Dynamic string formatter loops to avoid data level parsing errors on display
     for i in display_leader_df.index:
         val = display_leader_df.loc[i, 'Net_Variance_Vs_PM1']
         prefix = "+" if val >= 0 else ""
         display_leader_df.loc[i, 'Net_Variance_Vs_PM1_Str'] = f"₹{prefix}{val:,.2f}"
 
     display_leader_df['Net Variance (1M)'] = display_leader_df['Net_Variance_Vs_PM1_Str']
-    final_leader_cols = ["StoreName", "Manager", "Supervisor", "MTD NetSale", "Net Sale PM1", "Net Variance (1M)"]
+    final_leader_cols = ["StoreID", "StoreName", "Manager", "Supervisor", "MTD NetSale", "Net Sale PM1", "Net Variance (1M)"]
 
     def final_text_styler(val_df):
         style_df = pd.DataFrame('', index=val_df.index, columns=val_df.columns)
@@ -378,8 +377,7 @@ else:
 
     st.dataframe(
         display_leader_df[final_leader_cols].style.apply(final_text_styler, axis=None).format({
-            "MTD NetSale": "₹{:,.2f}", 
-            "Net Sale PM1": "₹{:,.2f}"
+            "MTD NetSale": "₹{:,.2f}", "Net Sale PM1": "₹{:,.2f}"
         }), 
         use_container_width=True, hide_index=True
     )
@@ -389,9 +387,16 @@ else:
     st.subheader("🔬 Operational Target Drilldown Control Panel")
     st.markdown("**Color Code Key:** 🟥 Red = 2-Month Degrowth | 🟧 Orange = 1-Month Degrowth | 🟪 Blue = 1-Month Growth | 🟩 Green = 2-Month Growth")
     
+    # FIXED: Re-injected the missing 4th category option to provide comprehensive operational tracking
     selected_class = st.selectbox(
         "Isolate Stores by Management Classification Profile:", 
-        ["Show All Stores", "Isolate 💥 Critical Core Decline (2M Drop) Only", "Isolate 🚨 High Risk Shift (1M Drop) Only", "Isolate ⭐ Shooting Star Benchmarks Only"]
+        [
+            "Show All Stores", 
+            "Isolate 💥 Critical Core Decline (2M Drop) Only", 
+            "Isolate 🚨 High Risk Shift (1M Drop) Only", 
+            "Isolate 🔄 Volatile Swing Outlet Only",
+            "Isolate ⭐ Shooting Star Benchmarks Only"
+        ]
     )
     
     display_grid_df = f_df.copy()
@@ -399,6 +404,8 @@ else:
         display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "💥 Critical Core Decline (2M Drop)"]
     elif "High Risk Shift" in selected_class:
         display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "🚨 High Risk Shift (1M Drop)"]
+    elif "Volatile Swing Outlet" in selected_class:
+        display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "🔄 Volatile Swing Outlet"]
     elif "Shooting Star" in selected_class:
         display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "⭐ Shooting Star Outlet"]
 
