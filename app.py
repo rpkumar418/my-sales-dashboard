@@ -81,7 +81,9 @@ else:
     df['Net_Variance_Vs_PM1'] = df['MTD NetSale'] - df['Net Sale PM1']
     df['Net_Variance_Vs_PM2'] = df['Net Sale PM1'] - df['Net Sale PM2']
     df['Pharma_Variance_Vs_PM1'] = df['PL Pharma NetSale'] - df['Pharma PM1']
+    df['Pharma_Variance_Vs_PM2'] = df['Pharma PM1'] - df['Pharma PM2']
     df['NonPharma_Variance_Vs_PM1'] = df['PL NonPharma NetSale'] - df['NON Pharma PM1']
+    df['NonPharma_Variance_Vs_PM2'] = df['NON Pharma PM1'] - df['NON Pharma PM2']
     
     df['Total_PL_Sales'] = df['PL Pharma NetSale'] + df['PL NonPharma NetSale']
 
@@ -233,7 +235,6 @@ else:
         
     super_summary_df = pd.DataFrame(super_matrix)
 
-    # FIXED: Replaced standard styled object with st.dataframe formatting columns to protect native header filters and sorting mechanisms
     st.dataframe(
         super_summary_df.sort_values(by="2M Real Degrowth", ascending=False),
         column_config={
@@ -253,7 +254,7 @@ else:
     # 9. Interactive Visualizations
     chart_col1, chart_col2 = st.columns(2)
     with chart_col1:
-        st.subheader("📊 Portfolio Status Breakdown")
+        st.subheader("📊 Network Portfolio Status Breakdown")
         class_counts = f_df['Operational Classification'].value_counts().reset_index()
         class_counts.columns = ['Classification', 'Count']
         fig_pie = px.pie(
@@ -311,34 +312,36 @@ else:
     elif "Shooting Star" in selected_class:
         display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "⭐ Shooting Star Outlet"]
 
+    # Refactored Cell-by-Cell Painter using ONLY the visible columns provided in display loop
     def color_cells_by_segment(val_df):
         style_df = pd.DataFrame('', index=val_df.index, columns=val_df.columns)
-        def match_style(v1, v2):
-            if v1 < 0 and v2 < 0: return 'background-color: #ffcccc; color: #cc0000; font-weight: bold;'
-            elif v1 < 0 and v2 >= 0: return 'background-color: #ffe6cc; color: #d97706;'
-            elif v1 >= 0 and v2 < 0: return 'background-color: #e0f2fe; color: #0284c7;'
-            return 'background-color: #d1fae5; color: #16a34a;'
-
+        
         for idx in val_df.index:
-            style_df.loc[idx, 'MTD NetSale'] = match_style(val_df.loc[idx, 'Net_Variance_Vs_PM1'], val_df.loc[idx, 'Net_Variance_Vs_PM2'])
-            style_df.loc[idx, 'PL Pharma NetSale'] = match_style(val_df.loc[idx, 'Pharma_Variance_Vs_PM1'], val_df.loc[idx, 'Pharma_Variance_Vs_PM2'])
-            style_df.loc[idx, 'PL NonPharma NetSale'] = match_style(val_df.loc[idx, 'NonPharma_Variance_Vs_PM1'], val_df.loc[idx, 'NonPharma_Variance_Vs_PM2'])
+            # Safely fetch matching variance context values using index references
+            net_v1 = display_grid_df.loc[idx, 'Net_Variance_Vs_PM1']
+            net_v2 = display_grid_df.loc[idx, 'Net_Variance_Vs_PM2']
+            pharma_v1 = display_grid_df.loc[idx, 'Pharma_Variance_Vs_PM1']
+            pharma_v2 = display_grid_df.loc[idx, 'Pharma_Variance_Vs_PM2']
+            non_v1 = display_grid_df.loc[idx, 'NonPharma_Variance_Vs_PM1']
+            non_v2 = display_grid_df.loc[idx, 'NonPharma_Variance_Vs_PM2']
+
+            def get_color(v1, v2):
+                if v1 < 0 and v2 < 0: return 'background-color: #ffcccc; color: #cc0000; font-weight: bold;'
+                elif v1 < 0 and v2 >= 0: return 'background-color: #ffe6cc; color: #d97706;'
+                elif v1 >= 0 and v2 < 0: return 'background-color: #e0f2fe; color: #0284c7;'
+                return 'background-color: #d1fae5; color: #16a34a;'
+
+            style_df.loc[idx, 'MTD NetSale'] = get_color(net_v1, net_v2)
+            style_df.loc[idx, 'PL Pharma NetSale'] = get_color(pharma_v1, pharma_v2)
+            style_df.loc[idx, 'PL NonPharma NetSale'] = get_color(non_v1, non_v2)
+            
         return style_df
 
     visible_cols = ["StoreName", "Supervisor", "Manager", "MTD NetSale", "PL Pharma NetSale", "PL NonPharma NetSale"]
     
-    filtered_display_df = display_grid_df[visible_cols].copy()
-    filtered_display_df['Net_Variance_Vs_PM1'] = display_grid_df['Net_Variance_Vs_PM1']
-    filtered_display_df['Net_Variance_Vs_PM2'] = display_grid_df['Net_Variance_Vs_PM2']
-    filtered_display_df['Pharma_Variance_Vs_PM1'] = display_grid_df['Pharma_Variance_Vs_PM1']
-    filtered_display_df['Pharma_Variance_Vs_PM2'] = display_grid_df['Pharma_Variance_Vs_PM2']
-    filtered_display_df['NonPharma_Variance_Vs_PM1'] = display_grid_df['NonPharma_Variance_Vs_PM1']
-    filtered_display_df['NonPharma_Variance_Vs_PM2'] = display_grid_df['NonPharma_Variance_Vs_PM2']
-
-    # Final safe format without dataframe rendering level conflicts
-    final_styled_grid = filtered_display_df.style.apply(color_cells_by_segment, axis=None).format({
+    # Form styles strictly mapping visible parameters
+    final_styled_grid = display_grid_df[visible_cols].style.apply(color_cells_by_segment, axis=None).format({
         "MTD NetSale": "₹{:,.2f}", "PL Pharma NetSale": "₹{:,.2f}", "PL NonPharma NetSale": "₹{:,.2f}"
     })
 
-    # Render styled data securely
-    st.dataframe(final_styled_grid, column_order=visible_cols, use_container_width=True)
+    st.dataframe(final_styled_grid, use_container_width=True)
