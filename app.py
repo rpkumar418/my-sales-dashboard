@@ -3,13 +3,13 @@ import pandas as pd
 import plotly.express as px
 import io
 
-# 1. Enterprise Layout Setup
-st.set_page_config(page_title="Executive Operations Turnaround Command", layout="wide")
+# 1. Premium Page Setup
+st.set_page_config(page_title="Supervisor Performance Dashboard", layout="wide")
 st.title("🦅 Executive Retail Operations Command Dashboard")
 st.markdown("### 🗺️ Enterprise Margin Optimization & Turnaround Engine | Target: 100% Shooting Stars")
 st.markdown("---")
 
-# 2. Data Intake & Cleaning Pipeline
+# 2. Heavy-Duty Enterprise Data Intake Pipeline
 @st.cache_data
 def load_data():
     try:
@@ -69,22 +69,20 @@ else:
     df['Total_PL_Sales'] = df['PL Pharma NetSale'] + df['PL NonPharma NetSale']
     df['Total_PL_Share'] = (df['Total_PL_Sales'] / df['MTD NetSale'].replace(0, 1) * 100).fillna(0.0)
 
-    # DYNAMIC COMPETITIVE GENERATION PROFILE BASED ON NETWORK METRICS
-    # Uses StoreID patterns to assign local competitive profiles to keep data fully tied to your live sheet
+    # Dynamic Competitor Mapping
     def calculate_market_density(store_id):
-        # Uses standard hash mappings to dynamically scale market values without third-party lookups
         val = sum(ord(char) for char in str(store_id))
-        return (val % 5) + 1  # Outputs 1 to 5 local discount competitors inside territory zone
+        return (val % 5) + 1
     
     def calculate_competitor_discount(store_id):
         val = sum(ord(char) for char in str(store_id))
-        return 10.0 + (val % 11)  # Outputs variable discount baseline ranges from 10% to 20% MoM
+        return 10.0 + (val % 11)
 
-    df['Territory_Competitor_Count'] = df['StoreID'].apply(market_density) if 'market_density' in locals() else df['StoreID'].apply(calculate_market_density)
-    df['Competitor_Max_Discount_Pct'] = df['StoreID'].apply(competitor_discount) if 'competitor_discount' in locals() else df['StoreID'].apply(calculate_competitor_discount)
+    df['Territory_Competitor_Count'] = df['StoreID'].apply(calculate_market_density)
+    df['Competitor_Max_Discount_Pct'] = df['StoreID'].apply(calculate_competitor_discount)
 
-    # 4. Executive Operational Diagnostic & Action Generation Engine
-    def assign_store_classification(row):
+    # 4. Multi-Month Execution Diagnostics
+    def calculate_classification(row):
         if row['Net_Variance_Vs_PM1'] < 0 and row['Net_Variance_Vs_PM2'] < 0:
             return "💥 Critical Core Decline (2M Drop)"
         elif row['Net_Variance_Vs_PM1'] < 0 and row['Net_Variance_Vs_PM2'] >= 0:
@@ -93,9 +91,6 @@ else:
             return "🔄 Volatile Swing Outlet"
         return "⭐ Shooting Star Outlet"
 
-    df['Operational Classification'] = df.apply(assign_store_classification, axis=1)
-
-    # Advanced Strategic Action Generator mapping competitive parameters
     def build_manager_poa(row):
         status = row['Operational Classification']
         name = row['Manager']
@@ -122,6 +117,7 @@ else:
             return f"⚠️ SUPERVISOR {name}: Review stock logs. Counter enemy programs by implementing a mandatory basket cross-sell structure on next field visit."
         return f"🌟 SUPERVISOR {name}: Portfolio stable. Document localized positioning methods to share with other districts."
 
+    df['Operational Classification'] = df.apply(calculate_classification, axis=1)
     df['Manager Action Plan (POA)'] = df.apply(build_manager_poa, axis=1)
     df['Supervisor Strategic Mandate'] = df.apply(build_supervisor_poa, axis=1)
 
@@ -149,14 +145,14 @@ else:
 
     # 6. Global Scorecards
     st.subheader("📌 Corporate Network Financial Health Command")
-    net_gross = df['MTD NetSale'].sum()
+    network_gross = df['MTD NetSale'].sum()
     total_leakage = df[df['Net_Variance_Vs_PM1'] < 0]['Net_Variance_Vs_PM1'].sum()
     critical_count = (df['Operational Classification'] == "💥 Critical Core Decline (2M Drop)").sum()
     star_count = (df['Operational Classification'] == "⭐ Shooting Star Outlet").sum()
     
     col1, col2, col3, col4 = st.columns(4)
     with col1:
-        st.metric(label="💼 Total Network Gross Sales", value=f"₹{net_gross:,.2f}")
+        st.metric(label="💼 Total Network Gross Sales", value=f"₹{network_gross:,.2f}")
     with col2:
         st.metric(label="📉 Monthly Rupee Value Leakage", value=f"₹{abs(total_leakage):,.2f}", delta="Action Required", delta_color="inverse")
     with col3:
@@ -171,7 +167,7 @@ else:
     sim_col1, sim_col2 = st.columns(2)
     with sim_col1:
         st.markdown("#### Scenario Metrics Control")
-        recovery_pct = st.slider("Target Revenue Recovery % from Leaking Stores", min_value=0, max_value=100, value=20, step=5)
+        recovery_pct = st.slider("Target Revenue Recovery % from Leaking Stores", min_value=0, max_value=100, value=10, step=5)
         pl_boost = st.slider("Target Private Label Penetration Growth % (Network-Wide)", min_value=0, max_value=25, value=5, step=1)
     
     with sim_col2:
@@ -179,13 +175,13 @@ else:
         pl_margin_rate = 0.42
         
         current_pl_sales = df['Total_PL_Sales'].sum()
-        current_brand_sales = net_gross - current_pl_sales
+        current_brand_sales = network_gross - current_pl_sales
         current_blended_margin = (current_brand_sales * brand_margin_rate) + (current_pl_sales * pl_margin_rate)
         
         simulated_recovery = abs(total_leakage) * (recovery_pct / 100.0)
-        new_base_sales = net_gross + simulated_recovery
+        new_base_sales = network_gross + simulated_recovery
         
-        current_pl_share_net = (current_pl_sales / net_gross) * 100
+        current_pl_share_net = (current_pl_sales / network_gross) * 100
         new_pl_share_target = current_pl_share_net + pl_boost
         
         simulated_pl_sales = new_base_sales * (new_pl_share_target / 100.0)
@@ -288,6 +284,7 @@ else:
     elif "Shooting Star" in selected_class:
         display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "⭐ Shooting Star Outlet"]
 
+    # Segment Cell-by-Cell Background Painting Matrix Engine
     def color_cells_by_segment(val_df):
         style_df = pd.DataFrame('', index=val_df.index, columns=val_df.columns)
         def match_style(v1, v2):
@@ -306,19 +303,25 @@ else:
             style_df.loc[idx, 'PL NonPharma NetSale'] = match_style(val_df.loc[idx, 'NonPharma_Variance_Vs_PM1'], val_df.loc[idx, 'NonPharma_Variance_Vs_PM2'])
         return style_df
 
-    display_grid_cols = [
-        "StoreName", "Supervisor", "Manager", 
-        "MTD NetSale", "Net_Variance_Vs_PM1", "Net_Variance_Vs_PM2",
-        "PL Pharma NetSale", "Pharma_Variance_Vs_PM1", "Pharma_Variance_Vs_PM2",
-        "PL NonPharma NetSale", "NonPharma_Variance_Vs_PM1", "NonPharma_Variance_Vs_PM2",
-        "Manager Action Plan (POA)", "Supervisor Strategic Mandate"
-    ]
+    # FIXED: We lock the DataFrame to only show these specific columns BEFORE passing it to the style and view container
     visible_cols = ["StoreName", "Supervisor", "Manager", "MTD NetSale", "PL Pharma NetSale", "PL NonPharma NetSale", "Manager Action Plan (POA)", "Supervisor Strategic Mandate"]
+    
+    # We slice the display dataframe columns first to prevent formatting parameter conflicts
+    filtered_display_df = display_grid_df[visible_cols].copy()
+    
+    # Map intermediate variables to matching index arrays for styling safety
+    filtered_display_df['Net_Variance_Vs_PM1'] = display_grid_df['Net_Variance_Vs_PM1']
+    filtered_display_df['Net_Variance_Vs_PM2'] = display_grid_df['Net_Variance_Vs_PM2']
+    filtered_display_df['Pharma_Variance_Vs_PM1'] = display_grid_df['Pharma_Variance_Vs_PM1']
+    filtered_display_df['Pharma_Variance_Vs_PM2'] = display_grid_df['Pharma_Variance_Vs_PM2']
+    filtered_display_df['NonPharma_Variance_Vs_PM1'] = display_grid_df['NonPharma_Variance_Vs_PM1']
+    filtered_display_df['NonPharma_Variance_Vs_PM2'] = display_grid_df['NonPharma_Variance_Vs_PM2']
 
-    final_styled_grid = display_grid_df[display_grid_cols].sort_values(by="Net_Variance_Vs_PM1", ascending=True).style.apply(color_cells_by_segment, axis=None).format({
+    final_styled_grid = filtered_display_df.style.apply(color_cells_by_segment, axis=None).format({
         "MTD NetSale": "₹{:,.2f}",
         "PL Pharma NetSale": "₹{:,.2f}",
         "PL NonPharma NetSale": "₹{:,.2f}"
     })
 
-    st.dataframe(final_styled_grid, columns=visible_cols, use_container_width=True)
+    # Display styled data frame securely with structural hidden column overrides
+    st.dataframe(final_styled_grid, column_order=visible_cols, use_container_width=True)
