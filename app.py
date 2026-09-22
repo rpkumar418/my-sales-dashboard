@@ -9,6 +9,7 @@ st.set_page_config(page_title="MedPlus Executive Turnaround Command", layout="wi
 
 st.markdown("""
     <style>
+    /* Compact default metric font sizes to crisp boardroom text standards */
     [data-testid="stMetricValue"] {
         font-size: 24px !important;
         font-weight: 700 !important;
@@ -26,13 +27,40 @@ st.markdown("""
         margin-bottom: 12px;
         font-weight: 500;
     }
+    .poa-container {
+        background-color: #fef2f2;
+        border: 1px solid #fee2e2;
+        padding: 15px;
+        border-radius: 8px;
+        color: #991b1b;
+        font-family: monospace;
+        white-space: pre-wrap;
+    }
+    /* Flawless CSS Vector Logo Routine - Prevents broken external link errors */
+    .medplus-logo-box {
+        background-color: #e11d48;
+        color: #ffffff;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        font-size: 32px;
+        font-weight: 800;
+        padding: 8px 24px;
+        border-radius: 6px;
+        display: inline-block;
+        letter-spacing: -1px;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    }
+    .medplus-plus-sign {
+        color: #22c55e;
+        font-weight: 900;
+        margin-left: 2px;
+    }
     </style>
 """, unsafe_allow_html=True)
 
-# Branding Update: Official Red MedPlus Corporate Logo Header Placement
-col_logo, col_title = st.columns([1, 11])
+# Branding Update: Instant CSS Popup Logo Block
+col_logo, col_title = st.columns([1, 4])
 with col_logo:
-    st.image("https://medplusmart.com", width=140)
+    st.markdown('<div class="medplus-logo-box">MedPlus<span class="medplus-plus-sign">+</span></div>', unsafe_allow_html=True)
 with col_title:
     st.title("Supervisor Performance Dashboard")
     st.markdown("##### Enterprise Margin Optimization & Turnaround Engine")
@@ -63,7 +91,6 @@ def format_indian_currency(number):
         return final_str
     except:
         return f"₹{number:,.2f}"
-
 # 3. Data Intake Pipeline with Dynamic Date & Day Extraction
 @st.cache_data
 def load_data_with_temporal_parse():
@@ -79,6 +106,7 @@ def load_data_with_temporal_parse():
                 extracted_days = 30
     except:
         pass
+        
     try:
         with open("sales_data.csv", "r", encoding="utf-8", errors="ignore") as f:
             lines = f.readlines()
@@ -120,9 +148,8 @@ def load_data_with_temporal_parse():
         return pd.DataFrame(), extracted_days
 
 df, mtd_days_elapsed = load_data_with_temporal_parse()
-
 if df.empty:
-    st.warning("⚠️ Critical: 'sales_data.csv' missing from repository directory.")
+    st.warning("⚠️ Critical: 'sales_data.csv' missing from repository workspace.")
 else:
     # 4. Analytics Computation Layer
     df['Net_Variance_Vs_PM1'] = df['MTD NetSale'] - df['Net Sale PM1']
@@ -136,6 +163,7 @@ else:
     df['NonPharma_Variance_Vs_PM2'] = df['NON Pharma PM1'] - df['NON Pharma PM2']
     
     df['Total_PL_Sales'] = df['PL Pharma NetSale'] + df['PL NonPharma NetSale']
+
     # Dynamic Competitor Mapping
     def calculate_market_density(store_id):
         val = sum(ord(char) for char in str(store_id))
@@ -158,35 +186,7 @@ else:
             return "🔄 Volatile Swing Outlet"
         return "⭐ Shooting Star Outlet"
 
-    def build_manager_poa(row):
-        status = row['Operational Classification']
-        name = row['Manager']
-        comp_count = row['Territory_Competitor_Count']
-        max_disc = row['Competitor_Max_Discount_Pct']
-        
-        base_msg = f"🟥 MANAGER {name}: Local circle holds {comp_count} active discount pharmacies undercutting up to {max_disc:.0f}%. "
-        if status == "💥 Critical Core Decline (2M Drop)":
-            return base_msg + "Enforce strict front-counter loyalty signups. Deploy staff to run a counter-discount flyer campaign immediately."
-        elif status == "🚨 High Risk Shift (1M Drop)":
-            return base_msg + "Audit prescription drop-offs daily. Cross-sell private label alternatives on premium shelves."
-        elif status == "🔄 Volatile Swing Outlet":
-            return f"🟪 MANAGER {name}: Secure stock parameters. Competition is discounting at {max_disc:.0f}%. Run weekend health camps."
-        return f"🟩 MANAGER {name}: Outperforming market standard. Maintain supply lines for top 20 SKUs."
-
-    def build_supervisor_poa(row):
-        status = row['Operational Classification']
-        name = row['Supervisor']
-        comp_count = row['Territory_Competitor_Count']
-        
-        if status == "💥 Critical Core Decline (2M Drop)":
-            return f"🛑 SUPERVISOR {name}: Severe density threat ({comp_count} Rivals). Run an unannounced field audit within 48 hours."
-        elif status == "🚨 High Risk Shift (1M Drop)":
-            return f"⚠️ SUPERVISOR {name}: Review stock logs. Counter enemy programs by implementing a mandatory basket cross-sell structure."
-        return f"🌟 SUPERVISOR {name}: Portfolio stable. Document localized positioning methods."
-
     df['Operational Classification'] = df.apply(calculate_classification, axis=1)
-    df['Manager Action Plan (POA)'] = df.apply(build_manager_poa, axis=1)
-    df['Supervisor Strategic Mandate'] = df.apply(build_supervisor_poa, axis=1)
     # 5. MASTER DATA HUB - CONSOLIDATED DOWNLOAD AT START
     st.subheader("📥 Master Operational Data Hub")
     master_buffer = io.BytesIO()
@@ -224,10 +224,10 @@ else:
     pm1_sales = f_df['Net Sale PM1'].sum()
     pm1_pharma_pct = (f_df['Pharma PM1'].sum() / pm1_sales * 100) if pm1_sales > 0 else 0.0
     pm1_non_pharma_pct = (f_df['NON Pharma PM1'].sum() / pm1_sales * 100) if pm1_sales > 0 else 0.0
-    
     pm2_sales = f_df['Net Sale PM2'].sum()
     pm2_pharma_pct = (f_df['Pharma PM2'].sum() / pm2_sales * 100) if pm2_sales > 0 else 0.0
     pm2_non_pharma_pct = (f_df['NON Pharma PM2'].sum() / pm2_sales * 100) if pm2_sales > 0 else 0.0
+    
     sales_diff_1m = tot_sales - pm1_sales
     avg_2m_sales_base = (pm1_sales + pm2_sales) / 2
     avg_sales_diff_2m = tot_sales - avg_2m_sales_base
@@ -268,7 +268,6 @@ else:
     with r2_c3:
         st.metric(label="🛍️ PM1 Non-Pharma %", value=f"{pm1_non_pharma_pct:.2f}%")
         st.markdown("<div class='custom-subtext'>Historical Mix Baseline</div>", unsafe_allow_html=True)
-
     # Row 3: Past Month Two Metrics Panel View
     r3_c1, r3_c2, r3_c3 = st.columns(3)
     with r3_c1:
@@ -280,6 +279,7 @@ else:
     with r3_c3:
         st.metric(label="🛍️ PM2 Non-Pharma %", value=f"{pm2_non_pharma_pct:.2f}%")
         st.markdown("<div class='custom-subtext'>Historical Mix Baseline</div>", unsafe_allow_html=True)
+        
     # Row 4: Growth Tracking and Rupee Variances with Sign Arrow Alignment Indicators
     st.markdown("##### 📈 Growth & Trajectory Tracking Variances")
     r4_c1, r4_c2, r4_c3, r4_c4 = st.columns(4)
@@ -312,7 +312,6 @@ else:
     m2_growth_mask = f_df['Net_Variance_Vs_Avg2M'] >= 0
     m2_growth_pool_val = f_df[m2_growth_mask]['Net_Variance_Vs_Avg2M'].sum()
     m2_degrow_pool_val = f_df[~m2_growth_mask]['Net_Variance_Vs_Avg2M'].sum()
-    
     with t2_col1:
         st.markdown("<p style='font-size:13px; color:#475569; font-weight:600; margin-bottom:2px;'>🟩 1M Growth Value</p>", unsafe_allow_html=True)
         st.markdown(f"<p style='font-size:18px; color:#16a34a; font-weight:700; margin:0;'>{format_indian_currency(m1_growth_pool_val)}</p>", unsafe_allow_html=True)
@@ -326,6 +325,51 @@ else:
         st.markdown("<p style='font-size:13px; color:#475569; font-weight:600; margin-bottom:2px;'>🟥 2M Degrowth Value</p>", unsafe_allow_html=True)
         st.markdown(f"<p style='font-size:18px; color:#dc2626; font-weight:700; margin:0;'>{format_indian_currency(m2_degrow_pool_val)}</p>", unsafe_allow_html=True)
         
+    st.markdown("---")
+
+    # MODULE 1: PREDICTIVE PRIVATE LABEL SCENARIO SIMULATION ENGINE
+    st.subheader("🔮 Predictive Private Label Optimization Sandbox")
+    st.markdown("Simulate how shifting brand revenue to higher-margin Private Label options scales portfolio gross profitability.")
+    
+    sim_col1, sim_col2 = st.columns(2)
+    with sim_col1:
+        st.markdown("**Operational Margin Configurations**")
+        brand_pharma_margin = st.slider("Brand Pharma Margin Rate (%)", 10, 25, 15, 1) / 100.0
+        pl_pharma_margin = st.slider("Private Label Pharma Margin Rate (%)", 30, 55, 42, 1) / 100.0
+        brand_non_pharma_margin = st.slider("Brand Non-Pharma Margin Rate (%)", 12, 28, 18, 1) / 100.0
+        pl_non_pharma_margin = st.slider("Private Label Non-Pharma Margin Rate (%)", 35, 60, 45, 1) / 100.0
+    
+    with sim_col2:
+        st.markdown("**Volume Migration Targets**")
+        pharma_pl_boost = st.slider("Target Pharma Share Shift to PL (%)", 0, 30, 5, 1) / 100.0
+        non_pharma_pl_boost = st.slider("Target Non-Pharma Share Shift to PL (%)", 0, 30, 5, 1) / 100.0
+        
+        current_pl_pharma = f_df['PL Pharma NetSale'].sum()
+        current_pl_non_pharma = f_df['PL NonPharma NetSale'].sum()
+        
+        total_pharma_pool = f_df['PL Pharma NetSale'].sum() * 3.5  
+        total_non_pharma_pool = f_df['PL NonPharma NetSale'].sum() * 4.0
+        
+        current_brand_pharma = max(0.0, total_pharma_pool - current_pl_pharma)
+        current_brand_non_pharma = max(0.0, total_non_pharma_pool - current_pl_non_pharma)
+        
+        base_profit = (current_brand_pharma * brand_pharma_margin) + (current_pl_pharma * pl_pharma_margin) + \
+                      (current_brand_non_pharma * brand_non_pharma_margin) + (current_pl_non_pharma * pl_non_pharma_margin)
+                      
+        migrated_pharma = current_brand_pharma * pharma_pl_boost
+        migrated_non_pharma = current_brand_non_pharma * non_pharma_pl_boost
+        
+        sim_profit = ((current_brand_pharma - migrated_pharma) * brand_pharma_margin) + \
+                     ((current_pl_pharma + migrated_pharma) * pl_pharma_margin) + \
+                     ((current_brand_non_pharma - migrated_non_pharma) * brand_non_pharma_margin) + \
+                     ((current_pl_non_pharma + migrated_non_pharma) * pl_non_pharma_margin)
+                     
+        net_profit_expansion = sim_profit - base_profit
+        
+        st.markdown("#### Projected Profitability Turnaround Yield")
+        st.metric(label="📈 Simulated Gross Profit Expansion (Net Addition)", value=format_indian_currency(net_profit_expansion))
+        st.success(f"💡 Strategy Insight: Converting these target volume blocks adds a net yield contribution to **{selected_sup}**'s operating margin pool.")
+
     st.markdown("---")
     # 8. SUPERVISOR PORTFOLIO SUMMARY WITH CONDENSED DROP-DOWN GUIDELINES
     st.subheader("📋 Supervisor Portfolio Summary")
@@ -389,7 +433,7 @@ else:
     st.dataframe(styled_super_summary, use_container_width=True, hide_index=True)
     st.markdown("---")
     # 9. HIGH-COMPRESSION SIDE-BY-SIDE TRI-COLUMN EXECUTIVE VISUALIZATION CORE
-    st.subheader("📈 Strategic Visual Performance Framework")
+    st.header("📈 Strategic Visual Performance Framework")
     
     chart_supervisors = ["All Supervisors"] + sorted(list(df['Supervisor'].dropna().unique()))
     chart_selected_sup = st.selectbox("🔍 Filter Visual Framework Charts by Supervisor:", chart_supervisors, key="visual_framework_sup_filter")
@@ -450,7 +494,6 @@ else:
         """)
         
     st.markdown("---")
-
     # 10. STORE PERFORMANCE LEADERBOARD WITH SECURE STOREID KEYS
     st.subheader("🏆 Store Performance Leaderboard")
     st.markdown("Ranks branches based on absolute 1-month revenue variances. Growing outlets display in green with explicit '+' headers.")
@@ -482,6 +525,49 @@ else:
         return style_df
 
     st.dataframe(display_leader_df[final_leader_cols].style.apply(final_text_styler, axis=None), use_container_width=True, hide_index=True)
+    st.markdown("---")
+
+    # MODULE 2: INTERACTIVE MANAGER INTERVENTION PLAN (POA) SCRIPT GENERATOR
+    st.subheader("📢 Automated Manager Intervention Script Generator")
+    st.markdown("Select an underperforming store inside your 2-Month decline pool to automatically draft a formal intervention mandate.")
+    
+    critical_stores_list = sorted(list(f_df[f_df['Operational Classification'] == "💥 Critical Core Decline (2M Drop)"]['StoreName'].unique()))
+    
+    if critical_stores_list:
+        selected_target_store = st.selectbox("🎯 Select Leaking Store to Generate Escalation Script:", critical_stores_list)
+        target_row = f_df[f_df['StoreName'] == selected_target_store].iloc[0]
+        
+        t_manager = target_row['Manager']
+        t_id = target_row['StoreID']
+        t_sup = target_row['Supervisor']
+        t_loss = abs(target_row['Net_Variance_Vs_PM1'])
+        t_rivals = target_row['Territory_Competitor_Count']
+        t_disc = target_row['Competitor_Max_Discount_Pct']
+        
+        script_body = f"""MEDPLUS DISTRICT PERFORMANCE NOTICE
+----------------------------------
+TO: Store Manager - {t_manager} (ID: {t_id})
+FROM: District Operations Desk / Supervisor {t_sup}
+URGENCY: CRITICAL MANDATE - 2-MONTH LEAKAGE ISOLATION
+
+Manager {t_manager},
+
+Your outlet at '{selected_target_store}' has flagged a major revenue retraction of {format_indian_currency(t_loss)} compared to the last period. Our localized territory density tracking shows {t_rivals} active rival discount operations around your perimeter undercutting our pharmacy pool with up to {t_disc:.0f}% customer discounts.
+
+This consecutive multi-month slide requires immediate localized correction lines:
+1. Enforce a mandatory front-counter loyalty signup rule for every walking patient.
+2. Deploy field staff to run a counter-discount flyer campaign within a 2KM radius.
+3. Reposition Private Label pharma alternatives to premium center-shelf focal levels.
+
+Update your Supervisor with a formal, itemized turnaround status log within 48 hours.
+
+Best Regards,
+District Operations Command
+MedPlus Health Services Ltd."""
+        
+        st.markdown(f"<div class='poa-container'>{script_body}</div>", unsafe_allow_html=True)
+    else:
+        st.success(f"🟩 Excellence Note: The selected filter pool contains zero stores under consecutive 2-Month decline conditions.")
     st.markdown("---")
 
     # 11. Granular Executive Command Grid View
