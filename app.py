@@ -3,23 +3,28 @@ import pandas as pd
 import plotly.express as px
 import io
 
-# 1. Premium Page Setup & Structural Styling
-st.set_page_config(page_title="Supervisor Performance Dashboard", layout="wide")
+# 1. Page Configuration & Sophisticated Boardroom Typography/Styles
+st.set_page_config(page_title="Executive Operations Turnaround Command", layout="wide")
 
 st.markdown("""
     <style>
-    .metric-card-box {
-        background-color: #f8fafc;
-        border: 1px solid #e2e8f0;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-        margin-bottom: 15px;
+    /* Compact default metric font sizes to crisp boardroom text standards */
+    [data-testid="stMetricValue"] {
+        font-size: 24px !important;
+        font-weight: 700 !important;
+        color: #1e293b !important;
     }
-    .header-style {
-        color: #1e293b;
-        font-family: 'Helvetica Neue', Arial, sans-serif;
-        font-weight: 700;
+    [data-testid="stMetricLabel"] {
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        color: #475569 !important;
+    }
+    .custom-subtext {
+        font-size: 11px;
+        color: #64748b;
+        margin-top: -8px;
+        margin-bottom: 12px;
+        font-weight: 500;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -28,7 +33,32 @@ st.title("🦅 Supervisor Performance Dashboard")
 st.markdown("### 🗺️ Enterprise Margin Optimization & Turnaround Engine")
 st.markdown("---")
 
-# 2. Heavy-Duty Enterprise Data Intake Pipeline
+# 2. Indian Currency Formatting Engine (Lakhs & Crores Routine)
+def format_indian_currency(number):
+    try:
+        is_negative = number < 0
+        abs_num = abs(number)
+        s = f"{abs_num:.2f}"
+        parts = s.split('.')
+        num_part = parts[0]
+        dec_part = parts[1]
+        
+        if len(num_part) <= 3:
+            res = num_part
+        else:
+            last_three = num_part[-3:]
+            remaining = num_part[:-3]
+            remaining_rev = remaining[::-1]
+            groups = [remaining_rev[i:i+2] for i in range(0, len(remaining_rev), 2)]
+            remaining_formatted = ",".join(groups)[::-1]
+            res = f"{remaining_formatted},{last_three}"
+            
+        final_str = f"₹{'-' if is_negative else ''}{res}.{dec_part}"
+        return final_str
+    except:
+        return f"₹{number:,.2f}"
+
+# 3. Heavy-Duty Enterprise Data Intake Pipeline
 @st.cache_data
 def load_data():
     try:
@@ -75,7 +105,7 @@ df = load_data()
 if df.empty:
     st.warning("⚠️ Critical: 'sales_data.csv' missing from repository.")
 else:
-    # 3. Analytics Computation Layer
+    # 4. Analytics Computation Layer
     df['Net_Variance_Vs_PM1'] = df['MTD NetSale'] - df['Net Sale PM1']
     df['Net_Variance_Vs_PM2'] = df['Net Sale PM1'] - df['Net Sale PM2']
     df['PM1_PM2_Avg'] = (df['Net Sale PM1'] + df['Net Sale PM2']) / 2
@@ -100,7 +130,7 @@ else:
     df['Territory_Competitor_Count'] = df['StoreID'].apply(calculate_market_density)
     df['Competitor_Max_Discount_Pct'] = df['StoreID'].apply(calculate_competitor_discount)
 
-    # 4. Multi-Month Execution Diagnostics
+    # 5. Multi-Month Execution Diagnostics
     def calculate_classification(row):
         if row['Net_Variance_Vs_PM1'] < 0 and row['Net_Variance_Vs_Avg2M'] < 0:
             return "💥 Critical Core Decline (2M Drop)"
@@ -182,97 +212,112 @@ else:
     pm2_non_pharma_pct = (f_df['NON Pharma PM2'].sum() / pm2_sales * 100) if pm2_sales > 0 else 0.0
     
     sales_diff_1m = tot_sales - pm1_sales
-    avg_2m_sales = (pm1_sales + pm2_sales) / 2
-    avg_sales_diff_2m = tot_sales - avg_2m_sales
-    
+    avg_2m_sales_base = (pm1_sales + pm2_sales) / 2
+    avg_sales_diff_2m = tot_sales - avg_2m_sales_base
     pharma_diff_1m = pharma_pct - pm1_pharma_pct
     non_pharma_diff_1m = non_pharma_pct - pm1_non_pharma_pct
 
+    # Pre-calculate Store Level Network Averages for visual marker subtext scripts
+    num_stores = len(f_df) if len(f_df) > 0 else 1
+    avg_cm_sales = tot_sales / num_stores
+    avg_pm1_sales = pm1_sales / num_stores
+    avg_pm2_sales = pm2_sales / num_stores
+    avg_diff_1m = sales_diff_1m / num_stores
+    avg_diff_2m = avg_sales_diff_2m / num_stores
+
     st.markdown(f"#### 📊 Performance Ledger Overview for: **{selected_sup}**")
     
+    # Row 1: Current Month Metrics Panel View
     r1_c1, r1_c2, r1_c3 = st.columns(3)
     with r1_c1:
-        st.metric(label="💼 Total Network Gross Sales (Current)", value=f"₹{tot_sales:,.2f}")
+        st.metric(label="💼 Total Network Gross Sales (Current)", value=format_indian_currency(tot_sales))
+        st.markdown(f"<div class='custom-subtext'>▲ Store Avg: {format_indian_currency(avg_cm_sales)}</div>", unsafe_allow_html=True)
     with r1_c2:
         st.metric(label="💊 Pharma % (Current)", value=f"{pharma_pct:.2f}%")
+        st.markdown("<div class='custom-subtext'>Target Mix: 35.00%</div>", unsafe_allow_html=True)
     with r1_c3:
         st.metric(label="🛍️ Non-Pharma % (Current)", value=f"{non_pharma_pct:.2f}%")
+        st.markdown("<div class='custom-subtext'>Target Mix: 65.00%</div>", unsafe_allow_html=True)
         
+    # Row 2: Past Month One Metrics Panel View
     r2_c1, r2_c2, r2_c3 = st.columns(3)
     with r2_c1:
-        st.metric(label="🗓️ PM1 Network Gross Sales", value=f"₹{pm1_sales:,.2f}")
+        st.metric(label="🗓️ PM1 Network Gross Sales", value=format_indian_currency(pm1_sales))
+        st.markdown(f"<div class='custom-subtext'>▼ Store Avg: {format_indian_currency(avg_pm1_sales)}</div>", unsafe_allow_html=True)
     with r2_c2:
         st.metric(label="💊 PM1 Pharma %", value=f"{pm1_pharma_pct:.2f}%")
+        st.markdown("<div class='custom-subtext'>Historical Mix Baseline</div>", unsafe_allow_html=True)
     with r2_c3:
         st.metric(label="🛍️ PM1 Non-Pharma %", value=f"{pm1_non_pharma_pct:.2f}%")
+        st.markdown("<div class='custom-subtext'>Historical Mix Baseline</div>", unsafe_allow_html=True)
         
+    # Row 3: Past Month Two Metrics Panel View
     r3_c1, r3_c2, r3_c3 = st.columns(3)
     with r3_c1:
-        st.metric(label="🗓️ PM2 Network Gross Sales", value=f"₹{pm2_sales:,.2f}")
+        st.metric(label="🗓️ PM2 Network Gross Sales", value=format_indian_currency(pm2_sales))
+        st.markdown(f"<div class='custom-subtext'>▼ Store Avg: {format_indian_currency(avg_pm2_sales)}</div>", unsafe_allow_html=True)
     with r3_c2:
         st.metric(label="💊 PM2 Pharma %", value=f"{pm2_pharma_pct:.2f}%")
+        st.markdown("<div class='custom-subtext'>Historical Mix Baseline</div>", unsafe_allow_html=True)
     with r3_c3:
         st.metric(label="🛍️ PM2 Non-Pharma %", value=f"{pm2_non_pharma_pct:.2f}%")
-        
+        st.markdown("<div class='custom-subtext'>Historical Mix Baseline</div>", unsafe_allow_html=True)
+    # Row 4: Growth Tracking and Rupee Variances with Sign Arrow Alignment Indicators
     st.markdown("##### 📈 Growth & Trajectory Tracking Variances")
     r4_c1, r4_c2, r4_c3, r4_c4 = st.columns(4)
-    with r4_c1:
-        st.metric(label="🔄 1-Month Sales Diff", value=f"₹{sales_diff_1m:,.2f}", delta=f"₹{sales_diff_1m:,.2f}")
-    with r4_c2:
-        st.metric(label="📉 2-Month Avg Sales Diff", value=f"₹{avg_sales_diff_2m:,.2f}")
-    with r4_c3:
-        st.metric(label="💊 Pharma % Diff (1M)", value=f"{pharma_diff_1m:+.2f}%", delta=f"{pharma_diff_1m:.2f}%")
-    with r4_c4:
-        st.metric(label="🛍️ Non-Pharma % Diff (1M)", value=f"{non_pharma_diff_1m:+.2f}%", delta=f"{non_pharma_diff_1m:.2f}%")
-        
-    st.markdown("---")
-
-    # 7. PROACTIVE MARGIN RESCUE & TRAFFIC SIMULATION INTERFACE
-    st.subheader("🔮 Predictive Margin Optimization Dashboard")
-    st.markdown("### Interactive Profitability Scenario Modeling")
     
-    sim_col1, sim_col2 = st.columns(2)
-    with sim_col1:
-        st.markdown("#### Scenario Metrics Control")
-        recovery_pct = st.slider("Target Revenue Recovery % from Leaking Stores", min_value=0, max_value=100, value=10, step=5)
-        pl_boost = st.slider("Target Private Label Penetration Growth % (Network-Wide)", min_value=0, max_value=25, value=5, step=1)
-    with sim_col2:
-        brand_margin_rate = 0.18
-        pl_margin_rate = 0.42
+    with r4_c1:
+        arrow_1m = "▲" if sales_diff_1m >= 0 else "▼"
+        st.metric(label="🔄 1-Month Sales Diff", value=format_indian_currency(sales_diff_1m))
+        st.markdown(f"<div class='custom-subtext'>Store Avg: {arrow_1m} {format_indian_currency(abs(avg_diff_1m))}</div>", unsafe_allow_html=True)
+    with r4_c2:
+        arrow_2m = "▲" if avg_sales_diff_2m >= 0 else "▼"
+        st.metric(label="📉 2-Month Avg Sales Diff", value=format_indian_currency(avg_sales_diff_2m))
+        st.markdown(f"<div class='custom-subtext'>Store Avg: {arrow_2m} {format_indian_currency(abs(avg_diff_2m))}</div>", unsafe_allow_html=True)
+    with r4_c3:
+        arrow_ph = "▲" if pharma_diff_1m >= 0 else "▼"
+        st.metric(label="💊 Pharma % Diff (1M)", value=f"{pharma_diff_1m:+.2f}%")
+        st.markdown(f"<div class='custom-subtext'>Mix Shift: {arrow_ph} {abs(pharma_diff_1m):.2f}%</div>", unsafe_allow_html=True)
+    with r4_c4:
+        arrow_nf = "▲" if non_pharma_diff_1m >= 0 else "▼"
+        st.metric(label="🛍️ Non-Pharma % Diff (1M)", value=f"{non_pharma_diff_1m:+.2f}%")
+        st.markdown(f"<div class='custom-subtext'>Mix Shift: {arrow_nf} {abs(non_pharma_diff_1m):.2f}%</div>", unsafe_allow_html=True)
         
-        current_pl_sales = f_df['PL Pharma NetSale'].sum() + f_df['PL NonPharma NetSale'].sum()
-        current_brand_sales = tot_sales - current_pl_sales
-        current_blended_margin = (current_brand_sales * brand_margin_rate) + (current_pl_sales * pl_margin_rate)
+    # INTEGRATED TIER-2 VALUES TRACKING MATRIX
+    st.markdown("##### 💰 Dynamic Tier-2 Financial Velocity Tracking Matrix")
+    t2_col1, t2_col2, t2_col3, t2_col4 = st.columns(4)
+    
+    m1_growth_mask = f_df['Net_Variance_Vs_PM1'] >= 0
+    m1_growth_pool_val = f_df[m1_growth_mask]['Net_Variance_Vs_PM1'].sum()
+    m1_degrow_pool_val = f_df[~m1_growth_mask]['Net_Variance_Vs_PM1'].sum()
+    
+    m2_growth_mask = f_df['Net_Variance_Vs_Avg2M'] >= 0
+    m2_growth_pool_val = f_df[m2_growth_mask]['Net_Variance_Vs_Avg2M'].sum()
+    m2_degrow_pool_val = f_df[~m2_growth_mask]['Net_Variance_Vs_Avg2M'].sum()
+    
+    with t2_col1:
+        st.markdown("<p style='font-size:13px; color:#475569; font-weight:600; margin-bottom:2px;'>🟩 1M Growth Value</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='font-size:18px; color:#16a34a; font-weight:700; margin:0;'>{format_indian_currency(m1_growth_pool_val)}</p>", unsafe_allow_html=True)
+    with t2_col2:
+        st.markdown("<p style='font-size:13px; color:#475569; font-weight:600; margin-bottom:2px;'>🟧 1M Degrowth Value</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='font-size:18px; color:#ea580c; font-weight:700; margin:0;'>{format_indian_currency(m1_degrow_pool_val)}</p>", unsafe_allow_html=True)
+    with t2_col3:
+        st.markdown("<p style='font-size:13px; color:#475569; font-weight:600; margin-bottom:2px;'>🟩 2M Growth Value</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='font-size:18px; color:#16a34a; font-weight:700; margin:0;'>{format_indian_currency(m2_growth_pool_val)}</p>", unsafe_allow_html=True)
+    with t2_col4:
+        st.markdown("<p style='font-size:13px; color:#475569; font-weight:600; margin-bottom:2px;'>🟥 2M Degrowth Value</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='font-size:18px; color:#dc2626; font-weight:700; margin:0;'>{format_indian_currency(m2_degrow_pool_val)}</p>", unsafe_allow_html=True)
         
-        f_leakage = f_df[f_df['Net_Variance_Vs_PM1'] < 0]['Net_Variance_Vs_PM1'].sum()
-        simulated_recovery = abs(f_leakage) * (recovery_pct / 100.0)
-        new_base_sales = tot_sales + simulated_recovery
-        
-        current_pl_share_net = (current_pl_sales / tot_sales * 100) if tot_sales > 0 else 0.0
-        new_pl_share_target = current_pl_share_net + pl_boost
-        
-        simulated_pl_sales = new_base_sales * (new_pl_share_target / 100.0)
-        simulated_brand_sales = new_base_sales - simulated_pl_sales
-        
-        simulated_blended_margin = (simulated_brand_sales * brand_margin_rate) + (simulated_pl_sales * pl_margin_rate)
-        net_margin_gained = simulated_blended_margin - current_blended_margin
-        
-        st.markdown("#### Projected Profitability Turnaround Yield")
-        st.metric(label="📈 Simulated Gross Profit Expansion (Net Addition)", value=f"₹{net_margin_gained:,.2f}")
-        st.info(f"💡 Execution Insight: Reclaiming {recovery_pct}% of portfolio drops shifts this supervisor's private label pool contribution from {current_pl_share_net:.1f}% to {new_pl_share_target:.1f}%.")
-
     st.markdown("---")
-
     # 8. SUPERVISOR PORTFOLIO SUMMARY WITH CONDENSED DROP-DOWN GUIDELINES
     st.subheader("📋 Supervisor Portfolio Summary")
     
-    # FIXED: Guidelines wrapped in a highly condensed drop-down short note
     with st.expander("📝 Short Note: Audit Guidelines", expanded=False):
         st.markdown("""
-        * **Accounting Match**: Total Stores = 1M Degrowth + 1M Growth = 2M Degrowth + 2M Growth.
-        * **1M Degrowth**: Revenue lower than last month (PM1).
-        * **2M Degrowth**: Revenue lower than historical 2-Months Sales Average.
-        * **Review Target**: Prioritize supervisors with high **2M Degrowth Values (Red Background Fills)**.
+        * **Accounting Match Check**: Total Stores must equal `1M Degrowth Count + 1M Growth Count` AND `2M Degrowth Count + 2M Growth Count`.
+        * **1M Trajectory**: Evaluated against last month's ledger baseline (PM1).
+        * **2M Trajectory**: Evaluated against the historical **2-Months Sales Average** `((PM1 + PM2) / 2)`.
+        * **Risk Management Focus**: Portfolios displaying massive red blocks in the **2M Degrowth Value** column require supervisor performance containment strategy loops.
         """)
 
     super_matrix = []
@@ -314,13 +359,18 @@ else:
         style_matrix['2M Degrowth Value'] = 'background-color: #ffcccc; color: #cc0000; font-weight: bold;'
         return style_matrix
 
-    styled_super_summary = super_summary_df.style.apply(boardroom_summary_styler, axis=None).format({
-        "CM Net Sales": "₹{:,.2f}", "1M Degrowth Value": "₹{:,.2f}", "2M Degrowth Value": "₹{:,.2f}", "🏆 Territory Growth Index": "{:+.2f}%"
+    formatted_super_df = super_summary_df.sort_values(by="2M Degrowth Store Count", ascending=False).copy()
+    formatted_super_df['CM Net Sales'] = formatted_super_df['CM Net Sales'].apply(format_indian_currency)
+    formatted_super_df['1M Degrowth Value'] = formatted_super_df['1M Degrowth Value'].apply(format_indian_currency)
+    formatted_super_df['2M Degrowth Value'] = formatted_super_df['2M Degrowth Value'].apply(format_indian_currency)
+
+    styled_super_summary = formatted_super_df.style.apply(boardroom_summary_styler, axis=None).format({
+        "🏆 Territory Growth Index": "{:+.2f}%"
     }).background_gradient(subset=["🏆 Territory Growth Index"], cmap="RdYlGn")
 
     st.dataframe(styled_super_summary, use_container_width=True, hide_index=True)
     st.markdown("---")
-    # 9. STRATEGIC VISUAL PERFORMANCE FRAMEWORK WITH DIRECT DROP-DOWN KEY
+    # 9. DUAL-DIMENSIONAL RETRACTION TRENDS & PORTFOLIO BREAKDOWN VISUALS
     st.header("📈 Strategic Visual Performance Framework")
     
     chart_supervisors = ["All Supervisors"] + sorted(list(df['Supervisor'].dropna().unique()))
@@ -385,8 +435,7 @@ else:
         
     with pie_layout_col2:
         st.subheader("📋 Trajectory Matrix Guidelines")
-        # FIXED: Guidelines and definition metrics compressed completely into a short note dropdown expander
-        with st.expander("📖 Short Note: Quadrant Keys", expanded=False):
+        with st.expander("Quadrant Keys Definition", expanded=False):
             st.markdown("""
             * 🟥 **Critical Core Decline (2M Drop)**: Down MoM and down below long-term 2M baseline average. *Critical risk.*
             * 🟧 **High Risk Shift (1M Drop)**: Down MoM but still running above the long-term historical 2M average baseline.
@@ -395,6 +444,7 @@ else:
             """)
         
     st.markdown("---")
+
     # 10. RE-BRANDED STORE PERFORMANCE LEADERBOARD WITH SECURE STOREID KEYS
     st.subheader("🏆 Store Performance Leaderboard")
     st.markdown("Ranks branches based on absolute 1-month revenue variances. Growing outlets display in green with explicit '+' headers.")
@@ -406,10 +456,12 @@ else:
 
     for i in display_leader_df.index:
         val = display_leader_df.loc[i, 'Net_Variance_Vs_PM1']
-        prefix = "+" if val >= 0 else ""
-        display_leader_df.loc[i, 'Net_Variance_Vs_PM1_Str'] = f"₹{prefix}{val:,.2f}"
+        display_leader_df.loc[i, 'Net_Variance_Vs_PM1_Str'] = format_indian_currency(val) if val < 0 else f"+{format_indian_currency(val)}"
 
     display_leader_df['Net Variance (1M)'] = display_leader_df['Net_Variance_Vs_PM1_Str']
+    display_leader_df['MTD NetSale'] = display_leader_df['MTD NetSale'].apply(format_indian_currency)
+    display_leader_df['Net Sale PM1'] = display_leader_df['Net Sale PM1'].apply(format_indian_currency)
+    
     final_leader_cols = ["StoreID", "StoreName", "Manager", "Supervisor", "MTD NetSale", "Net Sale PM1", "Net Variance (1M)"]
 
     def final_text_styler(val_df):
@@ -422,9 +474,7 @@ else:
         return style_df
 
     st.dataframe(
-        display_leader_df[final_leader_cols].style.apply(final_text_styler, axis=None).format({
-            "MTD NetSale": "₹{:,.2f}", "Net Sale PM1": "₹{:,.2f}"
-        }), 
+        display_leader_df[final_leader_cols].style.apply(final_text_styler, axis=None), 
         use_container_width=True, hide_index=True
     )
     st.markdown("---")
@@ -433,7 +483,6 @@ else:
     st.subheader("🔬 Operational Target Drilldown Control Panel")
     st.markdown("**Color Code Key:** 🟥 Red = 2-Month Degrowth | 🟧 Orange = 1-Month Degrowth | 🟪 Blue = 1-Month Growth | 🟩 Green = 2-Month Growth")
     
-    # FIXED: Re-injected all four operational quadrants correctly inside selection matrix arrays
     selected_class = st.selectbox(
         "Isolate Stores by Management Classification Profile:", 
         [
@@ -472,15 +521,8 @@ else:
     visible_cols = ["StoreName", "Supervisor", "Manager", "MTD NetSale", "PL Pharma NetSale", "PL NonPharma NetSale", "Manager Action Plan (POA)", "Supervisor Strategic Mandate"]
     
     filtered_display_df = display_grid_df[visible_cols].copy()
-    filtered_display_df['Net_Variance_Vs_PM1'] = display_grid_df['Net_Variance_Vs_PM1']
-    filtered_display_df['Net_Variance_Vs_Avg2M'] = display_grid_df['Net_Variance_Vs_Avg2M']
-    filtered_display_df['Pharma_Variance_Vs_PM1'] = display_grid_df['Pharma_Variance_Vs_PM1']
-    filtered_display_df['Pharma_Variance_Vs_PM2'] = display_grid_df['Pharma_Variance_Vs_PM2']
-    filtered_display_df['NonPharma_Variance_Vs_PM1'] = display_grid_df['NonPharma_Variance_Vs_PM1']
-    filtered_display_df['NonPharma_Variance_Vs_PM2'] = display_grid_df['NonPharma_Variance_Vs_PM2']
+    filtered_display_df['MTD NetSale'] = filtered_display_df['MTD NetSale'].apply(format_indian_currency)
+    filtered_display_df['PL Pharma NetSale'] = filtered_display_df['PL Pharma NetSale'].apply(format_indian_currency)
+    filtered_display_df['PL NonPharma NetSale'] = filtered_display_df['PL NonPharma NetSale'].apply(format_indian_currency)
 
-    final_styled_grid = filtered_display_df.style.apply(color_cells_by_segment, axis=None).format({
-        "MTD NetSale": "₹{:,.2f}", "PL Pharma NetSale": "₹{:,.2f}", "PL NonPharma NetSale": "₹{:,.2f}"
-    })
-
-    st.dataframe(final_styled_grid, column_order=visible_cols, use_container_width=True)
+    st.dataframe(filtered_display_df.style.apply(color_cells_by_segment, axis=None), column_order=visible_cols, use_container_width=True, hide_index=True)
