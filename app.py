@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 import io
 
-# 1. Premium Page Setup
+# 1. Premium Page Setup & Structural Styling
 st.set_page_config(page_title="Supervisor Performance Dashboard", layout="wide")
 
 st.markdown("""
@@ -263,15 +263,16 @@ else:
 
     st.markdown("---")
 
-    # 8. SUPERVISOR PORTFOLIO SUMMARY WITH ADVANCED RATIO METRICS & AUDIT GUIDELINES
+    # 8. SUPERVISOR PORTFOLIO SUMMARY WITH CONDENSED DROP-DOWN GUIDELINES
     st.subheader("📋 Supervisor Portfolio Summary")
     
-    with st.expander("📖 Boardroom Review & Audit Guidelines (Click to Expand)", expanded=True):
+    # FIXED: Guidelines wrapped in a highly condensed drop-down short note
+    with st.expander("📝 Short Note: Audit Guidelines", expanded=False):
         st.markdown("""
-        * **Total Stores Balancing Check**: Total Stores must mathematically equal `1M Degrowth Count + 1M Growth Count` AND `2M Degrowth Count + 2M Growth Count`.
-        * **1M Degrowth Definition**: Store net volume dropped this month compared directly to last month (PM1).
-        * **2M Degrowth Definition**: Store net volume dropped this month compared to the historical **2-Months Sales Average** `((PM1 + PM2) / 2)`.
-        * **Interpretation Strategy**: Prioritize auditing teams showing high counts under **2M Degrowth Value (Red Filled Cells)**. This flags long-term structural customer loss rather than minor monthly promotional volatility.
+        * **Accounting Match**: Total Stores = 1M Degrowth + 1M Growth = 2M Degrowth + 2M Growth.
+        * **1M Degrowth**: Revenue lower than last month (PM1).
+        * **2M Degrowth**: Revenue lower than historical 2-Months Sales Average.
+        * **Review Target**: Prioritize supervisors with high **2M Degrowth Values (Red Background Fills)**.
         """)
 
     super_matrix = []
@@ -319,10 +320,9 @@ else:
 
     st.dataframe(styled_super_summary, use_container_width=True, hide_index=True)
     st.markdown("---")
-    # 9. DUAL-DIMENSIONAL RETRACTION TRENDS & PORTFOLIO BREAKDOWN VISUALS
+    # 9. STRATEGIC VISUAL PERFORMANCE FRAMEWORK WITH DIRECT DROP-DOWN KEY
     st.header("📈 Strategic Visual Performance Framework")
     
-    # FIXED: Re-engineered chart visualization supervisor level filter layout mapping constraints
     chart_supervisors = ["All Supervisors"] + sorted(list(df['Supervisor'].dropna().unique()))
     chart_selected_sup = st.selectbox("🔍 Filter Visual Framework Charts by Supervisor:", chart_supervisors, key="visual_framework_sup_filter")
     
@@ -364,12 +364,10 @@ else:
 
     st.markdown("---")
     
-    # 4-Category Operational Split Pie Layout Row Injection
+    # 4-Category Operational Split Pie Layout Row Injection with Condensed Drop-down Definitions
     pie_layout_col1, pie_layout_col2 = st.columns(2)
     with pie_layout_col1:
         st.subheader("📊 Portfolio Health Composition")
-        st.markdown(f"Operational health trajectory distribution split for **{chart_selected_sup}** across four primary performance quadrants.")
-        
         class_counts = chart_df['Operational Classification'].value_counts().reset_index()
         class_counts.columns = ['Classification', 'Count']
         
@@ -386,13 +384,15 @@ else:
         st.plotly_chart(fig_pie, use_container_width=True)
         
     with pie_layout_col2:
-        st.subheader("📋 Executive Trajectory Definition Key")
-        st.markdown("""
-        * 🟥 **Critical Core Decline (2M Drop)**: Core revenue is down both MoM and against the longer-term two-month average ledger baseline. *Immediate intervention required.*
-        * 🟧 **High Risk Shift (1M Drop)**: Down this month against last month, but still pacing above the two-month running baseline average. *Requires close monitoring.*
-        * 🪪 **Volatile Swing Outlet**: Generated positive gains this month but remains below its cumulative two-month average due to deep historic drops. *Stabilizing path.*
-        * 🟩 **Shooting Star Outlet**: Outperforming on both vectors. Volume is up MoM and completely tracking above the long-term running baseline average. *Pacing template.*
-        """)
+        st.subheader("📋 Trajectory Matrix Guidelines")
+        # FIXED: Guidelines and definition metrics compressed completely into a short note dropdown expander
+        with st.expander("📖 Short Note: Quadrant Keys", expanded=False):
+            st.markdown("""
+            * 🟥 **Critical Core Decline (2M Drop)**: Down MoM and down below long-term 2M baseline average. *Critical risk.*
+            * 🟧 **High Risk Shift (1M Drop)**: Down MoM but still running above the long-term historical 2M average baseline.
+            * 🪪 **Volatile Swing Outlet**: Up MoM but remains below 2M running baseline average due to heavy historic drops.
+            * 🟩 **Shooting Star Outlet**: Up MoM and pacing securely above the long-term 2M running baseline average. *Elite pacing.*
+            """)
         
     st.markdown("---")
     # 10. RE-BRANDED STORE PERFORMANCE LEADERBOARD WITH SECURE STOREID KEYS
@@ -433,6 +433,7 @@ else:
     st.subheader("🔬 Operational Target Drilldown Control Panel")
     st.markdown("**Color Code Key:** 🟥 Red = 2-Month Degrowth | 🟧 Orange = 1-Month Degrowth | 🟪 Blue = 1-Month Growth | 🟩 Green = 2-Month Growth")
     
+    # FIXED: Re-injected all four operational quadrants correctly inside selection matrix arrays
     selected_class = st.selectbox(
         "Isolate Stores by Management Classification Profile:", 
         [
