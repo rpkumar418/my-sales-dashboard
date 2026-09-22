@@ -77,13 +77,14 @@ if df.empty:
 else:
     # 3. Analytics Computation Layer
     df['Net_Variance_Vs_PM1'] = df['MTD NetSale'] - df['Net Sale PM1']
+    df['Net_Variance_Vs_PM2'] = df['Net Sale PM1'] - df['Net Sale PM2']
     df['PM1_PM2_Avg'] = (df['Net Sale PM1'] + df['Net Sale PM2']) / 2
     df['Net_Variance_Vs_Avg2M'] = df['MTD NetSale'] - df['PM1_PM2_Avg']
     
     df['Pharma_Variance_Vs_PM1'] = df['PL Pharma NetSale'] - df['Pharma PM1']
     df['Pharma_Variance_Vs_PM2'] = df['Pharma PM1'] - df['Pharma PM2']
     df['NonPharma_Variance_Vs_PM1'] = df['PL NonPharma NetSale'] - df['NON Pharma PM1']
-    df['NonPharma_Variance_Vs_PM2'] = df['NON Pharma PM1'] - df['NonPharma_Variance_Vs_PM2']
+    df['NonPharma_Variance_Vs_PM2'] = df['NON Pharma PM1'] - df['NON Pharma PM2']
     
     df['Total_PL_Sales'] = df['PL Pharma NetSale'] + df['PL NonPharma NetSale']
 
@@ -268,7 +269,6 @@ else:
 
     super_matrix = []
     for sup_name, sup_data in df.groupby('Supervisor'):
-        # Dynamic calculation engines
         tot_stores = sup_data['StoreID'].nunique()
         cm_sales = sup_data['MTD NetSale'].sum()
         
@@ -298,12 +298,10 @@ else:
         
     super_summary_df = pd.DataFrame(super_matrix)
 
-    # Core Executive Highlight Rules Map
     def boardroom_summary_styler(val_df):
         style_matrix = pd.DataFrame('', index=val_df.index, columns=val_df.columns)
-        # Inject structural background accent blocks for immediate review scannability
-        style_matrix['1M Degrowth Value'] = 'background-color: #ffe6cc; color: #d97706; font-weight: bold;' # Orange Heat Fill
-        style_matrix['2M Degrowth Value'] = 'background-color: #ffcccc; color: #cc0000; font-weight: bold;' # Red Heat Fill
+        style_matrix['1M Degrowth Value'] = 'background-color: #ffe6cc; color: #d97706; font-weight: bold;'
+        style_matrix['2M Degrowth Value'] = 'background-color: #ffcccc; color: #cc0000; font-weight: bold;'
         return style_matrix
 
     styled_super_summary = super_summary_df.style.apply(boardroom_summary_styler, axis=None).format({
