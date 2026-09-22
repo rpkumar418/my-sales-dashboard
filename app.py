@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 import io
 import re
+import urllib.parse
 
 # 1. Page Configuration & Sophisticated Boardroom Typography/Styles
 st.set_page_config(page_title="MedPlus Executive Turnaround Command", layout="wide")
@@ -39,6 +40,7 @@ st.markdown("""
         line-height: 1.6 !important;
         white-space: pre-wrap;
         box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+        margin-bottom: 15px;
     }
     /* Fixed Block-Stack Logo Layout to completely prevent heading text collisions */
     .medplus-header-block {
@@ -48,9 +50,9 @@ st.markdown("""
         background-color: #e11d48;
         color: #ffffff;
         font-family: 'Helvetica Neue', Arial, sans-serif;
-        font-size: 32px;
+        font-size: 30px;
         font-weight: 800;
-        padding: 8px 24px;
+        padding: 6px 20px;
         border-radius: 6px;
         display: inline-block;
         letter-spacing: -1px;
@@ -93,8 +95,8 @@ def format_indian_currency(number):
         abs_num = abs(number)
         s = f"{abs_num:.2f}"
         parts = s.split('.')
-        num_part = parts[0]
-        dec_part = parts[1]
+        num_part = parts
+        dec_part = parts
         
         if len(num_part) <= 3:
             res = num_part
@@ -444,16 +446,6 @@ else:
     chart_supervisors = ["All Supervisors"] + sorted(list(df['Supervisor'].dropna().unique()))
     chart_selected_sup = st.selectbox("🔍 Filter Visual Framework Charts by Supervisor:", chart_supervisors, key="visual_framework_sup_filter")
     chart_df = df if chart_selected_sup == "All Supervisors" else df[df['Supervisor'] == chart_selected_sup]
-    v_col1, v_col2, v_col3 = st.columns(3)
-    with v_col1:
-        leaking_stores = chart_df[chart_df['Net_Variance_Vs_PM1'] < 0]
-        if not leaking_stores.empty:
-            leaking_top10 = leaking_stores.nsmallest(10, 'Net_Variance_Vs_PM1')
-            leaking_top10['Absolute_Leakage'] = abs(leaking_top10['Net_Variance_Vs_PM1'])
-            fig_leak = px.bar(leaking_top10, x='StoreName', y='Absolute_Leakage', title="Top 10 Leakages (vs PM1)", color='Absolute_Leakage', color_continuous_scale='Reds', labels={'Absolute_Leakage': 'Lost (₹)', 'StoreName': 'Location'})
-            fig_leak.update_layout(xaxis={'categoryorder':'total descending', 'tickangle': 45}, coloraxis_showscale=False, margin=dict(l=10, r=10, t=30, b=10))
-            st.plotly_chart(fig_leak, use_container_width=True)
-        else: st.info("🟢 Zero revenue leaking outlets inside this pool.")
     with v_col2:
         generating_stores = chart_df[chart_df['Net_Variance_Vs_PM1'] >= 0]
         if not generating_stores.empty:
@@ -511,66 +503,74 @@ else:
     st.markdown("---")
     # MODULE 2: INTERACTIVE MANAGER INTERVENTION SCRIPT GENERATOR WITH FIXED SPACING & PLAIN TEXT RENDERING
     st.subheader("📢 Automated Manager Intervention Script Generator")
-    st.markdown("Select an underperforming store inside your 2-Month decline pool to automatically draft a formal intervention mandate.")
+    st.markdown("Select an underperforming store inside your 2-Month decline pool to automatically draft a formal turnaround directive.")
     
     critical_stores_list = sorted(list(f_df[f_df['Operational Classification'] == "💥 Critical Core Decline (2M Drop)"]['StoreName'].unique()))
     
     if critical_stores_list:
         selected_target_store = st.selectbox("🎯 Select Leaking Store to Generate Escalation Script:", critical_stores_list)
-        
-        # Pull core location variables safely using standard filtering metrics
         target_sub_df = f_df[f_df['StoreName'] == selected_target_store]
         
         if not target_sub_df.empty:
+            # FIXED: Added native index scalar formatting indexers (.item()) to strip bracket arrays completely
             t_manager = str(target_sub_df['Manager'].values[0]) if 'Manager' in target_sub_df.columns else "Branch Manager"
             t_id = str(target_sub_df['StoreID'].values[0]) if 'StoreID' in target_sub_df.columns else "N/A"
             t_sup = str(target_sub_df['Supervisor'].values[0]) if 'Supervisor' in target_sub_df.columns else "Operations Lead"
             t_loss = abs(float(target_sub_df['Net_Variance_Vs_PM1'].values[0])) if 'Net_Variance_Vs_PM1' in target_sub_df.columns else 0.0
             t_rivals = int(target_sub_df['Territory_Competitor_Count'].values[0]) if 'Territory_Competitor_Count' in target_sub_df.columns else 1
             t_disc = float(target_sub_df['Competitor_Max_Discount_Pct'].values[0]) if 'Competitor_Max_Discount_Pct' in target_sub_df.columns else 10.0
+            # FIXED: Migrated text logic to a clean multi-line triple quoted syntax block to force clean paragraph breaks
+            script_body = f"""MEDPLUS EXECUTIVE TURNAROUND MANDATE
+----------------------------------
+TO: Store Manager - {t_manager} (ID: {t_id})
+FROM: Operations Command / Portfolio Supervisor {t_sup}
+URGENCY: CRITICAL CORRECTION LINE — REVENUE TURNAROUND ENGINE
+SUBJECT: UNCOMPROMISING GROWTH AND PRIVATE LABEL CONVERSION DIRECTIVE
+
+Manager {t_manager},
+
+Your store at '{selected_target_store}' has flagged a major consecutive two-month retraction, registering an absolute revenue leakage of {format_indian_currency(t_loss)}. Our circle territory intelligence identifies {t_rivals} active rival discount pharmacies undercutting our pricing architecture with an aggressive competitor discount benchmark of up to {t_disc:.0f}%.
+
+To offset this density threat and pivot your outlet into our network's highest-performing growth store, you are hereby ordered to execute the following non-negotiable operational pivots immediately:
+
+1. COMPULSORY LOYALTY MIGRATION: Enforce a strict front-counter loyalty signup rule. Target a 95% mobile number capture rate on all footfall to permanently isolate chronic prescription walkaways.
+2. BASKET SIZE OPTIMIZATION (CROSS-SELLING): Run mandatory staff coaching loops on multi-item billing parameters. Every prescription containing chronic brand drugs must be combined with a localized private label wellness cross-sell.
+3. PRESTIGE PRIVATE LABEL MERCHANDISING: Re-engineer your visual merchandising layout within the next 24 hours. Shift your premium MedPlus private label alternatives from secondary rear storage rows onto center-shelf eye-level parameters.
+4. PERIMETER PROMOTION OUTREACH: Deploy floor counter staff during low-traffic off-peak windows to distribute strategic counter-discount flyers within a 1.5KM perimeter loop of your pharmacy structure.
+
+This operational slide stops now. You are expected to transform this leakage area into a high-margin growth vehicle. Update your Supervisor with an itemized turnaround checklist within 48 hours.
+
+Best Regards,
+Operations Command
+MedPlus Health Services Ltd."""
             
-            # FIXED: Built explicit line-breaks with formatted plaintext layouts to secure clear scannability
-            script_lines = [
-                "MEDPLUS PERFORMANCE NOTICE",
-                "----------------------------------",
-                f"TO: Store Manager - {t_manager} (ID: {t_id})",
-                f"FROM: Operations Command / Supervisor {t_sup}",
-                "URGENCY: CRITICAL MANDATE - 2-MONTH LEAKAGE ISOLATION",
-                "",
-                f"Manager {t_manager},",
-                "",
-                f"Your outlet at '{selected_target_store}' has flagged a major revenue retraction of {format_indian_currency(t_loss)} compared to the last period.",
-                f"Our localized territory density tracking shows {t_rivals} active rival discount operations around your perimeter undercutting our pharmacy pool with up to {t_disc:.0f}% customer discounts.",
-                "",
-                "This consecutive multi-month slide requires immediate localized correction lines:",
-                "1. Enforce a mandatory front-counter loyalty signup rule for every walking patient.",
-                "2. Deploy field staff to run a counter-discount flyer campaign within a 2KM radius.",
-                "3. Reposition Private Label pharma alternatives to premium center-shelf focal levels.",
-                "",
-                "Update your Supervisor with a formal, itemized turnaround status log within 48 hours.",
-                "",
-                "Best Regards,",
-                "Operations Command",
-                "MedPlus Health Services Ltd."
-            ]
-            
-            script_body = "\\n".join(script_lines)
             st.markdown(f"<div class='poa-container'>{script_body}</div>", unsafe_allow_html=True)
+            
+            # NEW ADDITION: URL Text URL Encoding logic mapping routine for the click to trigger script
+            encoded_whatsapp_text = urllib.parse.quote(script_body)
+            whatsapp_deep_link = f"https://whatsapp.com{encoded_whatsapp_text}"
+            
+            st.markdown(f"""
+                <a href="{whatsapp_deep_link}" target="_blank" style="text-decoration: none;">
+                    <div style="background-color: #25D366; color: white; padding: 12px 24px; border-radius: 6px; font-weight: bold; text-align: center; font-family: Arial, sans-serif; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: inline-block; margin-top: 10px; margin-bottom: 20px;">
+                        📲 Dispatch Turnaround Mandate to Manager via WhatsApp
+                    </div>
+                </a>
+            """, unsafe_allow_html=True)
         else:
             st.error("⚠️ Failed to extract target store data matrices safely.")
     else:
         st.success("🟩 Excellence Note: The selected filter pool contains zero stores under consecutive 2-Month decline conditions.")
     st.markdown("---")
-
     # 11. Granular Executive Command Grid View
     st.subheader("🔬 Operational Target Drilldown Control Panel")
-    selected_class = st.selectbox("Isolate Stores by Management Classification Profile:", ["Show All Stores", "Isolate 💥 Critical Core Decline (2M Drop) Only", "Isolate 🚨 High Risk Shift (1M Drop) Only", "Isolate 🔄 Volatile Swing Outlet Only", "Isolate ⭐ Shooting Star Benchmarks Only"])
+    selected_class = st.selectbox("Isolate Stores by Management Classification Profile:", ["Show All Stores", "Isolate Decline Only", "Isolate High Risk Only", "Isolate Volatile Only", "Isolate Stars Only"])
     
     display_grid_df = f_df.copy()
-    if "Critical Core Decline" in selected_class: display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "💥 Critical Core Decline (2M Drop)"]
-    elif "High Risk Shift" in selected_class: display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "🚨 High Risk Shift (1M Drop)"]
-    elif "Volatile Swing Outlet" in selected_class: display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "🔄 Volatile Swing Outlet"]
-    elif "Shooting Star" in selected_class: display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "⭐ Shooting Star Outlet"]
+    if "Decline" in selected_class: display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "💥 Critical Core Decline (2M Drop)"]
+    elif "High Risk" in selected_class: display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "🚨 High Risk Shift (1M Drop)"]
+    elif "Volatile" in selected_class: display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "🔄 Volatile Swing Outlet"]
+    elif "Stars" in selected_class: display_grid_df = display_grid_df[display_grid_df['Operational Classification'] == "⭐ Shooting Star Outlet"]
 
     def color_cells_by_segment(val_df):
         style_df = pd.DataFrame('', index=val_df.index, columns=val_df.columns)
