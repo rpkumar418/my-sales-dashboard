@@ -5,7 +5,7 @@ import io
 import re
 
 # 1. Page Configuration & Sophisticated Boardroom Typography/Styles
-st.set_page_config(page_title="Executive Operations Turnaround Command", layout="wide")
+st.set_page_config(page_title="MedPlus Executive Turnaround Command", layout="wide")
 
 st.markdown("""
     <style>
@@ -29,7 +29,14 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.title("🦅 Supervisor Performance Dashboard")
+# Branding Update: Replaced Eagle Symbol with Corporate MedPlus Identity Layout Block
+col_logo, col_title = st.columns([1, 11])
+with col_logo:
+    # Official MedPlus transparent branding banner image link asset
+    st.image("https://medplusmart.com", width=110)
+with col_title:
+    st.title("Supervisor Performance Dashboard")
+    
 st.markdown("### 🗺️ Enterprise Margin Optimization & Turnaround Engine")
 st.markdown("---")
 
@@ -391,7 +398,6 @@ else:
     chart_selected_sup = st.selectbox("🔍 Filter Visual Framework Charts by Supervisor:", chart_supervisors, key="visual_framework_sup_filter")
     
     chart_df = df if chart_selected_sup == "All Supervisors" else df[df['Supervisor'] == chart_selected_sup]
-    # FIXED: Re-engineered layout to display bars vertically so text tags auto-rotate cleanly without squishing bar columns
     v_col1, v_col2, v_col3 = st.columns(3)
     
     with v_col1:
@@ -399,7 +405,6 @@ else:
         if not leaking_stores.empty:
             leaking_top10 = leaking_stores.nsmallest(10, 'Net_Variance_Vs_PM1')
             leaking_top10['Absolute_Leakage'] = abs(leaking_top10['Net_Variance_Vs_PM1'])
-            # Swapped x and y vectors to fix text squishing
             fig_leak = px.bar(
                 leaking_top10, x='StoreName', y='Absolute_Leakage',
                 title="Top 10 Leakages (vs PM1)", color='Absolute_Leakage', color_continuous_scale='Reds',
@@ -414,7 +419,6 @@ else:
         generating_stores = chart_df[chart_df['Net_Variance_Vs_PM1'] >= 0]
         if not generating_stores.empty:
             generating_top10 = generating_stores.nlargest(10, 'Net_Variance_Vs_PM1')
-            # Swapped x and y vectors to fix text squishing
             fig_gen = px.bar(
                 generating_top10, x='StoreName', y='Net_Variance_Vs_PM1',
                 title="Top 10 Gains (vs PM1)", color='Net_Variance_Vs_PM1', color_continuous_scale='Greens',
@@ -449,7 +453,7 @@ else:
         
     st.markdown("---")
 
-    # 10. RE-BRANDED STORE PERFORMANCE LEADERBOARD WITH SECURE STOREID KEYS
+    # 10. STORE PERFORMANCE LEADERBOARD WITH SECURE STOREID KEYS
     st.subheader("🏆 Store Performance Leaderboard")
     st.markdown("Ranks branches based on absolute 1-month revenue variances. Growing outlets display in green with explicit '+' headers.")
     
