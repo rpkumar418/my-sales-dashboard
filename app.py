@@ -22,10 +22,10 @@ st.markdown("""
         font-weight: 700;
     }
     </style>
-""", unsafe_style_encoded=True)
+""", unsafe_allow_html=True)
 
 st.title("🦅 Executive Retail Operations Command Dashboard")
-st.markdown("### 🗺️ Enterprise Turnaround Engine | Target: 100% Shooting Stars")
+st.markdown("### 🗺️ Enterprise Margin Optimization & Turnaround Engine | Target: 100% Shooting Stars")
 st.markdown("---")
 
 # 2. Robust Enterprise Data Intake & Cleaning Pipeline
@@ -87,10 +87,10 @@ else:
 
     # Territory Market Competitive Indexes
     def calculate_market_density(store_id):
-        return (sum(ord(c) for char in str(store_id)) % 5) + 1
+        return (sum(ord(c) for c in str(store_id)) % 5) + 1
     
     def calculate_competitor_discount(store_id):
-        return 10.0 + (sum(ord(c) for char in str(store_id)) % 11)
+        return 10.0 + (sum(ord(c) for c in str(store_id)) % 11)
 
     df['Territory_Competitor_Count'] = df['StoreID'].apply(calculate_market_density)
     df['Competitor_Max_Discount_Pct'] = df['StoreID'].apply(calculate_competitor_discount)
@@ -233,14 +233,20 @@ else:
         
     super_summary_df = pd.DataFrame(super_matrix)
 
-    # Use native dataframe object engine directly to guarantee header sorting and filters remain completely interactive
+    # FIXED: Replaced standard styled object with st.dataframe formatting columns to protect native header filters and sorting mechanisms
     st.dataframe(
         super_summary_df.sort_values(by="2M Real Degrowth", ascending=False),
         column_config={
             "MTD Sales": st.column_config.NumberColumn("MTD Sales", format="₹%,.2f"),
-            "1M Growth Value": st.column_config.NumberColumn("1M Growth Value", format="₹%,.2f")
+            "1M Growth Value": st.column_config.NumberColumn("1M Growth Value", format="₹%,.2f"),
+            "1M Degrowth Store Count": st.column_config.NumberColumn("1M Degrowth Outlets"),
+            "2M Degrowth Store Count": st.column_config.NumberColumn("2M Degrowth Outlets"),
+            "2M Real Degrowth": st.column_config.NumberColumn("🔥 2M Real Degrowth"),
+            "1M Growth Store Count": st.column_config.NumberColumn("1M Growth Outlets"),
+            "2M Growth Stores Count": st.column_config.NumberColumn("🟩 2M Growth Outlets")
         },
-        use_container_width=True
+        use_container_width=True,
+        hide_index=True
     )
     st.markdown("---")
 
@@ -288,7 +294,7 @@ else:
     )
     st.markdown("---")
 
-    # 11. Granular Drilldown Control Panel with Dynamic Code Highlights
+    # 11. Granular Drilldown Control Panel with Fixed Slicing
     st.subheader("🔬 Operational Target Drilldown Control Panel")
     st.markdown("**Color Code Key:** 🟥 Red = 2-Month Degrowth | 🟧 Orange = 1-Month Degrowth | 🟪 Blue = 1-Month Growth | 🟩 Green = 2-Month Growth")
     
@@ -329,8 +335,10 @@ else:
     filtered_display_df['NonPharma_Variance_Vs_PM1'] = display_grid_df['NonPharma_Variance_Vs_PM1']
     filtered_display_df['NonPharma_Variance_Vs_PM2'] = display_grid_df['NonPharma_Variance_Vs_PM2']
 
+    # Final safe format without dataframe rendering level conflicts
     final_styled_grid = filtered_display_df.style.apply(color_cells_by_segment, axis=None).format({
         "MTD NetSale": "₹{:,.2f}", "PL Pharma NetSale": "₹{:,.2f}", "PL NonPharma NetSale": "₹{:,.2f}"
     })
 
+    # Render styled data securely
     st.dataframe(final_styled_grid, column_order=visible_cols, use_container_width=True)
