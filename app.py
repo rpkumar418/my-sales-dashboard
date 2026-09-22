@@ -124,7 +124,6 @@ else:
         elif status == "🔄 Volatile Swing Outlet":
             return f"🟪 MANAGER {name}: Secure stock parameters. Competition is discounting at {max_disc:.0f}%. Run weekend health camps."
         return f"🟩 MANAGER {name}: Outperforming market standard. Maintain supply lines for top 20 SKUs."
-
     def build_supervisor_poa(row):
         status = row['Operational Classification']
         name = row['Supervisor']
@@ -159,6 +158,7 @@ else:
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
     st.markdown("---")
+
     # 6. DYNAMIC SUPERVISOR PERFORMANCE COMMAND CENTER
     st.subheader("📌 Corporate Network Financial Health Command")
     
@@ -177,7 +177,6 @@ else:
     pm1_sales = f_df['Net Sale PM1'].sum()
     pm1_pharma_pct = (f_df['Pharma PM1'].sum() / pm1_sales * 100) if pm1_sales > 0 else 0.0
     pm1_non_pharma_pct = (f_df['NON Pharma PM1'].sum() / pm1_sales * 100) if pm1_sales > 0 else 0.0
-    
     pm2_sales = f_df['Net Sale PM2'].sum()
     pm2_pharma_pct = (f_df['Pharma PM2'].sum() / pm2_sales * 100) if pm2_sales > 0 else 0.0
     pm2_non_pharma_pct = (f_df['NON Pharma PM2'].sum() / pm2_sales * 100) if pm2_sales > 0 else 0.0
@@ -264,7 +263,7 @@ else:
 
     st.markdown("---")
 
-    # 8. SUPERVISOR PORTFOLIO SUMMARY (CLEAN GRID + EXECUTIVE CELL HIGHLIGHTING)
+    # 8. SUPERVISOR PORTFOLIO SUMMARY WITH ADVANCED RATIO METRICS
     st.subheader("📋 Supervisor Portfolio Summary")
 
     super_matrix = []
@@ -272,22 +271,25 @@ else:
         tot_stores = sup_data['StoreID'].nunique()
         cm_sales = sup_data['MTD NetSale'].sum()
         
-        # 1-Month Trajectory Masks
         degrowth_1m_mask = sup_data['Net_Variance_Vs_PM1'] < 0
         degrowth_1m_count = degrowth_1m_mask.sum()
         growth_1m_count = (~degrowth_1m_mask).sum()
         degrowth_1m_val = sup_data[degrowth_1m_mask]['Net_Variance_Vs_PM1'].sum()
         
-        # 2-Month Trajectory Masks (Against the 2-Month Baseline Average)
         degrowth_2m_mask = sup_data['Net_Variance_Vs_Avg2M'] < 0
         degrowth_2m_count = degrowth_2m_mask.sum()
         growth_2m_count = (~degrowth_2m_mask).sum()
         degrowth_2m_val = sup_data[degrowth_2m_mask]['Net_Variance_Vs_Avg2M'].sum()
         
+        # Cumulative Territory Growth Index Rating Calculation
+        pm1_sum = sup_data['Net Sale PM1'].sum()
+        growth_index = ((cm_sales - pm1_sum) / pm1_sum * 100) if pm1_sum > 0 else 0.0
+        
         super_matrix.append({
             "Supervisor Name": sup_name,
             "Total Stores": tot_stores,
             "CM Net Sales": cm_sales,
+            "🏆 Territory Growth Index": growth_index,
             "1M Degrowth Store Count": degrowth_1m_count,
             "2M Degrowth Store Count": degrowth_2m_count,
             "1M Degrowth Value": degrowth_1m_val if degrowth_1m_val != 0 else 0.0,
@@ -307,12 +309,12 @@ else:
     styled_super_summary = super_summary_df.style.apply(boardroom_summary_styler, axis=None).format({
         "CM Net Sales": "₹{:,.2f}",
         "1M Degrowth Value": "₹{:,.2f}",
-        "2M Degrowth Value": "₹{:,.2f}"
-    }).background_gradient(subset=["CM Net Sales"], cmap="Greens")
+        "2M Degrowth Value": "₹{:,.2f}",
+        "🏆 Territory Growth Index": "{:+.2f}%"
+    }).background_gradient(subset=["🏆 Territory Growth Index"], cmap="RdYlGn")
 
     st.dataframe(styled_super_summary, use_container_width=True, hide_index=True)
     st.markdown("---")
-
     # 9. Interactive Visualizations
     chart_col1, chart_col2 = st.columns(2)
     with chart_col1:
@@ -345,19 +347,42 @@ else:
         st.plotly_chart(fig_leak, use_container_width=True)
     st.markdown("---")
 
-    # 10. Manager Growth Leaderboard
-    st.subheader("👑 Manager-of-the-Month Performance Leaderboard")
-    leaderboard_df = f_df.copy()
-    leaderboard_df = leaderboard_df.sort_values(by="Net_Variance_Vs_PM1", ascending=False).reset_index(drop=True)
+    # 10. STRATEGIC COMPONENT: STORE PERFORMANCE LEADERBOARD WITH COLOR CODE HIGHLIGHTS
+    st.subheader("🏆 Store Performance Leaderboard")
+    st.markdown("High-Impact Operational Directory. Growth values are highlighted in emerald green, while decreasing values display in bold red layout fields.")
+    
+    leaderboard_df = f_df.copy().sort_values(by="Net_Variance_Vs_PM1", ascending=False).reset_index(drop=True)
     leaderboard_df.index = leaderboard_df.index + 1
     leaderboard_df.index.name = 'Portfolio Rank'
+    
     leader_cols = ["StoreName", "Manager", "Supervisor", "MTD NetSale", "Net Sale PM1", "Net_Variance_Vs_PM1"]
-    styled_leaderboard = leaderboard_df[leader_cols].style.format({
-        "MTD NetSale": "₹{:,.2f}",
-        "Net Sale PM1": "₹{:,.2f}",
-        "Net_Variance_Vs_PM1": "₹+{:,.2f}"
-    }).background_gradient(subset=["Net_Variance_Vs_PM1"], cmap="Greens")
-    st.dataframe(styled_leaderboard, use_container_width=True)
+    display_leader_df = leaderboard_df[leader_cols].copy()
+
+    # Dynamic string formatter loops to avoid data level parsing errors on display
+    for i in display_leader_df.index:
+        val = display_leader_df.loc[i, 'Net_Variance_Vs_PM1']
+        prefix = "+" if val >= 0 else ""
+        display_leader_df.loc[i, 'Net_Variance_Vs_PM1_Str'] = f"₹{prefix}{val:,.2f}"
+
+    display_leader_df['Net Variance (1M)'] = display_leader_df['Net_Variance_Vs_PM1_Str']
+    final_leader_cols = ["StoreName", "Manager", "Supervisor", "MTD NetSale", "Net Sale PM1", "Net Variance (1M)"]
+
+    def final_text_styler(val_df):
+        style_df = pd.DataFrame('', index=val_df.index, columns=val_df.columns)
+        for idx in val_df.index:
+            if leaderboard_df.loc[idx, 'Net_Variance_Vs_PM1'] >= 0:
+                style_df.loc[idx, 'Net Variance (1M)'] = 'color: #15803d; font-weight: bold; background-color: #d1fae5;'
+            else:
+                style_df.loc[idx, 'Net Variance (1M)'] = 'color: #b91c1c; font-weight: bold; background-color: #ffcccc;'
+        return style_df
+
+    st.dataframe(
+        display_leader_df[final_leader_cols].style.apply(final_text_styler, axis=None).format({
+            "MTD NetSale": "₹{:,.2f}", 
+            "Net Sale PM1": "₹{:,.2f}"
+        }), 
+        use_container_width=True, hide_index=True
+    )
     st.markdown("---")
 
     # 11. Granular Executive Command Grid View
@@ -380,14 +405,10 @@ else:
     def color_cells_by_segment(val_df):
         style_df = pd.DataFrame('', index=val_df.index, columns=val_df.columns)
         def match_style(v1, v2):
-            if v1 < 0 and v2 < 0:
-                return 'background-color: #ffcccc; color: #cc0000; font-weight: bold;'
-            elif v1 < 0 and v2 >= 0:
-                return 'background-color: #ffe6cc; color: #d97706;'
-            elif v1 >= 0 and v2 < 0:
-                return 'background-color: #e0f2fe; color: #0284c7;'
-            else:
-                return 'background-color: #d1fae5; color: #16a34a;'
+            if v1 < 0 and v2 < 0: return 'background-color: #ffcccc; color: #cc0000; font-weight: bold;'
+            elif v1 < 0 and v2 >= 0: return 'background-color: #ffe6cc; color: #d97706;'
+            elif v1 >= 0 and v2 < 0: return 'background-color: #e0f2fe; color: #0284c7;'
+            return 'background-color: #d1fae5; color: #16a34a;'
 
         for idx in val_df.index:
             style_df.loc[idx, 'MTD NetSale'] = match_style(display_grid_df.loc[idx, 'Net_Variance_Vs_PM1'], display_grid_df.loc[idx, 'Net_Variance_Vs_Avg2M'])
@@ -406,9 +427,7 @@ else:
     filtered_display_df['NonPharma_Variance_Vs_PM2'] = display_grid_df['NonPharma_Variance_Vs_PM2']
 
     final_styled_grid = filtered_display_df.style.apply(color_cells_by_segment, axis=None).format({
-        "MTD NetSale": "₹{:,.2f}",
-        "PL Pharma NetSale": "₹{:,.2f}",
-        "PL NonPharma NetSale": "₹{:,.2f}"
+        "MTD NetSale": "₹{:,.2f}", "PL Pharma NetSale": "₹{:,.2f}", "PL NonPharma NetSale": "₹{:,.2f}"
     })
 
     st.dataframe(final_styled_grid, column_order=visible_cols, use_container_width=True)
