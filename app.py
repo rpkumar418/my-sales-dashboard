@@ -17,7 +17,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# FIXED: Passed explicit column layout proportions to completely resolve the Streamlit TypeError loop
 col_logo, col_title = st.columns([1, 6])
 with col_logo:
     st.markdown('<div class="medplus-logo-box">MedPlus<span class="medplus-plus-sign">+</span></div>', unsafe_allow_html=True)
@@ -63,7 +62,7 @@ def load_data():
                 h_idx = i
                 break
         df = pd.read_csv("sales_data.csv", skiprows=h_idx)
-        df.columns = [str(c).strip() for col in df.columns if (c := str(col).strip())]
+        df.columns = [str(col).strip() for col in df.columns if str(col).strip()]
         if 'S. No.' in df.columns: df = df[df['S. No.'].astype(str).str.lower().str.strip() != 'total']
         if 'StoreName' in df.columns: df = df[df['StoreName'].dropna().str.lower().str.strip() != 'total']
         
@@ -106,7 +105,8 @@ else:
     master_buffer = io.BytesIO()
     with pd.ExcelWriter(master_buffer, engine='xlsxwriter') as writer:
         export_cols = ["StoreID", "StoreName", "Supervisor", "Manager", "MTD NetSale", "Net Sale PM1", "Net Sale PM2", "PL Pharma NetSale", "PL NonPharma NetSale", "Net_Variance_Vs_PM1", "Operational Classification"]
-        valid_cols = [c for col in export_cols if col in df.columns]
+        # FIXED: Resolved NameError on variable mapping lookup lists
+        valid_cols = [col for col in export_cols if col in df.columns]
         df[valid_cols].sort_values(by="Net_Variance_Vs_PM1", ascending=True).to_excel(writer, sheet_name="MasterRegistry", index=False)
     st.download_button("📥 Download Master Operations & POA Report (.xlsx)", master_buffer.getvalue(), "Master_Operations_Turnaround_Registry.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     st.markdown("---")
@@ -142,7 +142,7 @@ else:
     r2_c1, r2_c2, r2_c3 = st.columns(3)
     r2_c1.metric("🗓️ PM1 Network Gross Sales", format_indian_currency(pm1_sales))
     r2_c1.markdown(f"<div class='custom-subtext'>▼ Daily Store Avg: {format_indian_currency(pm1_sales/num_stores/mtd_days_elapsed)}</div>", unsafe_allow_html=True)
-    r2_c2.metric("💊 PM1 Pharma %", f"{pm1_ph_pct:.2f}%")
+    r2_c2.metric("💊 PM1 Pharma %", f"{pm1_pharma_pct:.2f}%")
     r2_c2.markdown("<div class='custom-subtext'>Historical Baseline</div>", unsafe_allow_html=True)
     r2_c3.metric("🛍️ PM1 Non-Pharma %", f"{pm1_np_pct:.2f}%")
     r2_c3.markdown("<div class='custom-subtext'>Historical Baseline</div>", unsafe_allow_html=True)
@@ -150,7 +150,7 @@ else:
     r3_c1, r3_c2, r3_c3 = st.columns(3)
     r3_c1.metric("🗓️ PM2 Network Gross Sales", format_indian_currency(pm2_sales))
     r3_c1.markdown(f"<div class='custom-subtext'>▼ Daily Store Avg: {format_indian_currency(pm2_sales/num_stores/mtd_days_elapsed)}</div>", unsafe_allow_html=True)
-    r3_c2.metric("💊 PM2 Pharma %", f"{pm2_ph_pct:.2f}%")
+    r3_c2.metric("💊 PM2 Pharma %", f"{pm2_pharma_pct:.2f}%")
     r3_c2.markdown("<div class='custom-subtext'>Historical Baseline</div>", unsafe_allow_html=True)
     r3_c3.metric("🛍️ PM2 Non-Pharma %", f"{pm2_np_pct:.2f}%")
     r3_c3.markdown("<div class='custom-subtext'>Historical Baseline</div>", unsafe_allow_html=True)
@@ -233,7 +233,7 @@ else:
         st.subheader("📊 Portfolio Split")
         st.plotly_chart(px.pie(c_df['Operational Classification'].value_counts().reset_index(), values='count', names='Operational Classification', color='Operational Classification', color_discrete_map={'💥 Critical Core Decline (2M Drop)': '#dc2626', '🚨 High Risk Shift (1M Drop)': '#f59e0b', '🔄 Volatile Swing Outlet': '#38bdf8', '⭐ Shooting Star Outlet': '#10b981'}), use_container_width=True)
     with st.expander("📖 Short Note: Trajectory Quadrant Definitions", expanded=False):
-        st.markdown("* **💥 Critical Decline**: Down MoM and down below long-term 2M average baseline.\n* **🚨 High Risk Shift**: Down MoM but still running above the historical 2M average baseline.\n* **🔄 Volatile Swing**: Up MoM but remains below 2M baseline due to heavy historic drops.\n* **⭐ Shooting Star**: Up MoM and pacing securely above the long-term 2M running baseline.")
+        st.markdown("""* **💥 Critical Decline**: Down MoM and down below long-term 2M average baseline.\n* **🚨 High Risk Shift**: Down MoM but still running above the historical 2M average baseline.\n* **🔄 Volatile Swing**: Up MoM but remains below 2M baseline due to heavy historic drops.\n* **⭐ Shooting Star**: Up MoM and pacing securely above the long-term 2M running baseline.""")
     st.markdown("---")
 
     st.subheader("🏆 Store Performance Leaderboard")
