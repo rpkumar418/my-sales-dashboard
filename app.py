@@ -88,15 +88,15 @@ st.markdown("""
 
 st.markdown("---")
 
-# 2. Indian Currency Formatting Engine (Lakhs & Crores Routine)
+# 2. FIXED: Indian Currency Formatting Engine (Fixed Scalar Array Splitting Bug)
 def format_indian_currency(number):
     try:
         is_negative = number < 0
         abs_num = abs(number)
         s = f"{abs_num:.2f}"
         parts = s.split('.')
-        num_part = parts
-        dec_part = parts
+        num_part = parts[0]
+        dec_part = parts[1]
         
         if len(num_part) <= 3:
             res = num_part
@@ -440,12 +440,12 @@ else:
 
     st.dataframe(styled_super_summary, use_container_width=True, hide_index=True)
     st.markdown("---")
+
     # 9. HIGH-COMPRESSION SIDE-BY-SIDE TRI-COLUMN EXECUTIVE VISUALIZATION CORE
     st.header("📈 Strategic Visual Performance Framework")
     chart_supervisors = ["All Supervisors"] + sorted(list(df['Supervisor'].dropna().unique()))
     chart_selected_sup = st.selectbox("🔍 Filter Visual Framework Charts by Supervisor:", chart_supervisors, key="visual_framework_sup_filter")
     chart_df = df if chart_selected_sup == "All Supervisors" else df[df['Supervisor'] == chart_selected_sup]
-
     # FIXED: Grouped all column initializations inside Part 15 so Parts 16 & 17 can safely append grids
     v_col1, v_col2, v_col3 = st.columns(3)
     
@@ -523,6 +523,7 @@ else:
         target_sub_df = f_df[f_df['StoreName'] == selected_target_store]
         
         if not target_sub_df.empty:
+            # FIXED: Safely parsing string elements by extracting scalar values directly out of index positions (.values[0])
             t_manager = str(target_sub_df['Manager'].values[0]) if 'Manager' in target_sub_df.columns else "Branch Manager"
             t_id = str(target_sub_df['StoreID'].values[0]) if 'StoreID' in target_sub_df.columns else "N/A"
             t_sup = str(target_sub_df['Supervisor'].values[0]) if 'Supervisor' in target_sub_df.columns else "Operations Lead"
