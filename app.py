@@ -2,13 +2,13 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import io
+import re
 
-# 1. Page Configuration & Sophisticated Boardroom Typography/Styles
+# 1. Page Configuration & Professional Boardroom Typography/Styles
 st.set_page_config(page_title="Executive Operations Turnaround Command", layout="wide")
 
 st.markdown("""
     <style>
-    /* Compact default metric font sizes to crisp boardroom text standards */
     [data-testid="stMetricValue"] {
         font-size: 24px !important;
         font-weight: 700 !important;
@@ -58,9 +58,23 @@ def format_indian_currency(number):
     except:
         return f"₹{number:,.2f}"
 
-# 3. Heavy-Duty Enterprise Data Intake Pipeline
+# 3. Data Intake Pipeline with Dynamic Date & Day Extraction
 @st.cache_data
-def load_data():
+def load_data_with_temporal_parse():
+    extracted_days = 30 # Safe corporate fallback default
+    try:
+        with open("sales_data.csv", "r", encoding="utf-8", errors="ignore") as f:
+            first_line = f.readline()
+        
+        # Regex to scan for dd-mm-yyyy or dd/mm/yyyy string profiles in the header row
+        date_match = re.search(r'(\d{1,2})[-/](\d{1,2})[-/](\d{4})', first_line)
+        if date_match:
+            extracted_days = int(date_match.group(1))
+            if extracted_days <= 0 or extracted_days > 31:
+                extracted_days = 30
+    except:
+        pass
+        
     try:
         with open("sales_data.csv", "r", encoding="utf-8", errors="ignore") as f:
             lines = f.readlines()
@@ -96,14 +110,14 @@ def load_data():
             else:
                 df[col] = 0.0
         
-        return df
+        return df, extracted_days
     except Exception as e:
         st.error(f"Intake Critical Failure: {e}")
-        return pd.DataFrame()
+        return pd.DataFrame(), extracted_days
 
-df = load_data()
+df, mtd_days_elapsed = load_data_with_temporal_parse()
 if df.empty:
-    st.warning("⚠️ Critical: 'sales_data.csv' missing from repository.")
+    st.warning("⚠️ Critical: 'sales_data.csv' missing from repository workspace.")
 else:
     # 4. Analytics Computation Layer
     df['Net_Variance_Vs_PM1'] = df['MTD NetSale'] - df['Net Sale PM1']
@@ -114,7 +128,7 @@ else:
     df['Pharma_Variance_Vs_PM1'] = df['PL Pharma NetSale'] - df['Pharma PM1']
     df['Pharma_Variance_Vs_PM2'] = df['Pharma PM1'] - df['Pharma PM2']
     df['NonPharma_Variance_Vs_PM1'] = df['PL NonPharma NetSale'] - df['NON Pharma PM1']
-    df['NonPharma_Variance_Vs_PM2'] = df['NON Pharma PM1'] - df['NON Pharma PM2']
+    df['NonPharma_Variance_Vs_PM2'] = df['NON Pharma PM1'] - df['NonPharma_Variance_Vs_NM2' if 'NonPharma_Variance_Vs_NM2' in df.columns else 'NON Pharma PM2']
     
     df['Total_PL_Sales'] = df['PL Pharma NetSale'] + df['PL NonPharma NetSale']
 
@@ -169,15 +183,13 @@ else:
     df['Manager Action Plan (POA)'] = df.apply(build_manager_poa, axis=1)
     df['Supervisor Strategic Mandate'] = df.apply(build_supervisor_poa, axis=1)
 
-    # 5. MASTER DATA HUB - CONSOLIDATED DOWNLOAD AT START
+    # 6. MASTER DATA HUB - CONSOLIDATED DOWNLOAD AT START
     st.subheader("📥 Master Operational Data Hub")
     master_buffer = io.BytesIO()
     with pd.ExcelWriter(master_buffer, engine='xlsxwriter') as excel_writer:
         export_cols = [
             "StoreID", "StoreName", "Supervisor", "Manager", "MTD NetSale", "Net Sale PM1", "Net Sale PM2",
-            "PL Pharma NetSale", "PL NonPharma NetSale", "Net_Variance_Vs_PM1", 
-            "Territory_Competitor_Count", "Competitor_Max_Discount_Pct", "Operational Classification",
-            "Manager Action Plan (POA)", "Supervisor Strategic Mandate"
+            "PL Pharma NetSale", "PL NonPharma NetSale", "Net_Variance_Vs_PM1", "Operational Classification"
         ]
         df[export_cols].sort_values(by="Net_Variance_Vs_PM1", ascending=True).to_excel(excel_writer, sheet_name="Master Network Registry", index=False)
         
@@ -189,8 +201,9 @@ else:
     )
     st.markdown("---")
 
-    # 6. DYNAMIC SUPERVISOR PERFORMANCE COMMAND CENTER
+    # 7. DYNAMIC SUPERVISOR PERFORMANCE COMMAND CENTER
     st.subheader("📌 Corporate Network Financial Health Command")
+    st.info(f"📆 Temporal Context Engine Auto-Detected: **{mtd_days_elapsed} Days Elapsed** in the current tracking period.")
     
     unique_supervisors = ["All Supervisors"] + sorted(list(df['Supervisor'].dropna().unique()))
     selected_sup = st.selectbox("🎯 Select District Supervisor Portfolio to Audit", unique_supervisors)
@@ -217,13 +230,14 @@ else:
     pharma_diff_1m = pharma_pct - pm1_pharma_pct
     non_pharma_diff_1m = non_pharma_pct - pm1_non_pharma_pct
 
-    # Pre-calculate Store Level Network Averages for visual marker subtext scripts
+    # Pre-calculate NEW Daily Store Averages (Total Sales / Number of Stores / Number of Days)
     num_stores = len(f_df) if len(f_df) > 0 else 1
-    avg_cm_sales = tot_sales / num_stores
-    avg_pm1_sales = pm1_sales / num_stores
-    avg_pm2_sales = pm2_sales / num_stores
-    avg_diff_1m = sales_diff_1m / num_stores
-    avg_diff_2m = avg_sales_diff_2m / num_stores
+    
+    avg_daily_cm_sales = tot_sales / num_stores / mtd_days_elapsed
+    avg_daily_pm1_sales = pm1_sales / num_stores / mtd_days_elapsed
+    avg_daily_pm2_sales = pm2_sales / num_stores / mtd_days_elapsed
+    avg_daily_diff_1m = sales_diff_1m / num_stores / mtd_days_elapsed
+    avg_daily_diff_2m = avg_sales_diff_2m / num_stores / mtd_days_elapsed
 
     st.markdown(f"#### 📊 Performance Ledger Overview for: **{selected_sup}**")
     
@@ -231,7 +245,7 @@ else:
     r1_c1, r1_c2, r1_c3 = st.columns(3)
     with r1_c1:
         st.metric(label="💼 Total Network Gross Sales (Current)", value=format_indian_currency(tot_sales))
-        st.markdown(f"<div class='custom-subtext'>▲ Store Avg: {format_indian_currency(avg_cm_sales)}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='custom-subtext'>▲ Daily Store Avg: {format_indian_currency(avg_daily_cm_sales)}</div>", unsafe_allow_html=True)
     with r1_c2:
         st.metric(label="💊 Pharma % (Current)", value=f"{pharma_pct:.2f}%")
         st.markdown("<div class='custom-subtext'>Target Mix: 35.00%</div>", unsafe_allow_html=True)
@@ -243,25 +257,25 @@ else:
     r2_c1, r2_c2, r2_c3 = st.columns(3)
     with r2_c1:
         st.metric(label="🗓️ PM1 Network Gross Sales", value=format_indian_currency(pm1_sales))
-        st.markdown(f"<div class='custom-subtext'>▼ Store Avg: {format_indian_currency(avg_pm1_sales)}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='custom-subtext'>▼ Daily Store Avg: {format_indian_currency(avg_daily_pm1_sales)}</div>", unsafe_allow_html=True)
     with r2_c2:
         st.metric(label="💊 PM1 Pharma %", value=f"{pm1_pharma_pct:.2f}%")
         st.markdown("<div class='custom-subtext'>Historical Mix Baseline</div>", unsafe_allow_html=True)
     with r2_c3:
         st.metric(label="🛍️ PM1 Non-Pharma %", value=f"{pm1_non_pharma_pct:.2f}%")
         st.markdown("<div class='custom-subtext'>Historical Mix Baseline</div>", unsafe_allow_html=True)
-        
     # Row 3: Past Month Two Metrics Panel View
     r3_c1, r3_c2, r3_c3 = st.columns(3)
     with r3_c1:
         st.metric(label="🗓️ PM2 Network Gross Sales", value=format_indian_currency(pm2_sales))
-        st.markdown(f"<div class='custom-subtext'>▼ Store Avg: {format_indian_currency(avg_pm2_sales)}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='custom-subtext'>▼ Daily Store Avg: {format_indian_currency(avg_daily_pm2_sales)}</div>", unsafe_allow_html=True)
     with r3_c2:
         st.metric(label="💊 PM2 Pharma %", value=f"{pm2_pharma_pct:.2f}%")
         st.markdown("<div class='custom-subtext'>Historical Mix Baseline</div>", unsafe_allow_html=True)
     with r3_c3:
         st.metric(label="🛍️ PM2 Non-Pharma %", value=f"{pm2_non_pharma_pct:.2f}%")
         st.markdown("<div class='custom-subtext'>Historical Mix Baseline</div>", unsafe_allow_html=True)
+        
     # Row 4: Growth Tracking and Rupee Variances with Sign Arrow Alignment Indicators
     st.markdown("##### 📈 Growth & Trajectory Tracking Variances")
     r4_c1, r4_c2, r4_c3, r4_c4 = st.columns(4)
@@ -269,11 +283,11 @@ else:
     with r4_c1:
         arrow_1m = "▲" if sales_diff_1m >= 0 else "▼"
         st.metric(label="🔄 1-Month Sales Diff", value=format_indian_currency(sales_diff_1m))
-        st.markdown(f"<div class='custom-subtext'>Store Avg: {arrow_1m} {format_indian_currency(abs(avg_diff_1m))}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='custom-subtext'>Daily Store Avg: {arrow_1m} {format_indian_currency(abs(avg_daily_diff_1m))}</div>", unsafe_allow_html=True)
     with r4_c2:
         arrow_2m = "▲" if avg_sales_diff_2m >= 0 else "▼"
         st.metric(label="📉 2-Month Avg Sales Diff", value=format_indian_currency(avg_sales_diff_2m))
-        st.markdown(f"<div class='custom-subtext'>Store Avg: {arrow_2m} {format_indian_currency(abs(avg_diff_2m))}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='custom-subtext'>Daily Store Avg: {arrow_2m} {format_indian_currency(abs(avg_daily_diff_2m))}</div>", unsafe_allow_html=True)
     with r4_c3:
         arrow_ph = "▲" if pharma_diff_1m >= 0 else "▼"
         st.metric(label="💊 Pharma % Diff (1M)", value=f"{pharma_diff_1m:+.2f}%")
@@ -283,7 +297,7 @@ else:
         st.metric(label="🛍️ Non-Pharma % Diff (1M)", value=f"{non_pharma_diff_1m:+.2f}%")
         st.markdown(f"<div class='custom-subtext'>Mix Shift: {arrow_nf} {abs(non_pharma_diff_1m):.2f}%</div>", unsafe_allow_html=True)
         
-    # INTEGRATED TIER-2 VALUES TRACKING MATRIX
+    # INTEGRATED TIER-2 VALUES TRACKING MATRIX (WITH RE-BUILT GREEN FOR GROWTH RULE)
     st.markdown("##### 💰 Dynamic Tier-2 Financial Velocity Tracking Matrix")
     t2_col1, t2_col2, t2_col3, t2_col4 = st.columns(4)
     
@@ -294,7 +308,6 @@ else:
     m2_growth_mask = f_df['Net_Variance_Vs_Avg2M'] >= 0
     m2_growth_pool_val = f_df[m2_growth_mask]['Net_Variance_Vs_Avg2M'].sum()
     m2_degrow_pool_val = f_df[~m2_growth_mask]['Net_Variance_Vs_Avg2M'].sum()
-    
     with t2_col1:
         st.markdown("<p style='font-size:13px; color:#475569; font-weight:600; margin-bottom:2px;'>🟩 1M Growth Value</p>", unsafe_allow_html=True)
         st.markdown(f"<p style='font-size:18px; color:#16a34a; font-weight:700; margin:0;'>{format_indian_currency(m1_growth_pool_val)}</p>", unsafe_allow_html=True)
@@ -309,6 +322,7 @@ else:
         st.markdown(f"<p style='font-size:18px; color:#dc2626; font-weight:700; margin:0;'>{format_indian_currency(m2_degrow_pool_val)}</p>", unsafe_allow_html=True)
         
     st.markdown("---")
+
     # 8. SUPERVISOR PORTFOLIO SUMMARY WITH CONDENSED DROP-DOWN GUIDELINES
     st.subheader("📋 Supervisor Portfolio Summary")
     
@@ -337,7 +351,6 @@ else:
         
         pm1_sum = sup_data['Net Sale PM1'].sum()
         growth_index = ((cm_sales - pm1_sum) / pm1_sum * 100) if pm1_sum > 0 else 0.0
-        
         super_matrix.append({
             "Supervisor Name": sup_name,
             "Total Stores": tot_stores,
@@ -370,6 +383,7 @@ else:
 
     st.dataframe(styled_super_summary, use_container_width=True, hide_index=True)
     st.markdown("---")
+
     # 9. DUAL-DIMENSIONAL RETRACTION TRENDS & PORTFOLIO BREAKDOWN VISUALS
     st.header("📈 Strategic Visual Performance Framework")
     
@@ -377,7 +391,6 @@ else:
     chart_selected_sup = st.selectbox("🔍 Filter Visual Framework Charts by Supervisor:", chart_supervisors, key="visual_framework_sup_filter")
     
     chart_df = df if chart_selected_sup == "All Supervisors" else df[df['Supervisor'] == chart_selected_sup]
-    
     chart_col1, chart_col2 = st.columns(2)
     with chart_col1:
         st.subheader("📉 Top 10 Revenue Leaking Outlets")
@@ -450,6 +463,8 @@ else:
     st.markdown("Ranks branches based on absolute 1-month revenue variances. Growing outlets display in green with explicit '+' headers.")
     
     leaderboard_df = f_df.copy().sort_values(by="Net_Variance_Vs_PM1", ascending=False).reset_index(drop=True)
+    leaderboard_df.index = leaderboard_df.index + 1
+    leaderboard_df.index.name = 'Portfolio Rank'
     
     leader_cols = ["StoreID", "StoreName", "Manager", "Supervisor", "MTD NetSale", "Net Sale PM1", "Net_Variance_Vs_PM1"]
     display_leader_df = leaderboard_df[leader_cols].copy()
