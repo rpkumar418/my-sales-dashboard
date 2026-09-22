@@ -66,7 +66,7 @@ else:
     df['Pharma_Variance_Vs_PM2'] = df['Pharma PM1'] - df['Pharma PM2']
     
     df['NonPharma_Variance_Vs_PM1'] = df['PL NonPharma NetSale'] - df['NON Pharma PM1']
-    df['NonPharma_Variance_Vs_PM2'] = df['NON Pharma PM1'] - df['NonPharma_Variance_Vs_PM2']
+    df['NonPharma_Variance_Vs_PM2'] = df['NON Pharma PM1'] - df['NON Pharma PM2']
 
     # Private Label Capture Penetration Math
     df['Pharma_PL_Share'] = (df['PL Pharma NetSale'] / df['MTD NetSale'].replace(0, 1) * 100).fillna(0.0)
