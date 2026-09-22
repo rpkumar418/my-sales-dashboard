@@ -243,26 +243,41 @@ else:
 
     st.markdown("---")
 
-    # 8. Portfolio Health by District Supervisor Line
-    st.subheader("📋 District Supervisor Strategic Portfolio Summary")
-    super_ops_summary = df.groupby('Supervisor').agg(
-        Managed_Portfolio_Size=('StoreID', 'nunique'),
-        Total_Current_Sales=('MTD NetSale', 'sum'),
-        Total_Net_Leakage=('Net_Variance_Vs_PM1', lambda x: x[x < 0].sum()),
-        Critical_Spiraling_Stores=('Operational Classification', lambda x: (x == "💥 Critical Core Decline (2M Drop)").sum())
-    ).reset_index().sort_values(by="Total_Net_Leakage", ascending=True)
+    # 8. SUPERVISOR PORTFOLIO SUMMARY (CORRECTED COLUMN MATRIX WITH UNLOCKED HEADER FILTERS)
+    st.subheader("📋 Supervisor Portfolio Summary")
+    st.markdown("Interactive performance directory. Use column header arrows to dynamically filter, sort, and isolate portfolios.")
 
-    super_ops_summary.columns = [
-        "Supervisor Name", "Portfolio Size (Stores)", "Current Net Performance (₹)", "Total Leakage Value (₹)", "💥 2-Month Decline Count"
-    ]
+    super_matrix = []
+    for sup_name, sup_data in df.groupby('Supervisor'):
+        # Core performance metrics extraction matching constraints
+        mtd_sum = sup_data['MTD NetSale'].sum()
+        degrowth_1m_cnt = (sup_data['Net_Variance_Vs_PM1'] < 0).sum()
+        degrowth_2m_cnt = (sup_data['Net_Variance_Vs_PM2'] < 0).sum()
+        growth_1m_val = sup_data[sup_data['Net_Variance_Vs_PM1'] > 0]['Net_Variance_Vs_PM1'].sum()
+        real_degrowth_2m = ((sup_data['Net_Variance_Vs_PM1'] < 0) & (sup_data['Net_Variance_Vs_PM2'] < 0)).sum()
+        growth_1m_cnt = (sup_data['Net_Variance_Vs_PM1'] >= 0).sum()
+        growth_2m_cnt = ((sup_data['Net_Variance_Vs_PM1'] >= 0) & (sup_data['Net_Variance_Vs_PM2'] >= 0)).sum()
+        
+        super_matrix.append({
+            "Supervisor Name": sup_name,
+            "MTD Sales": mtd_sum,
+            "1M Degrowth Store Count": degrowth_1m_cnt,
+            "2M Degrowth Store Count": degrowth_2m_cnt,
+            "1M Growth Value": growth_1m_val,
+            "2M Real Degrowth": real_degrowth_2m,
+            "1M Growth Store Count": growth_1m_cnt,
+            "2M Growth Stores Count": growth_2m_cnt
+        })
+        
+    super_summary_df = pd.DataFrame(super_matrix)
 
-    st.dataframe(
-        super_ops_summary.style.format({
-            "Current Net Performance (₹)": "₹{:,.2f}",
-            "Total Leakage Value (₹)": "₹{:,.2f}"
-        }).background_gradient(subset=["Total Leakage Value (₹)"], cmap="Reds_r"),
-        use_container_width=True
-    )
+    # Use native dataframe styling to keep filters and sorting unlocked in header elements
+    styled_super_summary = super_summary_df.style.format({
+        "MTD Sales": "₹{:,.2f}",
+        "1M Growth Value": "₹{:,.2f}"
+    }).background_gradient(subset=["2M Real Degrowth"], cmap="Reds")
+
+    st.dataframe(styled_super_summary, use_container_width=True)
     st.markdown("---")
 
     # 9. Interactive Visualizations
