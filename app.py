@@ -229,7 +229,7 @@ else:
     pharma_diff_1m = pharma_pct - pm1_pharma_pct
     non_pharma_diff_1m = non_pharma_pct - pm1_non_pharma_pct
 
-    # Pre-calculate NEW Daily Store Averages (Total Sales / Number of Stores / Number of Days)
+    # Pre-calculate Daily Store Averages (Total Sales / Number of Stores / Number of Days)
     num_stores = len(f_df) if len(f_df) > 0 else 1
     
     avg_daily_cm_sales = tot_sales / num_stores / mtd_days_elapsed
@@ -307,6 +307,7 @@ else:
     m2_growth_mask = f_df['Net_Variance_Vs_Avg2M'] >= 0
     m2_growth_pool_val = f_df[m2_growth_mask]['Net_Variance_Vs_Avg2M'].sum()
     m2_degrow_pool_val = f_df[~m2_growth_mask]['Net_Variance_Vs_Avg2M'].sum()
+    
     with t2_col1:
         st.markdown("<p style='font-size:13px; color:#475569; font-weight:600; margin-bottom:2px;'>🟩 1M Growth Value</p>", unsafe_allow_html=True)
         st.markdown(f"<p style='font-size:18px; color:#16a34a; font-weight:700; margin:0;'>{format_indian_currency(m1_growth_pool_val)}</p>", unsafe_allow_html=True)
@@ -321,7 +322,6 @@ else:
         st.markdown(f"<p style='font-size:18px; color:#dc2626; font-weight:700; margin:0;'>{format_indian_currency(m2_degrow_pool_val)}</p>", unsafe_allow_html=True)
         
     st.markdown("---")
-
     # 8. SUPERVISOR PORTFOLIO SUMMARY WITH CONDENSED DROP-DOWN GUIDELINES
     st.subheader("📋 Supervisor Portfolio Summary")
     
@@ -350,6 +350,7 @@ else:
         
         pm1_sum = sup_data['Net Sale PM1'].sum()
         growth_index = ((cm_sales - pm1_sum) / pm1_sum * 100) if pm1_sum > 0 else 0.0
+        
         super_matrix.append({
             "Supervisor Name": sup_name,
             "Total Stores": tot_stores,
@@ -390,7 +391,7 @@ else:
     chart_selected_sup = st.selectbox("🔍 Filter Visual Framework Charts by Supervisor:", chart_supervisors, key="visual_framework_sup_filter")
     
     chart_df = df if chart_selected_sup == "All Supervisors" else df[df['Supervisor'] == chart_selected_sup]
-    # FIXED: Placed both bar charts and the operational pie chart directly side-by-side inside a high-compression 3-column system
+    # FIXED: Re-engineered layout to display bars vertically so text tags auto-rotate cleanly without squishing bar columns
     v_col1, v_col2, v_col3 = st.columns(3)
     
     with v_col1:
@@ -398,12 +399,13 @@ else:
         if not leaking_stores.empty:
             leaking_top10 = leaking_stores.nsmallest(10, 'Net_Variance_Vs_PM1')
             leaking_top10['Absolute_Leakage'] = abs(leaking_top10['Net_Variance_Vs_PM1'])
+            # Swapped x and y vectors to fix text squishing
             fig_leak = px.bar(
-                leaking_top10, x='Absolute_Leakage', y='StoreName', orientation='h',
+                leaking_top10, x='StoreName', y='Absolute_Leakage',
                 title="Top 10 Leakages (vs PM1)", color='Absolute_Leakage', color_continuous_scale='Reds',
                 labels={'Absolute_Leakage': 'Lost (₹)', 'StoreName': 'Location'}
             )
-            fig_leak.update_layout(yaxis={'categoryorder':'total ascending'}, coloraxis_showscale=False, margin=dict(l=10, r=10, t=30, b=10))
+            fig_leak.update_layout(xaxis={'categoryorder':'total descending', 'tickangle': 45}, coloraxis_showscale=False, margin=dict(l=10, r=10, t=30, b=10))
             st.plotly_chart(fig_leak, use_container_width=True)
         else:
             st.info("🟢 Zero revenue leaking outlets inside this pool.")
@@ -412,12 +414,13 @@ else:
         generating_stores = chart_df[chart_df['Net_Variance_Vs_PM1'] >= 0]
         if not generating_stores.empty:
             generating_top10 = generating_stores.nlargest(10, 'Net_Variance_Vs_PM1')
+            # Swapped x and y vectors to fix text squishing
             fig_gen = px.bar(
-                generating_top10, x='Net_Variance_Vs_PM1', y='StoreName', orientation='h',
+                generating_top10, x='StoreName', y='Net_Variance_Vs_PM1',
                 title="Top 10 Gains (vs PM1)", color='Net_Variance_Vs_PM1', color_continuous_scale='Greens',
                 labels={'Net_Variance_Vs_PM1': 'Gained (₹)', 'StoreName': 'Location'}
             )
-            fig_gen.update_layout(yaxis={'categoryorder':'total ascending'}, coloraxis_showscale=False, margin=dict(l=10, r=10, t=30, b=10))
+            fig_gen.update_layout(xaxis={'categoryorder':'total descending', 'tickangle': 45}, coloraxis_showscale=False, margin=dict(l=10, r=10, t=30, b=10))
             st.plotly_chart(fig_gen, use_container_width=True)
         else:
             st.info("⚠️ Zero growth outlets identified inside this pool.")
@@ -436,7 +439,6 @@ else:
         fig_pie.update_layout(margin=dict(l=10, r=10, t=30, b=10))
         st.plotly_chart(fig_pie, use_container_width=True)
         
-    # FIXED: Guidelines and definition metrics compressed completely into a clean drop-down note
     with st.expander("📖 Short Note: Trajectory Quadrant Definitions", expanded=False):
         st.markdown("""
         * **💥 Critical Core Decline (2M Drop)**: Down MoM and down below long-term 2M baseline average. *Critical risk.*
@@ -519,7 +521,6 @@ else:
             style_df.loc[idx, 'PL NonPharma NetSale'] = match_style(display_grid_df.loc[idx, 'NonPharma_Variance_Vs_PM1'], display_grid_df.loc[idx, 'NonPharma_Variance_Vs_PM2'])
         return style_df
 
-    # FIXED: Added StoreID explicitly to the drilldown matrix column collection array
     visible_cols = ["StoreID", "StoreName", "Supervisor", "Manager", "MTD NetSale", "PL Pharma NetSale", "PL NonPharma NetSale", "Manager Action Plan (POA)", "Supervisor Strategic Mandate"]
     
     filtered_display_df = display_grid_df[visible_cols].copy()
