@@ -94,8 +94,9 @@ def format_indian_currency(number):
         abs_num = abs(number)
         s = f"{abs_num:.2f}"
         parts = s.split('.')
-        num_part = parts
-        dec_part = parts
+        # FIXED: Added native index row markers to resolve array text dumps inside numbers
+        num_part = parts[0]
+        dec_part = parts[1]
         
         if len(num_part) <= 3:
             res = num_part
