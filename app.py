@@ -94,9 +94,8 @@ def format_indian_currency(number):
         abs_num = abs(number)
         s = f"{abs_num:.2f}"
         parts = s.split('.')
-        # FIXED: Added native index row markers to resolve array text dumps inside numbers
-        num_part = parts[0]
-        dec_part = parts[1]
+        num_part = parts
+        dec_part = parts
         
         if len(num_part) <= 3:
             res = num_part
@@ -422,7 +421,6 @@ else:
         })
     super_summary_df = pd.DataFrame(super_matrix)
 
-    # FIXED: Re-engineered layout to use a fully native inline CSS function mapping rules, completely avoiding matplotlib background_gradient dependencies
     def boardroom_summary_styler(val_df):
         style_matrix = pd.DataFrame('', index=val_df.index, columns=val_df.columns)
         style_matrix['1M Degrowth Value'] = 'background-color: #ffe6cc; color: #d97706; font-weight: bold;'
@@ -526,7 +524,7 @@ else:
 
     st.dataframe(display_leader_df.style.apply(final_text_styler, axis=None), use_container_width=True, hide_index=True)
     st.markdown("---")
-    # MODULE 2: INTERACTIVE MANAGER INTERVENTION SCRIPT GENERATOR WITH HIGH-VELOCITY OPERATIONAL TARGETS
+    # MODULE 2: INTERACTIVE MANAGER INTERVENTION SCRIPT GENERATOR WITH LEAN SPECIFIC PIVOTS
     st.subheader("📢 Automated Manager Intervention Script Generator")
     st.markdown("Select an underperforming store inside your 2-Month decline pool to automatically draft a formal turnaround directive.")
     
@@ -539,22 +537,12 @@ else:
         if not target_sub_df.empty:
             t_row = target_sub_df.iloc[0]
             t_manager = str(t_row['Manager']).strip() if 'Manager' in target_sub_df.columns else "Branch Manager"
-            t_id = str(t_row['StoreID']).strip() if 'StoreID' in target_sub_df.columns else "N/A"
-            t_sup = str(t_row['Supervisor']).strip() if 'Supervisor' in target_sub_df.columns else "Operations Lead"
             t_loss = abs(float(t_row['Net_Variance_Vs_PM1'])) if 'Net_Variance_Vs_PM1' in target_sub_df.columns else 0.0
             t_rivals = int(t_row['Territory_Competitor_Count']) if 'Territory_Competitor_Count' in target_sub_df.columns else 1
             t_disc = float(t_row['Competitor_Max_Discount_Pct']) if 'Competitor_Max_Discount_Pct' in target_sub_df.columns else 10.0
             
-            html_script_body = f"""MEDPLUS EXECUTIVE TURNAROUND MANDATE
-----------------------------------
-TO: Store Manager - {t_manager} (ID: {t_id})
-FROM: Operations Command / Supervisor {t_sup}
-URGENCY: CRITICAL CORRECTION LINE — REVENUE TURNAROUND ENGINE
-SUBJECT: UNCOMPROMISING GROWTH AND PRIVATE LABEL CONVERSION DIRECTIVE
-
-Manager {t_manager},
-
-Your store at '{selected_target_store}' has flagged a major consecutive two-month retraction, registering an absolute revenue leakage of {format_indian_currency(t_loss)} compared to the last period. Our localized territory density tracking shows {t_rivals} active rival discount operations around your perimeter undercutting our pharmacy pool with up to {t_disc:.0f}% customer discounts.
+            # FIXED: Removed specific title headers, urgency tags, subjects, and closing blocks per immediate instruction constraints
+            html_script_body = f"""Your store at '{selected_target_store}' has flagged a major consecutive two-month retraction, registering an absolute revenue leakage of {format_indian_currency(t_loss)} compared to the last period. Our localized territory density tracking shows {t_rivals} active rival discount operations around your perimeter undercutting our pharmacy pool with up to {t_disc:.0f}% customer discounts.
 
 To offset this density threat and pivot your outlet into our network's highest-performing growth store, you are hereby ordered to execute the following non-negotiable operational pivots immediately:
 
@@ -563,16 +551,11 @@ To offset this density threat and pivot your outlet into our network's highest-p
     <li style="margin-bottom: 10px;"><strong>BASKET SIZE OPTIMIZATION (CROSS-SELLING):</strong> Run mandatory staff coaching loops on multi-item billing parameters. Every prescription containing chronic brand drugs must be combined with a localized private label wellness cross-sell.</li>
     <li style="margin-bottom: 10px;"><strong>PRESTIGE PRIVATE LABEL MERCHANDISING:</strong> Re-engineer your visual merchandising layout within the next 24 hours. Shift your premium MedPlus private label alternatives from secondary rear storage rows onto center-shelf eye-level parameters.</li>
     <li style="margin-bottom: 10px;"><strong>PERIMETER PROMOTION OUTREACH:</strong> Deploy floor counter staff during low-traffic off-peak windows to distribute strategic counter-discount flyers within a 1.5KM perimeter loop of your pharmacy structure.</li>
-</ol>
-This operational slide stops now. You are expected to transform this leakage area into a high-margin growth vehicle. Update your Supervisor with an itemized turnaround checklist within 48 hours.
-
-Best Regards,
-Operations Command
-MedPlus Health Services Ltd."""
+</ol>"""
             
             st.markdown(f"<div class='poa-container'>{html_script_body}</div>", unsafe_allow_html=True)
             
-            raw_whatsapp_text = f"MEDPLUS EXECUTIVE TURNAROUND MANDATE\\n----------------------------------\\nTO: Store Manager - {t_manager} (ID: {t_id})\\nFROM: Operations Command / Supervisor {t_sup}\\nURGENCY: CRITICAL CORRECTION LINE\\n\\nManager {t_manager},\\n\\nYour store at '{selected_target_store}' has flagged a major revenue retraction of {format_indian_currency(t_loss)}. Rivals are matching up to {t_disc:.0f}% discount tiers. Execute these pivots:\\n\\n1. COMPULSORY LOYALTY MIGRATION: Target 95% footfall registration.\\n2. BASKET SIZE OPTIMIZATION: Cross-sell Private Label wellness alternatives.\\n3. PRESTIGE PRIVATE LABEL MERCHANDISING: Move house items to eye-level shelves.\\n4. PERIMETER PROMOTION OUTREACH: Distribute flyers in a 1.5KM radius.\\n\\nUpdate your supervisor with an itemized checklist within 48 hours.\\n\\nBest Regards,\\nOperations Command"
+            raw_whatsapp_text = f"Your store at '{selected_target_store}' has flagged a major revenue retraction of {format_indian_currency(t_loss)}. Rivals are matching up to {t_disc:.0f}% discount tiers. Execute these pivots immediately:\\n\\n1. COMPULSORY LOYALTY MIGRATION: Target 95% footfall registration.\\n2. BASKET SIZE OPTIMIZATION: Cross-sell Private Label wellness alternatives.\\n3. PRESTIGE PRIVATE LABEL MERCHANDISING: Move house items to eye-level shelves.\\n4. PERIMETER PROMOTION OUTREACH: Distribute flyers in a 1.5KM radius."
             encoded_whatsapp_text = urllib.parse.quote(raw_whatsapp_text)
             whatsapp_deep_link = f"https://whatsapp.com{encoded_whatsapp_text}"
             
