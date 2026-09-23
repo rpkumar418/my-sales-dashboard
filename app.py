@@ -94,8 +94,8 @@ def format_indian_currency(number):
         abs_num = abs(number)
         s = f"{abs_num:.2f}"
         parts = s.split('.')
-        num_part = parts[0]
-        dec_part = parts[1]
+        num_part = parts
+        dec_part = parts
         
         if len(num_part) <= 3:
             res = num_part
@@ -421,10 +421,25 @@ else:
         })
     super_summary_df = pd.DataFrame(super_matrix)
 
+    # FIXED: Re-engineered layout to use a fully native inline CSS function mapping rules, completely avoiding matplotlib background_gradient dependencies
     def boardroom_summary_styler(val_df):
         style_matrix = pd.DataFrame('', index=val_df.index, columns=val_df.columns)
         style_matrix['1M Degrowth Value'] = 'background-color: #ffe6cc; color: #d97706; font-weight: bold;'
         style_matrix['2M Degrowth Value'] = 'background-color: #ffcccc; color: #cc0000; font-weight: bold;'
+        
+        for idx in val_df.index:
+            try:
+                raw_idx_val = float(super_summary_df.loc[idx, '🏆 Territory Growth Index'])
+                if raw_idx_val >= 5.0:
+                    style_matrix.loc[idx, '🏆 Territory Growth Index'] = 'background-color: #d1fae5; color: #065f46; font-weight: bold;'
+                elif raw_idx_val >= 0.0:
+                    style_matrix.loc[idx, '🏆 Territory Growth Index'] = 'background-color: #ecfdf5; color: #047857;'
+                elif raw_idx_val >= -5.0:
+                    style_matrix.loc[idx, '🏆 Territory Growth Index'] = 'background-color: #fff7ed; color: #b45309;'
+                else:
+                    style_matrix.loc[idx, '🏆 Territory Growth Index'] = 'background-color: #fef2f2; color: #991b1b; font-weight: bold;'
+            except:
+                pass
         return style_matrix
 
     formatted_super_df = super_summary_df.sort_values(by="2M Degrowth Store Count", ascending=False).copy()
@@ -434,7 +449,7 @@ else:
 
     styled_super_summary = formatted_super_df.style.apply(boardroom_summary_styler, axis=None).format({
         "🏆 Territory Growth Index": "{:+.2f}%"
-    }).background_gradient(subset=["🏆 Territory Growth Index"], cmap="RdYlGn")
+    })
 
     st.dataframe(styled_super_summary, use_container_width=True, hide_index=True)
     st.markdown("---")
@@ -521,7 +536,6 @@ else:
         target_sub_df = f_df[f_df['StoreName'] == selected_target_store]
         
         if not target_sub_df.empty:
-            # FIXED: Safe explicit dictionary row item locator extraction to completely bypass series array bracket formatting crashes
             t_row = target_sub_df.iloc[0]
             t_manager = str(t_row['Manager']).strip() if 'Manager' in target_sub_df.columns else "Branch Manager"
             t_id = str(t_row['StoreID']).strip() if 'StoreID' in target_sub_df.columns else "N/A"
