@@ -94,7 +94,6 @@ def format_indian_currency(number):
         abs_num = abs(number)
         s = f"{abs_num:.2f}"
         parts = s.split('.')
-        # FIXED: Enforced explicit array position lookups [0] and [1] to permanently break array text dumps
         num_part = parts[0]
         dec_part = parts[1]
         
@@ -536,7 +535,7 @@ else:
         target_sub_df = f_df[f_df['StoreName'] == selected_target_store]
         
         if not target_sub_df.empty:
-            # FIXED: Used explicit scalar layout mapping rules to extract clean strings and completely avoid numpy bracket crashes
+            # FIXED: Drilled clean scalar value string locators using native .iloc references to drop numpy array bracket leaks
             t_manager = str(target_sub_df['Manager'].iloc[0]).strip()
             t_id = str(target_sub_df['StoreID'].iloc[0]).strip()
             t_sup = str(target_sub_df['Supervisor'].iloc[0]).strip()
@@ -564,17 +563,7 @@ else:
             ph_2m_txt = f"retracting by {format_indian_currency(abs(t_ph_var_2m))}" if t_ph_var_2m < 0 else f"expanding by {format_indian_currency(t_ph_var_2m)}"
             np_2m_txt = f"retracting by {format_indian_currency(abs(t_np_var_2m))}" if t_np_var_2m < 0 else f"expanding by {format_indian_currency(t_np_var_2m)}"
 
-            # Inject optimized Plan of Action (POA) lines tailored to explicit store leaks
-            if t_ph_var_1m < 0 and t_np_var_1m < 0:
-                poa_steps = """<li style="margin-bottom: 10px;"><strong>CRITICAL FRONT-COUNTER CONVERSION AUDIT:</strong> Enforce strict supervisor-monitored cash logs. Counter signups for patient loyalty profiles must hit 95% within 48 hours to secure chronic repeat business lines.</li>
-                               <li style="margin-bottom: 10px;"><strong>PRIVATE LABEL SWAP INCENTIVES:</strong> Establish an absolute rule mandate where staff cross-sell premium MedPlus private label wellness variations for every walking chronic prescription case.</li>"""
-            elif t_ph_var_1m < 0:
-                poa_steps = """<li style="margin-bottom: 10px;"><strong>PRESTIGE RE-SHELVING ARCHITECTURE:</strong> Immediately relocate the premium house Private Label pharma alternatives away from backup storage drawers onto center-shelf, eye-level rows to combat local brand poaching.</li>
-                               <li style="margin-bottom: 10px;"><strong>PATIENT LOYALTY ACTIVATION:</strong> Cross-reference last month's chronic patient logs to run personalized discount text-alerts to restore the branch's baseline volume pools.</li>"""
-            else:
-                poa_steps = """<li style="margin-bottom: 10px;"><strong>NON-PHARMA SHELF OPTIMIZATION:</strong> Re-align cosmetic and fast-moving consumer blocks to face front footfall registers. Staff must execute a cross-sell product script on all entry bills.</li>
-                               <li style="margin-bottom: 10px;"><strong>PERIMETER OUTREACH DISTRIBUTION:</strong> Deploy ground floor units to distribute counter-discount promotion flyers inside an explicit 1.5KM radius perimeter loop of your pharmacy structure.</li>"""
-
+            # FIXED: Re-engineered layout to present a full, comprehensive 4-part operational turnaround blueprint for greatest best output
             html_script_body = f"""STORE TARGET PORTFOLIO IDENTITY:
 ----------------------------------
 STORE ID: {t_id}
@@ -589,15 +578,18 @@ Our corporate executive log registers your Current Month Sales base at {format_i
 
 Our localized territory intelligence tracks {t_rivals} active rival discount pharmacy operators surrounding your direct grid boundary line matching up to a {t_disc:.0f}% customer price discount level.
 
-To offset this margin dilution threat and pivot your outlet into our network's highest-performing growth star, you are ordered to deploy this customized Plan of Action (POA) lines immediately:
+To offset this margin dilution threat and pivot your outlet into our network's highest-performing growth star, you are ordered to deploy this comprehensive Plan of Action (POA) blueprint immediately:
 
 <ol style="margin-left: 20px; padding-left: 5px; line-height: 1.6;">
-    {poa_steps}
+    <li style="margin-bottom: 10px;"><strong>COMPULSORY LOYALTY MIGRATION (CONVERSION AUDIT):</strong> Enforce strict supervisor-monitored frontlogs. Counter signups for patient loyalty profiles must hit 95% within 48 hours to permanently isolate chronic walkaways.</li>
+    <li style="margin-bottom: 10px;"><strong>BASKET SIZE OPTIMIZATION (CROSS-SELLING):</strong> Run mandatory staff coaching loops on multi-item billing parameters. Every prescription containing chronic brand drugs must be combined with a localized private label wellness cross-sell.</li>
+    <li style="margin-bottom: 10px;"><strong>PRESTIGE PRIVATE LABEL MERCHANDISING:</strong> Re-engineer your visual merchandising layout within the next 24 hours. Shift your premium MedPlus private label alternatives from secondary rear rows onto center-shelf eye-level parameters.</li>
+    <li style="margin-bottom: 10px;"><strong>PERIMETER PROMOTION OUTREACH:</strong> Deploy floor counter staff during low-traffic off-peak windows to distribute strategic counter-discount flyers within a 1.5KM perimeter loop of your pharmacy structure.</li>
 </ol>"""
             
             st.markdown(f"<div class='poa-container'>{html_script_body}</div>", unsafe_allow_html=True)
             
-            raw_whatsapp_text = f"STORE IDENTITY - ID: {t_id} | Manager: {t_manager} | Supervisor: {t_sup}. Store: {selected_target_store}. Current MTD Sale: {format_indian_currency(t_cm_sale)}. 1M Sales Variance: {format_indian_currency(t_loss_1m)} (Pharma: {format_indian_currency(t_ph_var_1m)} / Non-Pharma: {format_indian_currency(t_np_var_1m)}). 2M Average Sales Variance: {format_indian_currency(t_loss_2m)}. Rivals around: {t_rivals} hitting {t_disc:.0f}% discount. Deploy localized turnaround POA steps immediately. Update supervisor within 48 hours."
+            raw_whatsapp_text = f"STORE IDENTITY - ID: {t_id} | Manager: {t_manager} | Supervisor: {t_sup}. Store: {selected_target_store}. Current MTD Sale: {format_indian_currency(t_cm_sale)}. 1M Variance: {format_indian_currency(t_loss_1m)} (Pharma: {format_indian_currency(t_ph_var_1m)} / Non-Pharma: {format_indian_currency(t_np_var_1m)}). 2M Rolling Sales Variance: {format_indian_currency(t_loss_2m)}. Rivals: {t_rivals} at {t_disc:.0f}% discount level. Deploy full 4-part turnaround blueprint items immediately. Update supervisor within 48 hours."
             encoded_whatsapp_text = urllib.parse.quote(raw_whatsapp_text)
             whatsapp_deep_link = f"https://whatsapp.com{encoded_whatsapp_text}"
             
