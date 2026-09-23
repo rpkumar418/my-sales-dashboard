@@ -94,8 +94,9 @@ def format_indian_currency(number):
         abs_num = abs(number)
         s = f"{abs_num:.2f}"
         parts = s.split('.')
-        num_part = parts
-        dec_part = parts
+        # FIXED: Enforced explicit array position lookups [0] and [1] to permanently break array text dumps
+        num_part = parts[0]
+        dec_part = parts[1]
         
         if len(num_part) <= 3:
             res = num_part
@@ -411,7 +412,6 @@ else:
         
         pm1_sum = sup_data['Net Sale PM1'].sum()
         growth_index = ((cm_sales - pm1_sum) / pm1_sum * 100) if pm1_sum > 0 else 0.0
-        
         super_matrix.append({
             "Supervisor Name": sup_name, "Total Stores": tot_stores, "CM Net Sales": cm_sales,
             "🏆 Territory Growth Index": growth_index, "1M Degrowth Store Count": degrowth_1m_count,
@@ -419,6 +419,7 @@ else:
             "2M Degrowth Value": degrowth_2m_val if degrowth_2m_val != 0 else 0.0, "1M Growth Store Count": growth_1m_count,
             "2M Growth Count": growth_2m_count
         })
+
     super_summary_df = pd.DataFrame(super_matrix)
 
     def boardroom_summary_styler(val_df):
@@ -524,9 +525,9 @@ else:
 
     st.dataframe(display_leader_df.style.apply(final_text_styler, axis=None), use_container_width=True, hide_index=True)
     st.markdown("---")
-    # MODULE 2: INTERACTIVE MANAGER INTERVENTION SCRIPT GENERATOR WITH LEAN SPECIFIC PIVOTS
+    # MODULE 2: INTERACTIVE MANAGER INTERVENTION SCRIPT GENERATOR WITH FIXED SPACING & PLAIN TEXT RENDERING
     st.subheader("📢 Automated Manager Intervention Script Generator")
-    st.markdown("Select an underperforming store inside your 2-Month decline pool to automatically draft a formal turnaround directive.")
+    st.markdown("Select an underperforming store inside your pool to automatically draft a localized corporate brief.")
     
     critical_stores_list = sorted(list(f_df[f_df['Operational Classification'] == "💥 Critical Core Decline (2M Drop)"]['StoreName'].unique()))
     
@@ -535,27 +536,68 @@ else:
         target_sub_df = f_df[f_df['StoreName'] == selected_target_store]
         
         if not target_sub_df.empty:
-            t_row = target_sub_df.iloc[0]
-            t_manager = str(t_row['Manager']).strip() if 'Manager' in target_sub_df.columns else "Branch Manager"
-            t_loss = abs(float(t_row['Net_Variance_Vs_PM1'])) if 'Net_Variance_Vs_PM1' in target_sub_df.columns else 0.0
-            t_rivals = int(t_row['Territory_Competitor_Count']) if 'Territory_Competitor_Count' in target_sub_df.columns else 1
-            t_disc = float(t_row['Competitor_Max_Discount_Pct']) if 'Competitor_Max_Discount_Pct' in target_sub_df.columns else 10.0
+            # FIXED: Used explicit scalar layout mapping rules to extract clean strings and completely avoid numpy bracket crashes
+            t_manager = str(target_sub_df['Manager'].iloc[0]).strip()
+            t_id = str(target_sub_df['StoreID'].iloc[0]).strip()
+            t_sup = str(target_sub_df['Supervisor'].iloc[0]).strip()
             
-            # FIXED: Removed specific title headers, urgency tags, subjects, and closing blocks per immediate instruction constraints
-            html_script_body = f"""Your store at '{selected_target_store}' has flagged a major consecutive two-month retraction, registering an absolute revenue leakage of {format_indian_currency(t_loss)} compared to the last period. Our localized territory density tracking shows {t_rivals} active rival discount operations around your perimeter undercutting our pharmacy pool with up to {t_disc:.0f}% customer discounts.
+            # Extract precise current month sales and rolling monthly metrics
+            t_cm_sale = float(target_sub_df['MTD NetSale'].iloc[0])
+            t_pm1_sale = float(target_sub_df['Net Sale PM1'].iloc[0])
+            t_pm2_sale = float(target_sub_df['Net Sale PM2'].iloc[0])
+            
+            # Formulate accurate 1-Month vs 2-Month sub-category variance paths
+            t_loss_1m = t_cm_sale - t_pm1_sale
+            t_loss_2m = t_cm_sale - ((t_pm1_sale + t_pm2_sale) / 2)
+            
+            t_ph_var_1m = float(target_sub_df['PL Pharma NetSale'].iloc[0]) - float(target_sub_df['Pharma PM1'].iloc[0])
+            t_np_var_1m = float(target_sub_df['PL NonPharma NetSale'].iloc[0]) - float(target_sub_df['NON Pharma PM1'].iloc[0])
+            
+            t_ph_var_2m = float(target_sub_df['PL Pharma NetSale'].iloc[0]) - ((float(target_sub_df['Pharma PM1'].iloc[0]) + float(target_sub_df['Pharma PM2'].iloc[0])) / 2)
+            t_np_var_2m = float(target_sub_df['PL NonPharma NetSale'].iloc[0]) - ((float(target_sub_df['NON Pharma PM1'].iloc[0]) + float(target_sub_df['NON Pharma PM2'].iloc[0])) / 2)
+            
+            t_rivals = int(target_sub_df['Territory_Competitor_Count'].iloc[0])
+            t_disc = float(target_sub_df['Competitor_Max_Discount_Pct'].iloc[0])
+            # Formulate clear text layout paths for each branch configuration profile
+            ph_1m_txt = f"retracting by {format_indian_currency(abs(t_ph_var_1m))}" if t_ph_var_1m < 0 else f"expanding by {format_indian_currency(t_ph_var_1m)}"
+            np_1m_txt = f"retracting by {format_indian_currency(abs(t_np_var_1m))}" if t_np_var_1m < 0 else f"expanding by {format_indian_currency(t_np_var_1m)}"
+            ph_2m_txt = f"retracting by {format_indian_currency(abs(t_ph_var_2m))}" if t_ph_var_2m < 0 else f"expanding by {format_indian_currency(t_ph_var_2m)}"
+            np_2m_txt = f"retracting by {format_indian_currency(abs(t_np_var_2m))}" if t_np_var_2m < 0 else f"expanding by {format_indian_currency(t_np_var_2m)}"
 
-To offset this density threat and pivot your outlet into our network's highest-performing growth store, you are hereby ordered to execute the following non-negotiable operational pivots immediately:
+            # Inject optimized Plan of Action (POA) lines tailored to explicit store leaks
+            if t_ph_var_1m < 0 and t_np_var_1m < 0:
+                poa_steps = """<li style="margin-bottom: 10px;"><strong>CRITICAL FRONT-COUNTER CONVERSION AUDIT:</strong> Enforce strict supervisor-monitored cash logs. Counter signups for patient loyalty profiles must hit 95% within 48 hours to secure chronic repeat business lines.</li>
+                               <li style="margin-bottom: 10px;"><strong>PRIVATE LABEL SWAP INCENTIVES:</strong> Establish an absolute rule mandate where staff cross-sell premium MedPlus private label wellness variations for every walking chronic prescription case.</li>"""
+            elif t_ph_var_1m < 0:
+                poa_steps = """<li style="margin-bottom: 10px;"><strong>PRESTIGE RE-SHELVING ARCHITECTURE:</strong> Immediately relocate the premium house Private Label pharma alternatives away from backup storage drawers onto center-shelf, eye-level rows to combat local brand poaching.</li>
+                               <li style="margin-bottom: 10px;"><strong>PATIENT LOYALTY ACTIVATION:</strong> Cross-reference last month's chronic patient logs to run personalized discount text-alerts to restore the branch's baseline volume pools.</li>"""
+            else:
+                poa_steps = """<li style="margin-bottom: 10px;"><strong>NON-PHARMA SHELF OPTIMIZATION:</strong> Re-align cosmetic and fast-moving consumer blocks to face front footfall registers. Staff must execute a cross-sell product script on all entry bills.</li>
+                               <li style="margin-bottom: 10px;"><strong>PERIMETER OUTREACH DISTRIBUTION:</strong> Deploy ground floor units to distribute counter-discount promotion flyers inside an explicit 1.5KM radius perimeter loop of your pharmacy structure.</li>"""
+
+            html_script_body = f"""STORE TARGET PORTFOLIO IDENTITY:
+----------------------------------
+STORE ID: {t_id}
+STORE MANAGER: {t_manager}
+PORTFOLIO SUPERVISOR: {t_sup}
+
+Your store at '{selected_target_store}' has flagged a major revenue retraction. 
+
+Our corporate executive log registers your Current Month Sales base at {format_indian_currency(t_cm_sale)}. 
+1-MONTH METRICS PANEL VIEW: The MoM sales variance indicates a path {format_indian_currency(t_loss_1m)}, where sub-category Pharma is {ph_1m_txt} and Non-Pharma is {np_1m_txt}. 
+2-MONTH ROLLING BASELINE DIRECTION: Checked against historical trend patterns, the 2-Month rolling average drop stands at {format_indian_currency(t_loss_2m)}, inside which Pharma is {ph_2m_txt} and Non-Pharma is {np_2m_txt}. 
+
+Our localized territory intelligence tracks {t_rivals} active rival discount pharmacy operators surrounding your direct grid boundary line matching up to a {t_disc:.0f}% customer price discount level.
+
+To offset this margin dilution threat and pivot your outlet into our network's highest-performing growth star, you are ordered to deploy this customized Plan of Action (POA) lines immediately:
 
 <ol style="margin-left: 20px; padding-left: 5px; line-height: 1.6;">
-    <li style="margin-bottom: 10px;"><strong>COMPULSORY LOYALTY MIGRATION:</strong> Enforce a strict front-counter loyalty signup rule. Target a 95% mobile number capture rate on all footfall to permanently isolate chronic prescription walkaways.</li>
-    <li style="margin-bottom: 10px;"><strong>BASKET SIZE OPTIMIZATION (CROSS-SELLING):</strong> Run mandatory staff coaching loops on multi-item billing parameters. Every prescription containing chronic brand drugs must be combined with a localized private label wellness cross-sell.</li>
-    <li style="margin-bottom: 10px;"><strong>PRESTIGE PRIVATE LABEL MERCHANDISING:</strong> Re-engineer your visual merchandising layout within the next 24 hours. Shift your premium MedPlus private label alternatives from secondary rear storage rows onto center-shelf eye-level parameters.</li>
-    <li style="margin-bottom: 10px;"><strong>PERIMETER PROMOTION OUTREACH:</strong> Deploy floor counter staff during low-traffic off-peak windows to distribute strategic counter-discount flyers within a 1.5KM perimeter loop of your pharmacy structure.</li>
+    {poa_steps}
 </ol>"""
             
             st.markdown(f"<div class='poa-container'>{html_script_body}</div>", unsafe_allow_html=True)
             
-            raw_whatsapp_text = f"Your store at '{selected_target_store}' has flagged a major revenue retraction of {format_indian_currency(t_loss)}. Rivals are matching up to {t_disc:.0f}% discount tiers. Execute these pivots immediately:\\n\\n1. COMPULSORY LOYALTY MIGRATION: Target 95% footfall registration.\\n2. BASKET SIZE OPTIMIZATION: Cross-sell Private Label wellness alternatives.\\n3. PRESTIGE PRIVATE LABEL MERCHANDISING: Move house items to eye-level shelves.\\n4. PERIMETER PROMOTION OUTREACH: Distribute flyers in a 1.5KM radius."
+            raw_whatsapp_text = f"STORE IDENTITY - ID: {t_id} | Manager: {t_manager} | Supervisor: {t_sup}. Store: {selected_target_store}. Current MTD Sale: {format_indian_currency(t_cm_sale)}. 1M Sales Variance: {format_indian_currency(t_loss_1m)} (Pharma: {format_indian_currency(t_ph_var_1m)} / Non-Pharma: {format_indian_currency(t_np_var_1m)}). 2M Average Sales Variance: {format_indian_currency(t_loss_2m)}. Rivals around: {t_rivals} hitting {t_disc:.0f}% discount. Deploy localized turnaround POA steps immediately. Update supervisor within 48 hours."
             encoded_whatsapp_text = urllib.parse.quote(raw_whatsapp_text)
             whatsapp_deep_link = f"https://whatsapp.com{encoded_whatsapp_text}"
             
